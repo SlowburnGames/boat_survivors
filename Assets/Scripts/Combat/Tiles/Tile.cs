@@ -7,18 +7,12 @@ using UnityEngine.UIElements;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] private Material baseMaterial, offsetMaterial;
-    [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private bool isWalkable;
 
     public string tileName;
     public BaseUnit tileUnit;
     public bool walkable => isWalkable && tileUnit == null;
-    
-    public void Init(bool isOffset)
-    {
-        meshRenderer.material = isOffset ? offsetMaterial : baseMaterial;
-    }
+
     public void OnMouseEnter()
     {
         transform.GetChild(0).gameObject.SetActive(true);
@@ -60,10 +54,11 @@ public class Tile : MonoBehaviour
             else
             {
                 // When we next click on an empty tile -> Move Hero to this tile
-                if (UnitManager.Instance.selectedHero != null)
+                if (UnitManager.Instance.selectedHero != null && isWalkable)
                 {
                     SetUnit(UnitManager.Instance.selectedHero);
                     UnitManager.Instance.SetSelectedHero(null);
+                    
                 }
             }
         }
@@ -74,7 +69,7 @@ public class Tile : MonoBehaviour
         if (unit.occupiedTile != null)
             unit.occupiedTile.tileUnit = null;
         unit.transform.position = transform.position + Vector3.up;
-        unit.transform.rotation = Quaternion.Euler(0, -45, 0);
+        unit.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
         tileUnit = unit;
         unit.occupiedTile = this;
     }

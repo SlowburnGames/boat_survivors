@@ -25,7 +25,7 @@ public class CombatManager : MonoBehaviour
         switch (newState)
         {
             case CombatState.GenerateGrid:
-                GridManager.Instance.GenerateGrid();
+                WFCGenerator.Instance.runWFC();
                 break;
             case CombatState.SpawnHeroes:
                 UnitManager.Instance.SpawnHeroes();

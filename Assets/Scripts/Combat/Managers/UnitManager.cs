@@ -30,7 +30,7 @@ public class UnitManager : MonoBehaviour
         {
             var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero);
             var spawnedHero = Instantiate(randomPrefab);
-            var randomSpawnTile = GridManager.Instance.GetHeroSpawnTile();
+            var randomSpawnTile = WFCGenerator.Instance.GetHeroSpawnTile();
 
             randomSpawnTile.SetUnit(spawnedHero);
         }
@@ -47,7 +47,7 @@ public class UnitManager : MonoBehaviour
         {
             var randomPrefab = GetRandomUnit<BaseEnemy>(Faction.Enemy);
             var spawnedEnemy = Instantiate(randomPrefab);
-            var randomSpawnTile = GridManager.Instance.GetEnemySpawnTile();
+            var randomSpawnTile = WFCGenerator.Instance.GetEnemySpawnTile();
 
             randomSpawnTile.SetUnit(spawnedEnemy);
         }
@@ -58,7 +58,7 @@ public class UnitManager : MonoBehaviour
 
     private T GetRandomUnit<T>(Faction faction) where T : BaseUnit
     {
-        Debug.Log(_units.Where(u => u.Faction == faction).Count());
+        //Debug.Log(_units.Where(u => u.Faction == faction).Count());
         
         return (T)_units.Where(u => u.Faction == faction).OrderBy(o => Random.value).First().UnitPrefab;
     }
