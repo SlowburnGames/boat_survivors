@@ -101,7 +101,9 @@ MonoBehaviour:
   baseMaterial: {fileID: 2100000, guid: 9384bc53b5d30604598deb333dbc6e13, type: 2}
   offsetMaterial: {fileID: 2100000, guid: ef4489170c5f15142a781810447ccf44, type: 2}
   meshRenderer: {fileID: 155909720460020345}
-  enemy1: {fileID: 2756358552305345232, guid: fbbae74eef93a1b4aa447ef66b4fa2b8, type: 3}
+  isWalkable: 1
+  tileName: testTile
+  tileUnit: {fileID: 0}
 --- !u!65 &2336277029205216856
 BoxCollider:
   m_ObjectHideFlags: 0
