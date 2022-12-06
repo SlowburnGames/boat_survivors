@@ -54,7 +54,7 @@ public class WFCGenerator : MonoBehaviour
     public List<GameObject> gridTiles = new List<GameObject>();
     public List<Cell> tileObjects = new List<Cell>();
 
-    public Dictionary<Vector2, Tile> _tiles;
+    public Tile[][] _tiles;
 
 
     // Start is called before the first frame update
@@ -109,7 +109,12 @@ public class WFCGenerator : MonoBehaviour
     public void createGrid()
     {
         generateTileSet();
-        _tiles = new Dictionary<Vector2, Tile>();
+        
+        // init sorted tiles array
+        _tiles = new Tile[(int)gridSize.x][];
+        for (int i = 0; i < (int)gridSize.x; i++)
+            _tiles[i] = new Tile[(int)gridSize.y];
+        
         clearGrid();
 
         for (int i = 0; i < gridSize.x; i++)
@@ -145,9 +150,8 @@ public class WFCGenerator : MonoBehaviour
         {
             collapseGrid();
         }
-        //Debug.LogWarning("Finished!");
         gridReady = false;
-        // List<Tiles> turnOrder = _tiles.Values.OrderBy(unit => _tiles[unit]).ToList();
+
         CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
     }
 
@@ -186,7 +190,7 @@ public class WFCGenerator : MonoBehaviour
             GameObject tile = Instantiate(baseTiles[newOption].tile, new Vector3(pos.x, 0, pos.z), baseTiles[newOption].rotation, this.transform);
 
             tile.name = $"Tile {pos.x} {pos.z}";
-            _tiles[new Vector2(pos.x, pos.z)] = tile.GetComponent<Tile>();
+            _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
 
             tileObjects[index].prefab.tile = tile;
             tileObjects[index].prefab.edges = baseTiles[newOption].edges;
@@ -202,7 +206,6 @@ public class WFCGenerator : MonoBehaviour
         //    //createGrid();
         //    //StartCoroutine(collapseGridAnimation());
         //}
-        Debug.Log(_tiles.Values.Count);
     }
 
     public void collapsCell(int index, int baseTileIndex)
@@ -225,7 +228,7 @@ public class WFCGenerator : MonoBehaviour
         GameObject tile = Instantiate(baseTiles[newOption].tile, new Vector3(pos.x, 0, pos.z), baseTiles[newOption].rotation, this.transform);
 
         tile.name = $"Tile {pos.x} {pos.z}";
-        _tiles[new Vector2(pos.x, pos.z)] = tile.GetComponent<Tile>();
+        _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
 
         tileObjects[index].prefab.tile = tile;
         tileObjects[index].prefab.edges = baseTiles[newOption].edges;
@@ -270,7 +273,7 @@ public class WFCGenerator : MonoBehaviour
             GameObject tile = Instantiate(baseTiles[newOption].tile, new Vector3(pos.x, 0, pos.z), baseTiles[newOption].rotation, this.transform);
 
             tile.name = $"Tile {pos.x} {pos.z}";
-            _tiles[new Vector2(pos.x, pos.z)] = tile.GetComponent<Tile>();
+            _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
 
             tileObjects[index].prefab.tile = tile;
             tileObjects[index].prefab.edges = baseTiles[newOption].edges;
@@ -287,7 +290,6 @@ public class WFCGenerator : MonoBehaviour
         //    //createGrid();
         //    //StartCoroutine(collapseGridAnimation());
         //}
-        Debug.Log(_tiles.Values.Count);
     }
 
     public List<Cell> deepCopyList(List<Cell> list)
@@ -436,21 +438,14 @@ public class WFCGenerator : MonoBehaviour
         return walkableTiles[Random.Range(0, walkableTiles.Count)];
     }
 
-    public Tile GetTileAtPos(Vector2 pos)
-    {
-        if (_tiles.TryGetValue(pos, out var tile)) 
-            return tile;
-        return null;
-    }
-
     public List<Tile> GetAllWalkableTiles()
     {
         List<Tile> walkableTiles = new List<Tile>();
         for (int x = 0; x < gridSize.x; x++)
             for (int y = 0; y < gridSize.y; y++)
             {
-                if (_tiles[new Vector2(x, y)].walkable) 
-                    walkableTiles.Add(_tiles[new Vector2(x, y)]);
+                if (_tiles[x][y] != null && _tiles[x][y].walkable) 
+                    walkableTiles.Add(_tiles[x][y]);
             }
         return walkableTiles;
     }

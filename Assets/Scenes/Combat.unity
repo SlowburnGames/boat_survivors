@@ -696,7 +696,7 @@ MonoBehaviour:
   playbackSpeed: 0.005
   animated: 0
   needRotation: 1
-  gridSize: {x: 8, y: 8}
+  gridSize: {x: 4, y: 8}
   gridPos: []
   gridTiles: []
   tileObjects: []
