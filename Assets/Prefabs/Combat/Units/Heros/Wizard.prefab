@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2871775792722394985}
   - component: {fileID: 7810361016412041444}
-  - component: {fileID: 2901774920291439186}
+  - component: {fileID: -7962685250005770754}
   m_Layer: 0
-  m_Name: Hero1
+  m_Name: Wizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: aff5e05582bb5aa4182e32970015b1f2, type: 2}
+  m_Sprite: {fileID: 21300000, guid: f84b4f8eef53b654d940f5a3895aaba9, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2901774920291439186
+--- !u!114 &-7962685250005770754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,9 +94,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5004274753709797847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ba0d1f25078bcd46ba8f154823a1663, type: 3}
+  m_Script: {fileID: 11500000, guid: 525802f5ff870aa4aab243d624f5000e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  occupiedTile: {fileID: 0}
+  OccupiedTile: {fileID: 0}
   Faction: 0
-  unitName: BasicHero
+  UnitName: Wizard
+  _health: 90
+  _attackDamage: 20
+  _moveDistance: 3
+  _attackRange: 4
+  _isRanged: 1

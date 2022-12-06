@@ -152,7 +152,7 @@ public class WFCGenerator : MonoBehaviour
         }
         gridReady = false;
 
-        CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
+        CombatManager.Instance.ChangeCombatState(CombatState.SpawnEnemies);
     }
 
     public void collapseGrid()
@@ -190,7 +190,9 @@ public class WFCGenerator : MonoBehaviour
             GameObject tile = Instantiate(baseTiles[newOption].tile, new Vector3(pos.x, 0, pos.z), baseTiles[newOption].rotation, this.transform);
 
             tile.name = $"Tile {pos.x} {pos.z}";
-            _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
+            Tile tempTile = tile.GetComponent<Tile>();
+            _tiles[(int)pos.x][(int)pos.z] = tempTile;
+            tempTile.tilePosition = new Vector2(pos.x, pos.z);
 
             tileObjects[index].prefab.tile = tile;
             tileObjects[index].prefab.edges = baseTiles[newOption].edges;
@@ -228,7 +230,9 @@ public class WFCGenerator : MonoBehaviour
         GameObject tile = Instantiate(baseTiles[newOption].tile, new Vector3(pos.x, 0, pos.z), baseTiles[newOption].rotation, this.transform);
 
         tile.name = $"Tile {pos.x} {pos.z}";
-        _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
+        Tile tempTile = tile.GetComponent<Tile>();
+        _tiles[(int)pos.x][(int)pos.z] = tempTile;
+        tempTile.tilePosition = new Vector2(pos.x, pos.z);
 
         tileObjects[index].prefab.tile = tile;
         tileObjects[index].prefab.edges = baseTiles[newOption].edges;
@@ -273,7 +277,9 @@ public class WFCGenerator : MonoBehaviour
             GameObject tile = Instantiate(baseTiles[newOption].tile, new Vector3(pos.x, 0, pos.z), baseTiles[newOption].rotation, this.transform);
 
             tile.name = $"Tile {pos.x} {pos.z}";
-            _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
+            Tile tempTile = tile.GetComponent<Tile>();
+            _tiles[(int)pos.x][(int)pos.z] = tempTile;
+            tempTile.tilePosition = new Vector2(pos.x, pos.z);
 
             tileObjects[index].prefab.tile = tile;
             tileObjects[index].prefab.edges = baseTiles[newOption].edges;

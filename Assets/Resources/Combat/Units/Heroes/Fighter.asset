@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
-  m_Name: Enemy1
+  m_Name: Fighter
   m_EditorClassIdentifier: 
-  Faction: 1
-  UnitPrefab: {fileID: -3353402785419243975, guid: a0f0c07224e8f6c4ab0069c08b745477, type: 3}
+  Faction: 0
+  UnitPrefab: {fileID: 3599614547267196368, guid: a41127da50fe02841856068c6b331436, type: 3}

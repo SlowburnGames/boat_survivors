@@ -27,15 +27,18 @@ public class CombatManager : MonoBehaviour
             case CombatState.GenerateGrid:
                 WFCGenerator.Instance.runWFC();
                 break;
-            case CombatState.SpawnHeroes:
-                UnitManager.Instance.SpawnHeroes();
-                break;
             case CombatState.SpawnEnemies:
                 UnitManager.Instance.SpawnEnemies();
                 break;
+            case CombatState.SpawnHeroes:
+                UnitManager.Instance.SpawnHeroes();
+                break;
             case CombatState.HeroesTurn:
+                // Logic in Tile.OnMouseDown and UnitManager.HeroesTurn
+                Debug.Log("Hero turn!");
                 break;
             case CombatState.EnemiesTurn:
+                UnitManager.Instance.EnemiesTurn();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -46,8 +49,8 @@ public class CombatManager : MonoBehaviour
 public enum CombatState
 {
     GenerateGrid = 0,
-    SpawnHeroes = 1,
-    SpawnEnemies = 2,
+    SpawnEnemies = 1,
+    SpawnHeroes = 2,
     HeroesTurn = 3,
     EnemiesTurn = 4
 }

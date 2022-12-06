@@ -22,7 +22,7 @@ public class MenuManager : MonoBehaviour
             selectedHeroObject.SetActive(false);
             return;
         }
-        selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.unitName;
+        selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName;
         selectedHeroObject.SetActive(true);
     }
 
@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
 
         if (tile.tileUnit)
         {
-            tileUnitObject.GetComponentInChildren<TextMeshProUGUI>().text = tile.tileUnit.unitName;
+            tileUnitObject.GetComponentInChildren<TextMeshProUGUI>().text = tile.tileUnit.UnitName;
             tileUnitObject.SetActive(true);
         }
     }

@@ -9,7 +9,8 @@ using Random = UnityEngine.Random;
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
-    private List<ScriptableUnit> _units;
+    private List<ScriptableUnit> _enemyUnits;
+    private List<ScriptableUnit> _heroUnits;
 
     public BaseHero selectedHero;
     
@@ -17,50 +18,105 @@ public class UnitManager : MonoBehaviour
     {
         Instance = this;
 
-        _units = Resources.LoadAll<ScriptableUnit>("Combat/Units").ToList();
-        Debug.Log("Nr of units: " + _units.Count);
+        _enemyUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units/Enemies").ToList();
+        _heroUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units/Heroes").ToList();
+        Debug.Log("Nr of different Enemies: " + _enemyUnits.Count);
+        Debug.Log("Nr of different Heroes : " + _heroUnits.Count);
     }
 
     public void SpawnHeroes()
     {
         // TODO Select heroes to spwan from menue
-        int heroCount = 3;
-
-        for (int i = 0; i < heroCount; i++)
+        foreach (var hero in _heroUnits)
         {
-            var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero);
-            var spawnedHero = Instantiate(randomPrefab);
-            var randomSpawnTile = WFCGenerator.Instance.GetHeroSpawnTile();
+            var spawnedHero = Instantiate(hero.UnitPrefab);
+            var randomSpawnTile = WFCGenerator.Instance.GetHeroSpawnTile(); // TODO Let user select spwan
 
-            randomSpawnTile.SetUnit(spawnedHero);
-        }
-        
-        CombatManager.Instance.ChangeCombatState(CombatState.SpawnEnemies);
-    }
-    
-    public void SpawnEnemies()
-    {
-        // TODO Not hardcode count
-        int enemyCount = 3;
-
-        for (int i = 0; i < enemyCount; i++)
-        {
-            var randomPrefab = GetRandomUnit<BaseEnemy>(Faction.Enemy);
-            var spawnedEnemy = Instantiate(randomPrefab);
-            var randomSpawnTile = WFCGenerator.Instance.GetEnemySpawnTile();
-
-            randomSpawnTile.SetUnit(spawnedEnemy);
+            SetUnit(spawnedHero, randomSpawnTile);
         }
         
         CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
     }
     
-
-    private T GetRandomUnit<T>(Faction faction) where T : BaseUnit
+    public void SpawnEnemies()
     {
-        //Debug.Log(_units.Where(u => u.Faction == faction).Count());
+        // TODO Not hardcode count
+        string[] enemySequence = { "Monster", "Zombie", "Monster", "Zombie" };
+
+        foreach (var enemyName in enemySequence)
+        {
+            var randomPrefab = GetEnemyByName(enemyName);
+            var spawnedEnemy = Instantiate(randomPrefab);
+            var randomSpawnTile = WFCGenerator.Instance.GetEnemySpawnTile();
+
+            SetUnit(spawnedEnemy, randomSpawnTile);
+        }
         
-        return (T)_units.Where(u => u.Faction == faction).OrderBy(o => Random.value).First().UnitPrefab;
+        CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
+    }
+
+    public void HeroesTurn(Tile tile, BaseUnit tileUnit, bool isWalkable)
+    {
+        
+        if (tileUnit != null)
+        {
+            // Debug.Log("Selected: " + tileUnit.UnitName);
+            // A hero is on the tile
+            if (tileUnit.Faction == Faction.Hero)
+            {
+                SetSelectedHero((BaseHero) tileUnit);
+                // Debug.Log("Selected Hero: " + ((BaseHero) tileUnit).name);
+            }
+            else
+            {
+                // When we next click on an enemy -> Attack it
+                if (selectedHero != null)
+                {
+                    var enemy = (BaseEnemy) tileUnit;
+                    bool canAttack = false;
+                    
+                    // Check if attack possible
+                    canAttack = CheckAttackPossible(selectedHero, enemy);
+                    
+                    // Do the attack (dmg + unselecting unit)
+                    if (canAttack)
+                    {
+                        enemy.Attack(selectedHero.AttackDamage);
+                        Debug.Log("Damaged " + enemy.name + " by " + selectedHero.AttackDamage);
+                        
+                        // Check if attacked unit dies
+                        CheckAttackedUnit(enemy);
+                        
+                        // End turn
+                        SetSelectedHero(null);
+                        CombatManager.Instance.ChangeCombatState(CombatState.EnemiesTurn);
+                    }
+                    
+                }
+            }
+        }
+        else
+        {
+            // When we next click on an empty tile -> Move Hero to this tile
+            if (selectedHero != null && isWalkable)
+            {
+                SetUnit(selectedHero, tile);
+                SetSelectedHero(null);
+                CombatManager.Instance.ChangeCombatState(CombatState.EnemiesTurn);
+            }
+        }
+    }
+    
+    public void EnemiesTurn()
+    {
+        
+        Debug.Log("Enemy turn!");
+        CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
+    }
+
+    private BaseEnemy GetEnemyByName(string eName)
+    {
+        return (BaseEnemy)_enemyUnits.Where(u => u.name == eName).First().UnitPrefab;
     }
 
     public void SetSelectedHero(BaseHero hero)
@@ -68,5 +124,49 @@ public class UnitManager : MonoBehaviour
         selectedHero = hero;
         MenuManager.Instance.ShowSelectedHero(hero);
     }
+    
+    public void SetUnit(BaseUnit unit, Tile tile)
+    {
+        if (unit.OccupiedTile != null)
+            unit.OccupiedTile.tileUnit = null;
+        unit.transform.position = tile.transform.position + Vector3.up;
+        unit.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+        tile.tileUnit = unit;
+        unit.OccupiedTile = tile;
+    }
+
+    private bool CheckAttackPossible(BaseUnit attackUnit, BaseUnit defendUnit)
+    {
+        var attackPos = attackUnit.OccupiedTile.tilePosition;
+        var defendPos = defendUnit.OccupiedTile.tilePosition;
+        
+        if (attackUnit.IsRanged)
+        {
+            // Calc with 4-neighborhood
+            var subtract = attackPos - defendPos;
+            int distance;
+            // Check if they are on same row or col
+            if (subtract.x == 0) distance = (int)subtract.y;
+            else if (subtract.y == 0) distance = (int)subtract.x;
+            else return false;  // Not on same row or col
+
+            return distance <= attackUnit.AttackRange;
+        }
+        else
+        {
+            // Calc with (single) 8-neighborhood if needed
+            var distance = Vector2.Distance(attackPos, defendPos);
+            if ( (int)distance <= attackUnit.AttackRange)
+                return true;
+            return false;
+        }
+    }
+    
+    private void CheckAttackedUnit(BaseUnit aUnit)
+    {
+        if (aUnit.Health <= 0)
+            Destroy(aUnit.gameObject);
+    }
+    
     
 }
