@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b12822a63964b6438caf9319c409336, type: 3}
+  m_Name: I_was_nit
+  m_EditorClassIdentifier: 
+  nodeLinks:
+  - BaseNodeGuid: 91141ec2-2def-499f-98b0-074151e23461
+    PortName: Next
+    TargetNodeGuid: bff3343a-b796-4cdd-8284-9d75a1d94e43
+  - BaseNodeGuid: bff3343a-b796-4cdd-8284-9d75a1d94e43
+    PortName: I was nit wos i tua
+    TargetNodeGuid: d8499321-37f6-4163-96d5-628964dd02a6
+  - BaseNodeGuid: bff3343a-b796-4cdd-8284-9d75a1d94e43
+    PortName: Na geht eh
+    TargetNodeGuid: 1211a869-79d0-4a4a-b675-d0a76cb513c9
+  - BaseNodeGuid: bff3343a-b796-4cdd-8284-9d75a1d94e43
+    PortName: Aha
+    TargetNodeGuid: 1fbba29f-c1eb-4371-90ad-f705b53db5bd
+  dialogueNodeData:
+  - NodeGUID: bff3343a-b796-4cdd-8284-9d75a1d94e43
+    DialogueText: New Node
+    Position: {x: 355, y: 125}
+  - NodeGUID: d8499321-37f6-4163-96d5-628964dd02a6
+    DialogueText: New Node
+    Position: {x: 657, y: 72}
+  - NodeGUID: 1211a869-79d0-4a4a-b675-d0a76cb513c9
+    DialogueText: New Node
+    Position: {x: 691, y: 235}
+  - NodeGUID: 1fbba29f-c1eb-4371-90ad-f705b53db5bd
+    DialogueText: New Node
+    Position: {x: 706, y: 381}
