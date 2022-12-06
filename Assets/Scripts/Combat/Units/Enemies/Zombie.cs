@@ -8,6 +8,6 @@ public class Zombie : BaseEnemy
     {
         Faction = Faction.Enemy;
         UnitName = "Zombie";
-        _health = 80;
+        _maxHealth = 80;
     }
 }

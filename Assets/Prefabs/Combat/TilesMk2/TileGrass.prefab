@@ -97,13 +97,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 672233e2f3910ee4c84657a4cca37ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWalkable: 0
+  isWalkable: 1
   normal:
   - {fileID: 2100000, guid: 1fb9efb4cb548374b8fcc7da7d11fe3c, type: 2}
   highlight:
   - {fileID: 2100000, guid: d7fd7ec1b6672ff40a02b3933ee07d26, type: 2}
   tileName: Grass
   tileUnit: {fileID: 0}
+  tilePosition: {x: 0, y: 0}
 --- !u!65 &-3349717406170541117
 BoxCollider:
   m_ObjectHideFlags: 0

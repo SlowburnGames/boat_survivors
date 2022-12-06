@@ -9,6 +9,6 @@ public class Monster : BaseEnemy
     {
         Faction = Faction.Enemy;
         UnitName = "Monster";
-        _health = 150;
+        _maxHealth = 150;
     }
 }

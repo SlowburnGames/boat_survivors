@@ -44,4 +44,11 @@ public class MenuManager : MonoBehaviour
             tileUnitObject.SetActive(true);
         }
     }
+
+    public void UpdateHealthBar(BaseUnit unit)
+    {
+        var slider = unit.gameObject.GetComponentInChildren<Slider>();
+        slider.value = (float)unit.Health / unit.MaxHealth;
+    }
+    
 }
