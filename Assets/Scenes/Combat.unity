@@ -685,7 +685,7 @@ MonoBehaviour:
     - SGG
     - GGG
     - GGS
-  - tile: {fileID: 2452347014461513263, guid: 850917c9c34b74346a777c041993fab6, type: 3}
+  - tile: {fileID: 5993323022258194275, guid: 5b1887f16c9c8a348ae0097736faf7f3, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
     - GGG
@@ -696,7 +696,7 @@ MonoBehaviour:
   playbackSpeed: 0.005
   animated: 0
   needRotation: 1
-  gridSize: {x: 4, y: 8}
+  gridSize: {x: 15, y: 15}
   gridPos: []
   gridTiles: []
   tileObjects: []

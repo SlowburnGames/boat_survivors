@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2452347014461513263
+--- !u!1 &5993323022258194275
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2973409506727789717}
-  - component: {fileID: 2228287462072421168}
-  - component: {fileID: 4109676419135078394}
-  - component: {fileID: 4764490189286897668}
-  - component: {fileID: 5512104030226312994}
+  - component: {fileID: 6370164808300273113}
+  - component: {fileID: 8054833830258905724}
+  - component: {fileID: 5200659182242588342}
+  - component: {fileID: 8568882164491598015}
+  - component: {fileID: -1590274408508984178}
   m_Layer: 0
-  m_Name: TileTurnGrassSand
+  m_Name: TileTurnSandGrass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2973409506727789717
+--- !u!4 &6370164808300273113
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2452347014461513263}
+  m_GameObject: {fileID: 5993323022258194275}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.32, y: 0.5, z: -39.94}
+  m_LocalPosition: {x: 11.42269, y: 0.5, z: 8.099563}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2228287462072421168
+--- !u!33 &8054833830258905724
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2452347014461513263}
-  m_Mesh: {fileID: 855131390749405241, guid: 31de491553ea4bb4aa90d3c388e3e7f7, type: 3}
---- !u!23 &4109676419135078394
+  m_GameObject: {fileID: 5993323022258194275}
+  m_Mesh: {fileID: -257278029260952120, guid: ba8b95c4f28d0a94fbbb596422d55dbc, type: 3}
+--- !u!23 &5200659182242588342
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2452347014461513263}
+  m_GameObject: {fileID: 5993323022258194275}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,37 +86,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4764490189286897668
+--- !u!65 &8568882164491598015
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993323022258194275}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000005, y: 1.0622896, z: 1.0000007}
+  m_Center: {x: 0.000000059604645, y: 0.031144798, z: 0}
+--- !u!114 &-1590274408508984178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2452347014461513263}
+  m_GameObject: {fileID: 5993323022258194275}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 672233e2f3910ee4c84657a4cca37ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWalkable: 1
+  isWalkable: 0
   normal:
   - {fileID: 2100000, guid: e6533c788d0e7414bbaf108ffc9684eb, type: 2}
   - {fileID: 2100000, guid: 1fb9efb4cb548374b8fcc7da7d11fe3c, type: 2}
   highlight:
   - {fileID: 2100000, guid: a7a65d5b808d19347b662fe6ed82dd1d, type: 2}
   - {fileID: 2100000, guid: d7fd7ec1b6672ff40a02b3933ee07d26, type: 2}
-  tileName: TurnGrassSand
+  tileName: 
   tileUnit: {fileID: 0}
---- !u!65 &5512104030226312994
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2452347014461513263}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000002, y: 1.0691788, z: 1}
-  m_Center: {x: -0.008195043, y: 0.024394095, z: -0.008161485}
