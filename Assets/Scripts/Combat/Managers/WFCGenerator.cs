@@ -147,6 +147,7 @@ public class WFCGenerator : MonoBehaviour
         }
         //Debug.LogWarning("Finished!");
         gridReady = false;
+        // List<Tiles> turnOrder = _tiles.Values.OrderBy(unit => _tiles[unit]).ToList();
         CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
     }
 
@@ -425,38 +426,33 @@ public class WFCGenerator : MonoBehaviour
 
     public Tile GetHeroSpawnTile()
     {
-        //int randX = Random.Range(0, gridWidth);
-        //int randZ = Random.Range(0, gridHeight);
-
-        //while (!_tiles[new Vector2(randX, randZ)])
-        //{
-        //    randX = Random.Range(0, gridWidth);
-        //    randZ = Random.Range(0, gridHeight);
-        //}
-        //return _tiles[new Vector2(randX, randZ)];
-
-        return _tiles.Where(t => t.Key.x < gridSize.x / 2 && t.Value.walkable).OrderBy(t => Random.value).First().Value;
+        var walkableTiles = GetAllWalkableTiles();
+        return walkableTiles[Random.Range(0, walkableTiles.Count)];
     }
 
     public Tile GetEnemySpawnTile()
     {
-        //int randX = Random.Range(0, gridWidth);
-        //int randZ = Random.Range(0, gridHeight);
-
-        //while (!_tiles[new Vector2(randX, randZ)].walkable)
-        //{
-        //    randX = Random.Range(0, gridWidth);
-        //    randZ = Random.Range(0, gridHeight);
-        //}
-        //return _tiles[new Vector2(randX, randZ)];
-
-        return _tiles.Where(t => t.Key.x > gridSize.x / 2 && t.Value.walkable).OrderBy(t => Random.value).First().Value;
+        var walkableTiles = GetAllWalkableTiles();
+        return walkableTiles[Random.Range(0, walkableTiles.Count)];
     }
 
     public Tile GetTileAtPos(Vector2 pos)
     {
-        if (_tiles.TryGetValue(pos, out var tile)) return tile;
+        if (_tiles.TryGetValue(pos, out var tile)) 
+            return tile;
         return null;
+    }
+
+    public List<Tile> GetAllWalkableTiles()
+    {
+        List<Tile> walkableTiles = new List<Tile>();
+        for (int x = 0; x < gridSize.x; x++)
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                if (_tiles[new Vector2(x, y)].walkable) 
+                    walkableTiles.Add(_tiles[new Vector2(x, y)]);
+            }
+        return walkableTiles;
     }
 
 }

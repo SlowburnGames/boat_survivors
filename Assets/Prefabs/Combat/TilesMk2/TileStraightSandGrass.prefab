@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 540048686126342477}
   - component: {fileID: 3517725818282651368}
   - component: {fileID: 1672400855428880930}
+  - component: {fileID: 5516666387749949418}
+  - component: {fileID: 2758057631841509405}
   m_Layer: 0
   m_Name: TileStraightSandGrass
   m_TagString: Untagged
@@ -84,3 +86,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5516666387749949418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879736603630271479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672233e2f3910ee4c84657a4cca37ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWalkable: 1
+  normal:
+  - {fileID: 2100000, guid: 1fb9efb4cb548374b8fcc7da7d11fe3c, type: 2}
+  - {fileID: 2100000, guid: e6533c788d0e7414bbaf108ffc9684eb, type: 2}
+  highlight:
+  - {fileID: 2100000, guid: d7fd7ec1b6672ff40a02b3933ee07d26, type: 2}
+  - {fileID: 2100000, guid: a7a65d5b808d19347b662fe6ed82dd1d, type: 2}
+  tileName: StraightSandGrass
+  tileUnit: {fileID: 0}
+--- !u!65 &2758057631841509405
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879736603630271479}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000005, y: 1.0622896, z: 1.0000007}
+  m_Center: {x: 0.00011986494, y: 0.012655795, z: -0.0009301752}

@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 public class Tile : MonoBehaviour
 {
     [SerializeField] private bool isWalkable;
+    [SerializeField] private Material[] normal = new Material[2];
+    [SerializeField] private Material[] highlight = new Material[2];
 
     public string tileName;
     public BaseUnit tileUnit;
@@ -15,13 +17,21 @@ public class Tile : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
+        if (highlight.Length > 1)
+            gameObject.GetComponent<MeshRenderer>().materials = highlight;
+        else
+            gameObject.GetComponent<MeshRenderer>().material = highlight[0];
+        
         MenuManager.Instance.ShowTileInfo(this);
     }
     
     public void OnMouseExit()
     {
-        transform.GetChild(0).gameObject.SetActive(false);
+        if (normal.Length > 1)
+            gameObject.GetComponent<MeshRenderer>().materials = normal;
+        else
+            gameObject.GetComponent<MeshRenderer>().material = normal[0];
+        
         MenuManager.Instance.ShowTileInfo(null);
     }
 
