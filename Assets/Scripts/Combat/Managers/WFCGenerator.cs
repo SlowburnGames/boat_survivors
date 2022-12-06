@@ -190,6 +190,7 @@ public class WFCGenerator : MonoBehaviour
             GameObject tile = Instantiate(baseTiles[newOption].tile, new Vector3(pos.x, 0, pos.z), baseTiles[newOption].rotation, this.transform);
 
             tile.name = $"Tile {pos.x} {pos.z}";
+            tile.GetComponent<Tile>().position = new Vector2Int((int)pos.x, (int)pos.z);
             _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
 
             tileObjects[index].prefab.tile = tile;
@@ -228,6 +229,7 @@ public class WFCGenerator : MonoBehaviour
         GameObject tile = Instantiate(baseTiles[newOption].tile, new Vector3(pos.x, 0, pos.z), baseTiles[newOption].rotation, this.transform);
 
         tile.name = $"Tile {pos.x} {pos.z}";
+        tile.GetComponent<Tile>().position = new Vector2Int((int)pos.x, (int)pos.z);
         _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
 
         tileObjects[index].prefab.tile = tile;

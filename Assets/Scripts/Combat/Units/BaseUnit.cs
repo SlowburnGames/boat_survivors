@@ -8,4 +8,5 @@ public class BaseUnit : MonoBehaviour
     public Faction Faction;
     public string unitName;
 
+    public int MovementRange;
 }

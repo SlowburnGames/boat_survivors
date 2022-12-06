@@ -30,6 +30,7 @@ public class UnitManager : MonoBehaviour
         {
             var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero);
             var spawnedHero = Instantiate(randomPrefab);
+            spawnedHero.MovementRange = 6;
             var randomSpawnTile = WFCGenerator.Instance.GetHeroSpawnTile();
 
             randomSpawnTile.SetUnit(spawnedHero);
