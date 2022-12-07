@@ -11,8 +11,8 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> _heroUnits;
 
     public BaseHero selectedHero;
-    private static int _spawnableHeroes = 3;
-    
+    private static List<string> _availableHeroes;
+
     private void Awake()
     {
         Instance = this;
@@ -37,18 +37,18 @@ public class UnitManager : MonoBehaviour
         CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
     }
 
-    public void SpawnSelectedHero(string heroName, Tile spawnTile)
+    public void SpawnSelectedHero(Tile spawnTile)
     {
-        if (_spawnableHeroes > 0)
+        if (_availableHeroes.Count > 0)
         {
-            var heroPrefab = GetHeroByName(heroName);
+            var heroPrefab = GetHeroByName(_availableHeroes.First());
             var spawnedHero = Instantiate(heroPrefab);
             
             SetUnit(spawnedHero, spawnTile);
-            _spawnableHeroes--;
+            _availableHeroes.RemoveAt(0);
         }
 
-        if (_spawnableHeroes <= 0)
+        if (_availableHeroes.Count <= 0)
             CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
         
     }
@@ -186,6 +186,11 @@ public class UnitManager : MonoBehaviour
     {
         if (aUnit.Health <= 0)
             Destroy(aUnit.gameObject);
+    }
+
+    public void SetSpawnableHeroes(List<string> heroes)
+    {
+        _availableHeroes = heroes;
     }
     
     
