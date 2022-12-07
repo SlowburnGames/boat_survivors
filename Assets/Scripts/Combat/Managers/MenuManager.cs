@@ -8,7 +8,10 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
-    [SerializeField] private GameObject selectedHeroObject, tileObject, tileUnitObject;
+    [SerializeField] private GameObject selectedHeroObject;
+    [SerializeField] private GameObject tileObject;
+    [SerializeField] private GameObject tileUnitObject;
+    [SerializeField] private GameObject avaliableHeroes;
     
     private void Awake()
     {
@@ -50,5 +53,22 @@ public class MenuManager : MonoBehaviour
         var slider = unit.gameObject.GetComponentInChildren<Slider>();
         slider.value = (float)unit.Health / unit.MaxHealth;
     }
+
+    public void ShowAvailableHeroes(List<string> myHeroes)
+    {
+        avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
+        avaliableHeroes.SetActive(true);
+    }
+
+    public void UpdateAvailableHeroes(List<string> myHeroes)
+    {
+        avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
+    }
+
+    public void DisableAvailableHeroes()
+    {
+        avaliableHeroes.SetActive(false);
+    }
+    
     
 }

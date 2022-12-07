@@ -35,7 +35,7 @@ public class CombatManager : MonoBehaviour
                 Debug.Log("Spawn Heroes by clicking on tile!");
                 List<string> myHeroes = new List<string> { "Fighter", "Rouge", "Wizard", "Fighter" };
                 UnitManager.Instance.SetSpawnableHeroes(myHeroes);
-                // UnitManager.Instance.SpawnHeroes();
+                MenuManager.Instance.ShowAvailableHeroes(myHeroes);
                 break;
             case CombatState.HeroesTurn:
                 // Logic in Tile.OnMouseDown and UnitManager.HeroesTurn

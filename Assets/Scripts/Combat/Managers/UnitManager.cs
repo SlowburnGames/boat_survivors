@@ -46,10 +46,14 @@ public class UnitManager : MonoBehaviour
             
             SetUnit(spawnedHero, spawnTile);
             _availableHeroes.RemoveAt(0);
+            MenuManager.Instance.UpdateAvailableHeroes(_availableHeroes);
         }
 
         if (_availableHeroes.Count <= 0)
+        {
             CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
+            MenuManager.Instance.DisableAvailableHeroes();
+        }
         
     }
     
