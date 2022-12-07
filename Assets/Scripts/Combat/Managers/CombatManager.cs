@@ -31,7 +31,9 @@ public class CombatManager : MonoBehaviour
                 UnitManager.Instance.SpawnEnemies();
                 break;
             case CombatState.SpawnHeroes:
-                UnitManager.Instance.SpawnHeroes();
+                // Logic in Tile.OnMouseDown and UnitManager.SpawnSelectedHero
+                Debug.Log("Spawn Heroes by clicking on tile!");
+                // UnitManager.Instance.SpawnHeroes();
                 break;
             case CombatState.HeroesTurn:
                 // Logic in Tile.OnMouseDown and UnitManager.HeroesTurn

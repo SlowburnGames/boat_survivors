@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class UnitManager : MonoBehaviour
 {
@@ -13,6 +11,7 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> _heroUnits;
 
     public BaseHero selectedHero;
+    private static int _spawnableHeroes = 3;
     
     private void Awake()
     {
@@ -37,16 +36,32 @@ public class UnitManager : MonoBehaviour
         
         CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
     }
+
+    public void SpawnSelectedHero(string heroName, Tile spawnTile)
+    {
+        if (_spawnableHeroes > 0)
+        {
+            var heroPrefab = GetHeroByName(heroName);
+            var spawnedHero = Instantiate(heroPrefab);
+            
+            SetUnit(spawnedHero, spawnTile);
+            _spawnableHeroes--;
+        }
+
+        if (_spawnableHeroes <= 0)
+            CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
+        
+    }
     
     public void SpawnEnemies()
     {
-        // TODO Not hardcode count
+        // TODO Get type and number of enemies from outside
         string[] enemySequence = { "Monster", "Zombie", "Monster", "Zombie" };
 
         foreach (var enemyName in enemySequence)
         {
-            var randomPrefab = GetEnemyByName(enemyName);
-            var spawnedEnemy = Instantiate(randomPrefab);
+            var enemyPrefab = GetEnemyByName(enemyName);
+            var spawnedEnemy = Instantiate(enemyPrefab);
             var randomSpawnTile = WFCGenerator.Instance.GetEnemySpawnTile();
 
             SetUnit(spawnedEnemy, randomSpawnTile);
@@ -117,6 +132,11 @@ public class UnitManager : MonoBehaviour
     private BaseEnemy GetEnemyByName(string eName)
     {
         return (BaseEnemy)_enemyUnits.Where(u => u.name == eName).First().UnitPrefab;
+    }
+    
+    private BaseHero GetHeroByName(string hName)
+    {
+        return (BaseHero)_heroUnits.Where(u => u.name == hName).First().UnitPrefab;
     }
 
     public void SetSelectedHero(BaseHero hero)

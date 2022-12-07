@@ -43,6 +43,10 @@ public class Tile : MonoBehaviour
         {
             UnitManager.Instance.HeroesTurn(this, tileUnit, isWalkable);
         }
+        else if (CombatManager.Instance.combatState == CombatState.SpawnHeroes && isWalkable)
+        {
+            UnitManager.Instance.SpawnSelectedHero("Wizard", this);
+        }
     }
 
 }
