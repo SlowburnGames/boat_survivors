@@ -13,6 +13,7 @@ public class Tile : MonoBehaviour
 
     public string tileName;
     public BaseUnit tileUnit;
+    private BaseHero _tileHeroPreview;
 
     public Vector2 tilePosition;
     public bool walkable => isWalkable && tileUnit == null;
@@ -24,6 +25,9 @@ public class Tile : MonoBehaviour
         else
             gameObject.GetComponent<MeshRenderer>().material = highlight[0];
         
+        if (CombatManager.Instance.combatState == CombatState.SpawnHeroes &&isWalkable && tileUnit == null)
+            SpawnHeroPreview();
+        
         MenuManager.Instance.ShowTileInfo(this);
     }
     
@@ -34,6 +38,9 @@ public class Tile : MonoBehaviour
         else
             gameObject.GetComponent<MeshRenderer>().material = normal[0];
         
+        if (CombatManager.Instance.combatState == CombatState.SpawnHeroes &&isWalkable && tileUnit == null)
+            DestroyHeroPreview();
+        
         MenuManager.Instance.ShowTileInfo(null);
     }
 
@@ -43,10 +50,26 @@ public class Tile : MonoBehaviour
         {
             UnitManager.Instance.HeroesTurn(this, tileUnit, isWalkable);
         }
-        else if (CombatManager.Instance.combatState == CombatState.SpawnHeroes && isWalkable)
+        else if (tileUnit == null && CombatManager.Instance.combatState == CombatState.SpawnHeroes && isWalkable)
         {
+            DestroyHeroPreview();
             UnitManager.Instance.SpawnSelectedHero(this);
         }
+    }
+
+    private void SpawnHeroPreview()
+    {
+        var heroPreviewPrefab = UnitManager.Instance.GetNextHero();
+        _tileHeroPreview = Instantiate(heroPreviewPrefab);
+        _tileHeroPreview.GetComponent<SpriteRenderer>().color -= new Color (0, 0, 0, 0.6f);
+        _tileHeroPreview.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+        _tileHeroPreview.transform.position = transform.position + Vector3.up;
+        _tileHeroPreview.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+    }
+
+    private void DestroyHeroPreview()
+    {
+        Destroy(_tileHeroPreview.gameObject);
     }
 
 }

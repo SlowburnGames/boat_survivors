@@ -8,10 +8,15 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
-    [SerializeField] private GameObject selectedHeroObject;
-    [SerializeField] private GameObject tileObject;
-    [SerializeField] private GameObject tileUnitObject;
-    [SerializeField] private GameObject avaliableHeroes;
+    [SerializeField] private GameObject _selectedHeroObject;
+    [SerializeField] private GameObject _tileObject;
+    [SerializeField] private GameObject _tileUnitObject;
+    [SerializeField] private GameObject _avaliableHeroes;
+    [SerializeField] private GameObject _avaliableHeroesImg;
+
+    [SerializeField] private GameObject _fighterImage;
+    
+    
     
     private void Awake()
     {
@@ -22,29 +27,29 @@ public class MenuManager : MonoBehaviour
     {
         if (hero == null)
         {
-            selectedHeroObject.SetActive(false);
+            _selectedHeroObject.SetActive(false);
             return;
         }
-        selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName;
-        selectedHeroObject.SetActive(true);
+        _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName;
+        _selectedHeroObject.SetActive(true);
     }
 
     public void ShowTileInfo(Tile tile)
     {
         if (tile == null)
         {
-            tileObject.SetActive(false);
-            tileUnitObject.SetActive(false);
+            _tileObject.SetActive(false);
+            _tileUnitObject.SetActive(false);
             return;
         }
         
-        tileObject.GetComponentInChildren<TextMeshProUGUI>().text = tile.tileName;
-        tileObject.SetActive(true);
+        _tileObject.GetComponentInChildren<TextMeshProUGUI>().text = tile.tileName;
+        _tileObject.SetActive(true);
 
         if (tile.tileUnit)
         {
-            tileUnitObject.GetComponentInChildren<TextMeshProUGUI>().text = tile.tileUnit.UnitName;
-            tileUnitObject.SetActive(true);
+            _tileUnitObject.GetComponentInChildren<TextMeshProUGUI>().text = tile.tileUnit.UnitName;
+            _tileUnitObject.SetActive(true);
         }
     }
 
@@ -56,18 +61,21 @@ public class MenuManager : MonoBehaviour
 
     public void ShowAvailableHeroes(List<string> myHeroes)
     {
-        avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
-        avaliableHeroes.SetActive(true);
+        _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
+        _avaliableHeroes.SetActive(true);
+
+        // Instantiate(_fighterImage, _avaliableHeroesImg.transform);
+
     }
 
     public void UpdateAvailableHeroes(List<string> myHeroes)
     {
-        avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
+        _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
     }
 
     public void DisableAvailableHeroes()
     {
-        avaliableHeroes.SetActive(false);
+        _avaliableHeroes.SetActive(false);
     }
     
     

@@ -138,7 +138,7 @@ public class UnitManager : MonoBehaviour
         return (BaseEnemy)_enemyUnits.Where(u => u.name == eName).First().UnitPrefab;
     }
     
-    private BaseHero GetHeroByName(string hName)
+    public BaseHero GetHeroByName(string hName)
     {
         return (BaseHero)_heroUnits.Where(u => u.name == hName).First().UnitPrefab;
     }
@@ -195,6 +195,11 @@ public class UnitManager : MonoBehaviour
     public void SetSpawnableHeroes(List<string> heroes)
     {
         _availableHeroes = heroes;
+    }
+
+    public BaseHero GetNextHero()
+    {
+        return GetHeroByName(_availableHeroes[0]);
     }
     
     
