@@ -577,7 +577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &625870240
 RectTransform:
   m_ObjectHideFlags: 0
@@ -792,6 +792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedHero: {fileID: 0}
+  _attackRangeIndicator: {fileID: 1394485532066706647, guid: ac61d6724cfdaf2499e934150292d187, type: 3}
 --- !u!4 &770557463
 Transform:
   m_ObjectHideFlags: 0
@@ -841,7 +842,7 @@ MonoBehaviour:
   _tileUnitObject: {fileID: 975998133}
   _avaliableHeroes: {fileID: 1717076000}
   _avaliableHeroesImg: {fileID: 625870239}
-  _fighterImage: {fileID: 5430260822164098281, guid: a0b1292881c6d574db7b835d08631c85, type: 3}
+  _fighterImage: {fileID: 5430260822164098279, guid: a0b1292881c6d574db7b835d08631c85, type: 3}
 --- !u!4 &792714640
 Transform:
   m_ObjectHideFlags: 0
@@ -1777,7 +1778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1717076001
 RectTransform:
   m_ObjectHideFlags: 0

@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class UnitManager : MonoBehaviour
 {
@@ -12,6 +15,8 @@ public class UnitManager : MonoBehaviour
 
     public BaseHero selectedHero;
     private static List<string> _availableHeroes;
+
+    [SerializeField] private GameObject _attackRangeIndicator;
 
     private void Awake()
     {
@@ -76,20 +81,35 @@ public class UnitManager : MonoBehaviour
 
     public void HeroesTurn(Tile tile, BaseUnit tileUnit, bool isWalkable)
     {
-        
+        // Attacking enemy branch
         if (tileUnit != null)
         {
-            // Debug.Log("Selected: " + tileUnit.UnitName);
-            // A hero is on the tile
-            if (tileUnit.Faction == Faction.Hero)
+            // First click -> select the hero and range indicator
+            if (tileUnit.Faction == Faction.Hero && selectedHero == null)
             {
                 SetSelectedHero((BaseHero) tileUnit);
-                // Debug.Log("Selected Hero: " + ((BaseHero) tileUnit).name);
+                
+                // TODO 1: wenn man hero und danach ANDEREN hero selected muss der indicator beim ersten gelöscht werden
+                // TODO 2: wenn man hero und danach SELBEN hero selected darf nicht nochmal in dies if rein
+                ToggleAttackRangeIndicator((BaseHero)tileUnit, true);
+            }
+            // Second click on same hero (nothing should happen)
+            else if (tileUnit.Faction == Faction.Hero && selectedHero == (BaseHero)tileUnit)
+            {
+                Debug.Log("Same hero selected");
+            }
+            // Second click on either another hero -> (hero1 gets unselected and hero2 gets selected)
+            else if (tileUnit.Faction == Faction.Hero && selectedHero != null)
+            {
+                Debug.Log("Another hero selected");
+                ToggleAttackRangeIndicator(selectedHero, false);
+                SetSelectedHero((BaseHero)tileUnit);
+                ToggleAttackRangeIndicator((BaseHero)tileUnit, true);
             }
             else
             {
                 // When we next click on an enemy -> Attack it
-                if (selectedHero != null)
+                if (selectedHero != null && tileUnit.Faction == Faction.Enemy)
                 {
                     var enemy = (BaseEnemy) tileUnit;
                     bool canAttack = false;
@@ -107,6 +127,7 @@ public class UnitManager : MonoBehaviour
                         CheckAttackedUnit(enemy);
                         
                         // End turn
+                        ToggleAttackRangeIndicator(selectedHero, false);
                         SetSelectedHero(null);
                         CombatManager.Instance.ChangeCombatState(CombatState.EnemiesTurn);
                     }
@@ -114,11 +135,13 @@ public class UnitManager : MonoBehaviour
                 }
             }
         }
-        else
+        // Moving branch
+        else if (tileUnit == null)
         {
             // When we next click on an empty tile -> Move Hero to this tile
-            if (selectedHero != null && isWalkable)
+            if (selectedHero != null && isWalkable && tile.tileUnit == null)
             {
+                ToggleAttackRangeIndicator(selectedHero, false);
                 SetUnit(selectedHero, tile);
                 SetSelectedHero(null);
                 CombatManager.Instance.ChangeCombatState(CombatState.EnemiesTurn);
@@ -147,6 +170,59 @@ public class UnitManager : MonoBehaviour
     {
         selectedHero = hero;
         MenuManager.Instance.ShowSelectedHero(hero);
+    }
+
+    public void ToggleAttackRangeIndicator(BaseHero hero, bool show)
+    {
+        List<Tile> indicatorPositions;
+        if (hero.IsRanged)
+            indicatorPositions = CalcRangedAttackIndicator(hero.OccupiedTile, hero.AttackRange);
+        else
+            indicatorPositions = CalcMeleeAttackIndicator(hero.OccupiedTile);
+        
+        if (show)
+            SetAttackRangeIndicator(indicatorPositions);
+        else
+            UnsetAttackRangeIndicator(indicatorPositions);
+    }
+
+    private List<Tile> CalcMeleeAttackIndicator(Tile heroTile)
+    {
+        int xStart = (int)heroTile.tilePosition.x;
+        int yStart= (int)heroTile.tilePosition.y;
+        List<Tile> indicaterPositions = new List<Tile>();
+        int maxX = (int)WFCGenerator.Instance.gridSize.x;
+        int maxY = (int)WFCGenerator.Instance.gridSize.y;
+
+        for (int x = xStart-1; x <= xStart+1; x++)
+            for (int y = yStart-1; y <= yStart+1; y++)
+            {
+                if ((x == xStart && y == yStart) || x >= maxX || x < 0 || y >= maxY || y < 0)
+                    continue;
+                
+                indicaterPositions.Add(WFCGenerator.Instance._tiles[x][y]);
+            }
+
+        return indicaterPositions;
+    }
+
+    private List<Tile> CalcRangedAttackIndicator(Tile heroTile, int range)
+    {
+        return null;
+    }
+
+    private void SetAttackRangeIndicator(List<Tile> tilePositions) 
+    {
+        foreach (var tilePos in tilePositions)
+            Instantiate(_attackRangeIndicator, tilePos.transform);
+    }
+
+    public void UnsetAttackRangeIndicator(List<Tile> tilePositions)
+    {
+        foreach (var tilePos in tilePositions)
+            if(tilePos.transform.childCount != 0)
+                Destroy(tilePos.transform.GetChild(0).gameObject);
+
     }
     
     public void SetUnit(BaseUnit unit, Tile tile)
