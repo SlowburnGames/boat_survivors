@@ -31,21 +31,21 @@ public class UnitManager : MonoBehaviour
         Debug.Log("Nr of different Heroes : " + _heroUnits.Count);
     }
 
-    public void SpawnHeroes()
-    {
-        // TODO Select heroes to spwan from menue
-        foreach (var hero in _heroUnits)
-        {
-            var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero);
-            var spawnedHero = Instantiate(randomPrefab);
-            spawnedHero.MovementRange = 6;
-            var randomSpawnTile = WFCGenerator.Instance.GetHeroSpawnTile();
-
-            SetUnit(spawnedHero, randomSpawnTile);
-        }
-        
-        // CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
-    }
+    // public void SpawnHeroes()
+    // {
+    //     // TODO Select heroes to spwan from menue
+    //     foreach (var hero in _heroUnits)
+    //     {
+    //         var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero);
+    //         var spawnedHero = Instantiate(randomPrefab);
+    //         spawnedHero.MovementRange = 6;
+    //         var randomSpawnTile = WFCGenerator.Instance.GetHeroSpawnTile();
+    //
+    //         SetUnit(spawnedHero, randomSpawnTile);
+    //     }
+    //     
+    //     // CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
+    // }
 
     public void SpawnSelectedHero(Tile spawnTile)
     {
@@ -88,36 +88,20 @@ public class UnitManager : MonoBehaviour
         // Attacking enemy branch
         if (tileUnit != null)
         {
-            // First click -> select the hero and range indicator
-            // if (tileUnit.Faction == Faction.Hero && selectedHero == null)
-            // {
-            //     SetSelectedHero((BaseHero) tileUnit);
-            //     ToggleAttackRangeIndicator((BaseHero)tileUnit, true);
-            // }
-            // Click on same hero (nothing should happen)
-            if (tileUnit.Faction == Faction.Hero && selectedHero == (BaseHero)tileUnit)
+            // Click on same hero or another hero (nothing should happen)
+            if (tileUnit.Faction == Faction.Hero && (selectedHero == (BaseHero)tileUnit || selectedHero != null))
             {
                 // Debug.Log("Same hero selected");
             }
-            // Click on another hero -> (nothing should happen)
-            else if (tileUnit.Faction == Faction.Hero && selectedHero != null)
-            {
-                // Debug.Log("Another hero selected");
-                // ToggleAttackRangeIndicator(selectedHero, false);
-                // SetSelectedHero((BaseHero)tileUnit);
-                // ToggleAttackRangeIndicator((BaseHero)tileUnit, true);
-            }
-            
             // Click on an enemy -> Attack it (if possible, else nothing should happen)
             else
             {
                 if (selectedHero != null && tileUnit.Faction == Faction.Enemy)
                 {
                     var enemy = (BaseEnemy) tileUnit;
-                    bool canAttack = false;
                     
                     // Check if attack possible
-                    canAttack = CheckAttackPossible(selectedHero, enemy);
+                    bool canAttack = CheckAttackPossible(selectedHero, enemy);
                     
                     // Do the attack (dmg + unselecting unit)
                     if (canAttack)
@@ -143,13 +127,26 @@ public class UnitManager : MonoBehaviour
             // When we next click on an empty tile -> Move Hero to this tile
             if (selectedHero != null && isWalkable && tile.tileUnit == null)
             {
-                ToggleAttackRangeIndicator(selectedHero, false);
-                SetUnit(selectedHero, tile);
-                SetSelectedHero(null);
-                CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
+                if(tile.calculatedDistance(selectedHero.OccupiedTile.gameObject) <= selectedHero.MoveDistance)
+                {
+                    ToggleAttackRangeIndicator(selectedHero, false);
+                    SetUnit(selectedHero, tile);
+                    SetSelectedHero(null);
+                    CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
+                    
+                }
+                else
+                {
+                    Debug.Log("cant move this far (distance: " + tile.calculatedDistance(selectedHero.OccupiedTile.gameObject) + ")");
+                }
+            }
+            else
+            {
+                Debug.Log("cant move there");
             }
         }
     }
+    
     
     public void EnemiesTurn()
     {
@@ -242,14 +239,22 @@ public class UnitManager : MonoBehaviour
     private void SetAttackRangeIndicator(List<Tile> tilePositions) 
     {
         foreach (var tilePos in tilePositions)
-            Instantiate(_attackRangeIndicator, tilePos.transform);
+        {
+            tilePos.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.blue;
+            tilePos.transform.GetChild(0).gameObject.gameObject.SetActive(true);
+            tilePos.transform.GetChild(0).localPosition = new Vector3(0, 0.6f, 0);
+            // Instantiate(_attackRangeIndicator, tilePos.transform);
+        }
     }
 
     public void UnsetAttackRangeIndicator(List<Tile> tilePositions)
     {
         foreach (var tilePos in tilePositions)
-            if(tilePos.transform.childCount != 0)
-                Destroy(tilePos.transform.GetChild(0).gameObject);
+            if (tilePos.transform.childCount != 0)
+            {
+                tilePos.transform.GetChild(0).gameObject.SetActive(false);
+                // Destroy(tilePos.transform.GetChild(0).gameObject);
+            }
 
     }
     
@@ -313,4 +318,5 @@ public class UnitManager : MonoBehaviour
     {
         _availableEnemies = new List<string>(enemies);
     }
+    
 }

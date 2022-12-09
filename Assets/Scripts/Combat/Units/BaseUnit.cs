@@ -34,5 +34,5 @@ public class BaseUnit : MonoBehaviour
     public int AttackRange { get => _attackRange; }
     public bool IsRanged { get => _isRanged; }
     
-    public int MovementRange;
+    // public int MovementRange;
 }

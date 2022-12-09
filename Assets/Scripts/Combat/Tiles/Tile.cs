@@ -28,12 +28,13 @@ public class Tile : MonoBehaviour
             gameObject.GetComponent<MeshRenderer>().materials = highlight;
         else
             gameObject.GetComponent<MeshRenderer>().material = highlight[0];
-
-        if(UnitManager.Instance.selectedHero != null)
-            showPath(UnitManager.Instance.selectedHero.occupiedTile.GetComponent<Tile>());
         
         if (CombatManager.Instance.combatState == CombatState.SpawnHeroes &&isWalkable && tileUnit == null)
             SpawnHeroPreview();
+
+        if(UnitManager.Instance.selectedHero != null)
+            showPath(UnitManager.Instance.selectedHero.OccupiedTile.GetComponent<Tile>());
+        
         
         MenuManager.Instance.ShowTileInfo(this);
     }
@@ -66,52 +67,63 @@ public class Tile : MonoBehaviour
             UnitManager.Instance.SpawnSelectedHero(this);
         }
     }
-
+    
     private void SpawnHeroPreview()
-            if (tileUnit != null)
-            {
-                // A hero is on the tile
-                if (tileUnit.Faction == Faction.Hero)
-                {
-                    UnitManager.Instance.SetSelectedHero((BaseHero) tileUnit);
-                    Debug.Log("Selected Hero: " + ((BaseHero) tileUnit).name);
-                }
-                else
-                {
-                    // When we next click on an enemy -> Attack it
-                    if (UnitManager.Instance.selectedHero != null)
-                    {
-                        var enemy = (BaseEnemy) tileUnit;
-                        // TODO Damage enemy in any form
-                        Destroy(enemy.gameObject);
-                        UnitManager.Instance.SetSelectedHero(null);
-                        
-                        Debug.Log("Damaged Enemy: " + enemy.name);
-                    }
-                }
-            }
-            else
-            {
-                // When we next click on an empty tile -> Move Hero to this tile
-                if (UnitManager.Instance.selectedHero != null && isWalkable)
-                {
-                    if(calculatedDistance(UnitManager.Instance.selectedHero.occupiedTile.gameObject) <= UnitManager.Instance.selectedHero.MovementRange)
-                    {
-                        SetUnit(UnitManager.Instance.selectedHero);
-                        UnitManager.Instance.SetSelectedHero(null);
-                    }
-                    else
-                    {
-                        Debug.LogError("cant move this far (distance: " + calculatedDistance(UnitManager.Instance.selectedHero.occupiedTile.gameObject) + ")");
-                    }
-                }
-                else
-                {
-                    Debug.LogError("cant move there");
-                }
-            }
-        }
+    {
+        var heroPreviewPrefab = UnitManager.Instance.GetNextHero();
+        _tileHeroPreview = Instantiate(heroPreviewPrefab);
+        _tileHeroPreview.GetComponent<SpriteRenderer>().color -= new Color (0, 0, 0, 0.6f);
+        _tileHeroPreview.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+        _tileHeroPreview.transform.position = transform.position + Vector3.up;
+        _tileHeroPreview.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
     }
+
+    // private void SpawnHeroPreview()
+    // {
+    //         if (tileUnit != null)
+    //         {
+    //             // A hero is on the tile
+    //             if (tileUnit.Faction == Faction.Hero)
+    //             {
+    //                 UnitManager.Instance.SetSelectedHero((BaseHero) tileUnit);
+    //                 Debug.Log("Selected Hero: " + ((BaseHero) tileUnit).name);
+    //             }
+    //             else
+    //             {
+    //                 // When we next click on an enemy -> Attack it
+    //                 if (UnitManager.Instance.selectedHero != null)
+    //                 {
+    //                     var enemy = (BaseEnemy) tileUnit;
+    //                     // TODO Damage enemy in any form
+    //                     Destroy(enemy.gameObject);
+    //                     UnitManager.Instance.SetSelectedHero(null);
+    //                     
+    //                     Debug.Log("Damaged Enemy: " + enemy.name);
+    //                 }
+    //             }
+    //         }
+    //         // else
+    //         // {
+    //         //     // When we next click on an empty tile -> Move Hero to this tile
+    //         //     if (UnitManager.Instance.selectedHero != null && isWalkable)
+    //         //     {
+    //         //         if(calculatedDistance(UnitManager.Instance.selectedHero.OccupiedTile.gameObject) <= UnitManager.Instance.selectedHero.MoveDistance)
+    //         //         {
+    //         //             SetUnit(UnitManager.Instance.selectedHero);
+    //         //             UnitManager.Instance.SetSelectedHero(null);
+    //         //         }
+    //         //         else
+    //         //         {
+    //         //             Debug.LogError("cant move this far (distance: " + calculatedDistance(UnitManager.Instance.selectedHero.OccupiedTile.gameObject) + ")");
+    //         //         }
+    //         //     }
+    //         //     else
+    //         //     {
+    //         //         Debug.LogError("cant move there");
+    //         //     }
+    //         // }
+    //     }
+    
 
     public int calculatedDistance(GameObject tile)
     {
@@ -160,7 +172,7 @@ public class Tile : MonoBehaviour
 
         Color c = Color.green;
 
-        if(calculatedDistance(UnitManager.Instance.selectedHero.occupiedTile.gameObject) <= UnitManager.Instance.selectedHero.MovementRange)
+        if(calculatedDistance(UnitManager.Instance.selectedHero.OccupiedTile.gameObject) <= UnitManager.Instance.selectedHero.MoveDistance)
         {
             c = Color.green;
         }
@@ -188,15 +200,15 @@ public class Tile : MonoBehaviour
         tilesToWalk.Clear();
     }
 
-    public void SetUnit(BaseUnit unit)
-    {
-        var heroPreviewPrefab = UnitManager.Instance.GetNextHero();
-        _tileHeroPreview = Instantiate(heroPreviewPrefab);
-        _tileHeroPreview.GetComponent<SpriteRenderer>().color -= new Color (0, 0, 0, 0.6f);
-        _tileHeroPreview.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
-        _tileHeroPreview.transform.position = transform.position + Vector3.up;
-        _tileHeroPreview.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
-    }
+    // public void SetUnit(BaseUnit unit)
+    // {
+    //     var heroPreviewPrefab = UnitManager.Instance.GetNextHero();
+    //     _tileHeroPreview = Instantiate(heroPreviewPrefab);
+    //     _tileHeroPreview.GetComponent<SpriteRenderer>().color -= new Color (0, 0, 0, 0.6f);
+    //     _tileHeroPreview.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+    //     _tileHeroPreview.transform.position = transform.position + Vector3.up;
+    //     _tileHeroPreview.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+    // }
 
     private void DestroyHeroPreview()
     {
