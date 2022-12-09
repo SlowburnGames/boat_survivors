@@ -36,8 +36,10 @@ public class UnitManager : MonoBehaviour
         // TODO Select heroes to spwan from menue
         foreach (var hero in _heroUnits)
         {
-            var spawnedHero = Instantiate(hero.UnitPrefab);
-            var randomSpawnTile = WFCGenerator.Instance.GetHeroSpawnTile(); // TODO Let user select spwan
+            var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero);
+            var spawnedHero = Instantiate(randomPrefab);
+            spawnedHero.MovementRange = 6;
+            var randomSpawnTile = WFCGenerator.Instance.GetHeroSpawnTile();
 
             SetUnit(spawnedHero, randomSpawnTile);
         }

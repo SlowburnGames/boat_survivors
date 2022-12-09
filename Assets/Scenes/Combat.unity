@@ -692,6 +692,7 @@ MonoBehaviour:
     - GGG
     - GGG
     - GGG
+    name: Grass
   - tile: {fileID: 7883816678158769933, guid: 566c628e3f0d7214690b9ba9210c4e85, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -699,6 +700,7 @@ MonoBehaviour:
     - GGG
     - GGG
     - GGG
+    name: Stone
   - tile: {fileID: 3932798934127559433, guid: 7f2f49443d03fb043825a255aacd283a, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -706,6 +708,7 @@ MonoBehaviour:
     - WGG
     - GGG
     - GGW
+    name: CliffStraight
   - tile: {fileID: 6057872705097594506, guid: 8b0c7ff0dbddf7e42a7a6df571ac07f3, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -713,6 +716,7 @@ MonoBehaviour:
     - GGG
     - GGW
     - WGG
+    name: CliffTurn
   - tile: {fileID: 3210794126930067095, guid: 93dcbeca4594be8469ba334b9bec1ccc, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -720,6 +724,7 @@ MonoBehaviour:
     - WWW
     - WWW
     - WWW
+    name: water
   - tile: {fileID: 759774543241086994, guid: ad6dd7eb54efe7b47826ccdb073d98d9, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -727,6 +732,7 @@ MonoBehaviour:
     - SSS
     - SSS
     - SSS
+    name: Sand
   - tile: {fileID: 2876230749376819898, guid: 5e3626a941c8e8d4aba106a7d50dbeaf, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -734,6 +740,7 @@ MonoBehaviour:
     - WSS
     - SSS
     - SSW
+    name: CoastStraight
   - tile: {fileID: 7160466160942520169, guid: 09e7835bcd4900b40b64d7de5cfc243b, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -741,6 +748,7 @@ MonoBehaviour:
     - SSS
     - SSW
     - WSS
+    name: CoastTurn
   - tile: {fileID: 879736603630271479, guid: 1941a3ee7eb5bcc48871d51e488c4245, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -748,6 +756,7 @@ MonoBehaviour:
     - SGG
     - GGG
     - GGS
+    name: TransitionStraight
   - tile: {fileID: 5993323022258194275, guid: 5b1887f16c9c8a348ae0097736faf7f3, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -755,7 +764,9 @@ MonoBehaviour:
     - GGG
     - GGS
     - SGG
+    name: TransitionTurn
   blank: {fileID: 8578413917448353422, guid: e5dc8b7ea2db5c841b6d0174c0cb7dcc, type: 3}
+  optionsLeft: 
   playbackSpeed: 0.005
   animated: 0
   needRotation: 1
@@ -763,6 +774,11 @@ MonoBehaviour:
   gridPos: []
   gridTiles: []
   tileObjects: []
+  noSmallLakes: 1
+  noWater: 0
+  noSand: 0
+  noGrass: 0
+  beach: 0
 --- !u!1 &770557461
 GameObject:
   m_ObjectHideFlags: 0
@@ -1946,6 +1962,7 @@ MonoBehaviour:
     - GGG
     - GGG
     - GGG
+    name: 
   - tile: {fileID: 8132706108610404219, guid: 69c5680f76c8b7f41a0386a1d45b3faf, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -1953,6 +1970,7 @@ MonoBehaviour:
     - GGG
     - GGG
     - GGG
+    name: 
   - tile: {fileID: 2146725087280507526, guid: cc283c5071b6f2341bb0ecacc005acee, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -1960,6 +1978,7 @@ MonoBehaviour:
     - GGG
     - GWW
     - WWW
+    name: 
   - tile: {fileID: 8440191247579917863, guid: 2d468192a2b94e94f849a561af10bd4c, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -1967,6 +1986,7 @@ MonoBehaviour:
     - GGG
     - GWW
     - WWG
+    name: 
   - tile: {fileID: 7814756999493236878, guid: f60fcb65ba9b95d42a4d7399575133ee, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -1974,6 +1994,7 @@ MonoBehaviour:
     - WWW
     - WWW
     - WWW
+    name: 
   - tile: {fileID: 403521749107904878, guid: b789024279d1d7546bd4493c6f74c211, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -1981,6 +2002,7 @@ MonoBehaviour:
     - SSS
     - SSS
     - SSS
+    name: 
   - tile: {fileID: 9037295750644447874, guid: 706fdda0c5fe1d74ea27ad3c55759ece, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -1988,6 +2010,7 @@ MonoBehaviour:
     - SSS
     - SWW
     - WWW
+    name: 
   - tile: {fileID: 6608357021350420078, guid: bbc21df1e764c01438c4e546ce77b104, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -1995,6 +2018,7 @@ MonoBehaviour:
     - SSS
     - SWW
     - WWS
+    name: 
   - tile: {fileID: 8572098043768320646, guid: b2bb981591097d34eba43058eca9eb28, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -2002,6 +2026,7 @@ MonoBehaviour:
     - GGG
     - GSS
     - SSS
+    name: 
   - tile: {fileID: 5433926097237835972, guid: 88c338d7af7e93a449b9e86b80557159, type: 3}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     edges:
@@ -2009,7 +2034,9 @@ MonoBehaviour:
     - GGG
     - GSS
     - SSG
+    name: 
   blank: {fileID: 8578413917448353422, guid: e5dc8b7ea2db5c841b6d0174c0cb7dcc, type: 3}
+  optionsLeft: 
   playbackSpeed: 0.005
   animated: 0
   needRotation: 1
@@ -2017,7 +2044,12 @@ MonoBehaviour:
   gridPos: []
   gridTiles: []
   tileObjects: []
---- !u!1 &1998776662
+  noSmallLakes: 0
+  noWater: 0
+  noSand: 0
+  noGrass: 0
+  beach: 0
+--- !u!1 &2132349572
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

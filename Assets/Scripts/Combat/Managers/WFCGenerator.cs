@@ -20,6 +20,8 @@ public class TilePrefab
     public GameObject tile;
     public Quaternion rotation;
     public List<string> edges;
+
+    public string name;
 }
 
 public class BactraceList
@@ -34,6 +36,7 @@ public class WFCGenerator : MonoBehaviour
     public static WFCGenerator Instance;
 
     public List<TilePrefab> baseTiles;
+    private int startingTileCount = 0;
     public GameObject blank;
     //public List<TilePrefab> tiles;
     private float dim;
@@ -42,6 +45,7 @@ public class WFCGenerator : MonoBehaviour
     private List<BactraceList> bactraceList = new List<BactraceList>();
 
     private List<int> optionsCount = new List<int>();
+    public List<int> optionsLeft = new List<int>(); 
 
     public float playbackSpeed = 0.005f;
     public bool animated = true;
@@ -54,14 +58,24 @@ public class WFCGenerator : MonoBehaviour
     public List<GameObject> gridTiles = new List<GameObject>();
     public List<Cell> tileObjects = new List<Cell>();
 
+    public List<List<int>> rotatedTiles = new List<List<int>>(); 
+
     public Tile[][] _tiles;
+
+    [Header("MapGenSettings")]
+    public bool noSmallLakes;
+    public bool noWater;
+    public bool noSand;
+    public bool noGrass;
+
+    [Header("MapGenPrefabs")]
+    public bool beach;
 
 
     // Start is called before the first frame update
 
     void Start()
     {
-        
         //generateTileSet();
     }
 
@@ -72,11 +86,13 @@ public class WFCGenerator : MonoBehaviour
 
     public void generateTileSet()
     {
+        startingTileCount = baseTiles.Count;
         if (needRotation)
         {
             int count = baseTiles.Count;
             for (int i = 0; i < count; i++)
             {
+                rotatedTiles.Add(new List<int>());
                 for (int j = 0; j < 4; j++)
                 {
                     List<string> oldEdges = new List<string>(baseTiles[i].edges);
@@ -92,7 +108,8 @@ public class WFCGenerator : MonoBehaviour
                     {
                         if (oldEdges[k] != newEdges[k])
                         {
-                            baseTiles.Add(new TilePrefab { tile = baseTiles[i].tile, edges = newEdges, rotation = rotation });
+                            baseTiles.Add(new TilePrefab { tile = baseTiles[i].tile, edges = newEdges, rotation = rotation, name = baseTiles[i].name });
+                            rotatedTiles[i].Add(baseTiles.Count - 1);
                             break;
                         }
                     }
@@ -102,8 +119,9 @@ public class WFCGenerator : MonoBehaviour
         for (int i = 0; i < baseTiles.Count; i++)
         {
             optionsCount.Add(i);
+            optionsLeft.Add(99999);
         }
-        // Debug.Log("Options count: " + optionsCount.Count);
+        //Debug.Log("Options count: " + optionsCount.Count);
     }
 
     public void createGrid()
@@ -129,10 +147,75 @@ public class WFCGenerator : MonoBehaviour
                 GameObject tile = Instantiate(blank, new Vector3(newPos.x, 0, newPos.z), Quaternion.identity, this.transform);
                 //tile.GetComponent<Tile>().index = gridTiles.Count;
                 gridTiles.Add(tile);
-                tileObjects.Add(new Cell { isCollapsed = false, options = new List<int>(optionsCount), pos = newPos, prefab = new TilePrefab { tile = tile, edges = baseTiles[tileIndex].edges, rotation = baseTiles[tileIndex].rotation } });
+                tileObjects.Add(new Cell { isCollapsed = false, options = new List<int>(optionsCount), pos = newPos, prefab = new TilePrefab { tile = tile, edges = baseTiles[tileIndex].edges, rotation = baseTiles[tileIndex].rotation, name = baseTiles[tileIndex].name } });
             }
         }
         gridReady = true;
+        applyRulsets();
+    }
+
+    public void applyRulsets()
+    {
+        if (noWater)
+        {
+            for (int j = 0; j < startingTileCount; j++)
+            {
+                for (int i = 0; i < baseTiles[j].edges.Count; i++)
+                {
+                    if (baseTiles[j].edges[i].Contains("W"))
+                    {
+                        restrictOptions(j, 0);
+                    }
+                }
+            }
+        }
+        if (noSand)
+        {
+            for (int j = 0; j < startingTileCount; j++)
+            {
+                for (int i = 0; i < baseTiles[j].edges.Count; i++)
+                {
+                    if (baseTiles[j].edges[i].Contains("S"))
+                    {
+                        restrictOptions(j, 0);
+                    }
+                }
+            }
+        }
+        if (noGrass)
+        {
+           // restrictOptions(0, -1, "half");
+            for (int j = 0; j < startingTileCount; j++)
+            {
+                for (int i = 0; i < baseTiles[j].edges.Count; i++)
+                {
+                    if (baseTiles[j].edges[i].Contains("G"))
+                    {
+                        restrictOptions(j, 0);
+                        //restrictOptions(j, -1, "half");
+                    }
+                }
+            }
+        }
+
+        if (beach)
+        {
+            for (int i = 0; i < gridSize.x; i++)
+            {
+                if(i%2 ==0)
+                {
+                    int min = (int)gridSize.x, max = (int)(gridSize.x * 2);
+                    collapsCell(Random.Range(min, max), 4);
+                }
+                collapsCell(i, 4);
+            }
+            for (int i = (int)gridSize.x; i < (int)gridSize.x * 2; i++)
+            {
+                //removeOption(i, 4);
+            }
+            //restrictOptions(4, 0);
+        }
+
     }
 
     public void runWFC()
@@ -144,11 +227,11 @@ public class WFCGenerator : MonoBehaviour
 
         if (animated)
         {
-            StartCoroutine(collapseGridAnimation());
+            //StartCoroutine(collapseGridAnimation());
         }
         else
         {
-            collapseGrid();
+           collapseGrid();
         }
         gridReady = false;
 
@@ -157,10 +240,20 @@ public class WFCGenerator : MonoBehaviour
 
     public void collapseGrid()
     {
+        //bool failed = false;
         int backTraces = 5;
         int lastIndex = 0;
         for (int i = 0; i < gridSize.x * gridSize.y; i++)
         {
+            //check options
+            for (int j = 0; j < optionsLeft.Count; j++)
+            {
+                if (optionsLeft[j] == 0)
+                {
+                    clearOptionsOfTyp(j);
+                }
+            }
+
             Cell newCell = selectTileWithLowestEntropy();
             if (newCell == null)
             {
@@ -170,19 +263,16 @@ public class WFCGenerator : MonoBehaviour
             List<int> options = tileObjects[index].options;
             if (options.Count == 0)
             {
-                //yield return new WaitForSeconds(5);
-                //playbackSpeed = 5;
-                //Debug.LogError("Needed to backtrace for tile " + index);
                 tileObjects = bactraceList[^backTraces].backtraceList;
                 i = bactraceList[^backTraces].step - 1;
                 backTraces++;
-                //Destroy(gridTiles[lastIndex].gameObject);
                 continue;
                 //failed = true;
                 //break;
             }
             backTraces = 5;
-            int newOption = options[UnityEngine.Random.Range(0, options.Count)];
+            int newOption = options[Random.Range(0, options.Count)];
+            optionsLeft[newOption]--;
             tileObjects[index].options = new List<int> { newOption };
             tileObjects[index].isCollapsed = true;
             tileObjects[index].prefab.rotation = baseTiles[newOption].rotation;
@@ -193,8 +283,11 @@ public class WFCGenerator : MonoBehaviour
             Tile tempTile = tile.GetComponent<Tile>();
             _tiles[(int)pos.x][(int)pos.z] = tempTile;
             tempTile.tilePosition = new Vector2(pos.x, pos.z);
+            tile.GetComponent<Tile>().position = new Vector2Int((int)pos.x, (int)pos.z);
+            _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
 
             tileObjects[index].prefab.tile = tile;
+            tileObjects[index].prefab.name = baseTiles[newOption].name;
             tileObjects[index].prefab.edges = baseTiles[newOption].edges;
             Destroy(gridTiles[index].gameObject);
             gridTiles[index] = tile;
@@ -202,11 +295,12 @@ public class WFCGenerator : MonoBehaviour
             getTilesToUpdate(index);
             lastIndex = index;
         }
+
         //if (failed)
         //{
-
-        //    //createGrid();
-        //    //StartCoroutine(collapseGridAnimation());
+        //    Debug.Log("Failed");
+        //    createGrid();
+        //    collapseGrid();
         //}
     }
 
@@ -218,11 +312,22 @@ public class WFCGenerator : MonoBehaviour
             return;
         }
         List<int> options = tileObjects[index].options;
+
+        //check options
+        for (int i = 0; i < optionsLeft.Count; i++)
+        {
+            if (optionsLeft[i] == 0)
+            {
+                clearOptionsOfTyp(i);
+            }
+        }
+
         if (options.Count == 0)
         {
             return;
         }
         int newOption = baseTileIndex;
+        optionsLeft[newOption]--;
         tileObjects[index].options = new List<int> { newOption };
         tileObjects[index].prefab.rotation = baseTiles[newOption].rotation;
         tileObjects[index].isCollapsed = true;
@@ -233,69 +338,114 @@ public class WFCGenerator : MonoBehaviour
         Tile tempTile = tile.GetComponent<Tile>();
         _tiles[(int)pos.x][(int)pos.z] = tempTile;
         tempTile.tilePosition = new Vector2(pos.x, pos.z);
+        tile.GetComponent<Tile>().position = new Vector2Int((int)pos.x, (int)pos.z);
+        _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
 
         tileObjects[index].prefab.tile = tile;
+        tileObjects[index].prefab.name = baseTiles[newOption].name;
         tileObjects[index].prefab.edges = baseTiles[newOption].edges;
         Destroy(gridTiles[index].gameObject);
         gridTiles[index] = tile;
         getTilesToUpdate(index);
     }
 
-    public IEnumerator collapseGridAnimation()
+    //public IEnumerator collapseGridAnimation()
+    //{
+    //    bool failed = false;
+    //    int backTraces = 5;
+    //    int lastIndex = 0;
+    //    for (int i = 0; i < gridSize.x * gridSize.y; i++)
+    //    {
+    //        Cell newCell = selectTileWithLowestEntropy();
+    //        if (newCell == null)
+    //        {
+    //            break;
+    //        }
+    //        int index = tileObjects.IndexOf(newCell);
+    //        List<int> options = tileObjects[index].options;
+    //        if (options.Count == 0)
+    //        {
+    //            //yield return new WaitForSeconds(5);
+    //            //playbackSpeed = 5;
+    //            //Debug.LogError("Needed to backtrace for tile " + index);
+    //            tileObjects = bactraceList[^backTraces].backtraceList;
+    //            i = bactraceList[^backTraces].step - 1;
+    //            backTraces++;
+    //            //Destroy(gridTiles[lastIndex].gameObject);
+    //            continue;
+    //            //failed = true;
+    //            //break;
+    //        }
+    //        backTraces = 5;
+    //        int newOption = options[UnityEngine.Random.Range(0, options.Count)];
+    //        tileObjects[index].options = new List<int> { newOption };
+    //        tileObjects[index].isCollapsed = true;
+    //        tileObjects[index].prefab.rotation = baseTiles[newOption].rotation;
+    //        Vector3 pos = tileObjects[index].pos;
+    //        GameObject tile = Instantiate(baseTiles[newOption].tile, new Vector3(pos.x, 0, pos.z), baseTiles[newOption].rotation, this.transform);
+
+    //        tile.name = $"Tile {pos.x} {pos.z}";
+    //        _tiles[(int)pos.x][(int)pos.z] = tile.GetComponent<Tile>();
+
+    //        tileObjects[index].prefab.tile = tile;
+    //        tileObjects[index].prefab.edges = baseTiles[newOption].edges;
+    //        Destroy(gridTiles[index].gameObject);
+    //        gridTiles[index] = tile;
+    //        bactraceList.Add(new BactraceList { backtraceList = deepCopyList(tileObjects), step = i, lastModified = lastIndex });
+    //        getTilesToUpdate(index);
+    //        lastIndex = index;
+    //        yield return new WaitForSeconds(playbackSpeed);
+    //    }
+    //    //if (failed)
+    //    //{
+
+    //    //    //createGrid();
+    //    //    //StartCoroutine(collapseGridAnimation());
+    //    //}
+    //}
+
+    public void restrictOptions(int option, int count = -1, string area = "all")
     {
-        bool failed = false;
-        int backTraces = 5;
-        int lastIndex = 0;
-        for (int i = 0; i < gridSize.x * gridSize.y; i++)
+        if(count >= 0)
         {
-            Cell newCell = selectTileWithLowestEntropy();
-            if (newCell == null)
+            optionsLeft[option] = count;
+            for (int i = 0; i < rotatedTiles[option].Count; i++)
             {
-                break;
+                Debug.Log("index: " + rotatedTiles[option][i]);
+                optionsLeft[rotatedTiles[option][i]] = count;
             }
-            int index = tileObjects.IndexOf(newCell);
-            List<int> options = tileObjects[index].options;
-            if (options.Count == 0)
-            {
-                //yield return new WaitForSeconds(5);
-                //playbackSpeed = 5;
-                //Debug.LogError("Needed to backtrace for tile " + index);
-                tileObjects = bactraceList[^backTraces].backtraceList;
-                i = bactraceList[^backTraces].step - 1;
-                backTraces++;
-                //Destroy(gridTiles[lastIndex].gameObject);
-                continue;
-                //failed = true;
-                //break;
-            }
-            backTraces = 5;
-            int newOption = options[UnityEngine.Random.Range(0, options.Count)];
-            tileObjects[index].options = new List<int> { newOption };
-            tileObjects[index].isCollapsed = true;
-            tileObjects[index].prefab.rotation = baseTiles[newOption].rotation;
-            Vector3 pos = tileObjects[index].pos;
-            GameObject tile = Instantiate(baseTiles[newOption].tile, new Vector3(pos.x, 0, pos.z), baseTiles[newOption].rotation, this.transform);
-
-            tile.name = $"Tile {pos.x} {pos.z}";
-            Tile tempTile = tile.GetComponent<Tile>();
-            _tiles[(int)pos.x][(int)pos.z] = tempTile;
-            tempTile.tilePosition = new Vector2(pos.x, pos.z);
-
-            tileObjects[index].prefab.tile = tile;
-            tileObjects[index].prefab.edges = baseTiles[newOption].edges;
-            Destroy(gridTiles[index].gameObject);
-            gridTiles[index] = tile;
-            bactraceList.Add(new BactraceList { backtraceList = deepCopyList(tileObjects), step = i, lastModified = lastIndex });
-            getTilesToUpdate(index);
-            lastIndex = index;
-            yield return new WaitForSeconds(playbackSpeed);
         }
-        //if (failed)
-        //{
 
-        //    //createGrid();
-        //    //StartCoroutine(collapseGridAnimation());
-        //}
+        if(area == "half")
+        {
+            int tileCount = (int)(gridSize.x * gridSize.y);
+            for (int i = Mathf.RoundToInt(tileCount/2); i < tileCount; i++)
+            {
+                Debug.Log("Removed option " + 0 + " from tile " + i);
+                removeOption(i,option);
+            }
+        }
+    }
+
+    public void removeOption(int tileIndex, int option)
+    {
+        if (tileObjects[tileIndex].options.Exists(o => o == option))
+        {
+            //Debug.Log("Clearing option " + option);
+            tileObjects[tileIndex].options.Remove(option);
+        }
+    }
+
+    public void clearOptionsOfTyp(int option)
+    {
+        foreach (var t in tileObjects)
+        {
+            if(t.options.Exists(o => o == option))
+            {
+                //Debug.Log("Clearing option " + option);
+                t.options.Remove(option);
+            }
+        }
     }
 
     public List<Cell> deepCopyList(List<Cell> list)
@@ -322,6 +472,7 @@ public class WFCGenerator : MonoBehaviour
             newTilePrefab.edges = newEdges;
             newTilePrefab.rotation = list[i].prefab.rotation;
             newTilePrefab.tile = list[i].prefab.tile;
+            newTilePrefab.name = list[i].prefab.name;
             newCell.prefab = newTilePrefab;
             copyList.Add(newCell);
         }
@@ -370,6 +521,38 @@ public class WFCGenerator : MonoBehaviour
                 }
             }
 
+            if(noSmallLakes)
+            {
+                if(tileObjects[oldIndex].prefab.name == "CliffStraight" && baseTiles[i].name == "CliffStraight" && tileObjects[oldIndex].prefab.rotation.eulerAngles.y + baseTiles[i].rotation.eulerAngles.z == 180)
+                {
+                    //Debug.Log("Removed cliff straight");
+                    tileObjects[index].options.Remove(i);
+                }
+                if (tileObjects[oldIndex].prefab.name == "CliffTurn" && baseTiles[i].name == "CliffTurn")
+                {
+                    tileObjects[index].options.Remove(i);
+                }
+                if (tileObjects[oldIndex].prefab.name == "CoastStraight" && baseTiles[i].name == "CoastStraight" && tileObjects[oldIndex].prefab.rotation.eulerAngles.y + baseTiles[i].rotation.eulerAngles.z == 180)
+                {
+                    //Debug.Log("Removed cliff straight");
+                    tileObjects[index].options.Remove(i);
+                }
+                if (tileObjects[oldIndex].prefab.name == "CoastTurn" && baseTiles[i].name == "CoastTurn")
+                {
+                    tileObjects[index].options.Remove(i);
+                }
+                if (tileObjects[oldIndex].prefab.name == "TransitionStraight" && baseTiles[i].name == "TransitionStraight" && tileObjects[oldIndex].prefab.rotation.eulerAngles.y + baseTiles[i].rotation.eulerAngles.z == 180)
+                {
+                    //Debug.Log("Removed cliff straight");
+                    tileObjects[index].options.Remove(i);
+                }
+                if (tileObjects[oldIndex].prefab.name == "TransitionTurn" && baseTiles[i].name == "TransitionTurn")
+                {
+                    tileObjects[index].options.Remove(i);
+                }
+
+            }
+
         }
     }
 
@@ -396,10 +579,10 @@ public class WFCGenerator : MonoBehaviour
         {
             if (sortedTiles[i].options.Count < sortedTiles[i + 1].options.Count)
             {
-                return sortedTiles[UnityEngine.Random.Range(0, i)];
+                return sortedTiles[Random.Range(0, i)];
             }
         }
-        return sortedTiles[UnityEngine.Random.Range(0, sortedTiles.Count)];
+        return sortedTiles[Random.Range(0, sortedTiles.Count)];
     }
 
     public void clearGrid()
@@ -428,8 +611,7 @@ public class WFCGenerator : MonoBehaviour
         GameObject tile = Instantiate(blank, new Vector3(pos.x, 0, pos.z), Quaternion.identity, this.transform);
         //tile.GetComponent<Tile>().index = index;
         gridTiles.Insert(index, tile);
-        tileObjects.Insert(index, new Cell { isCollapsed = false, options = new List<int>(optionsCount), pos = pos, prefab = new TilePrefab { tile = tile, edges = baseTiles[tileIndex].edges, rotation = baseTiles[tileIndex].rotation } });
-
+        tileObjects.Insert(index, new Cell { isCollapsed = false, options = new List<int>(optionsCount), pos = pos, prefab = new TilePrefab { tile = tile, edges = baseTiles[tileIndex].edges, rotation = baseTiles[tileIndex].rotation, name = baseTiles[tileIndex].name } });
     }
 
     public Tile GetHeroSpawnTile()
