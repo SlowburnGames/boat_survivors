@@ -46,11 +46,11 @@ public class Tile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (CombatManager.Instance.combatState == CombatState.HeroesTurn)
+        if (CombatManager.Instance.combatState == CombatState.HeroTurn)
         {
             UnitManager.Instance.HeroesTurn(this, tileUnit, isWalkable);
         }
-        else if (tileUnit == null && CombatManager.Instance.combatState == CombatState.SpawnHeroes && isWalkable)
+        if (tileUnit == null && CombatManager.Instance.combatState == CombatState.SpawnHeroes && isWalkable)
         {
             DestroyHeroPreview();
             UnitManager.Instance.SpawnSelectedHero(this);

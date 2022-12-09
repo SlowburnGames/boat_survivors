@@ -103,7 +103,7 @@ public class WFCGenerator : MonoBehaviour
         {
             optionsCount.Add(i);
         }
-        Debug.Log("Options count: " + optionsCount.Count);
+        // Debug.Log("Options count: " + optionsCount.Count);
     }
 
     public void createGrid()

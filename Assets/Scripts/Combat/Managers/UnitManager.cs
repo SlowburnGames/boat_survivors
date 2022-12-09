@@ -12,9 +12,11 @@ public class UnitManager : MonoBehaviour
     public static UnitManager Instance;
     private List<ScriptableUnit> _enemyUnits;
     private List<ScriptableUnit> _heroUnits;
+    private List<ScriptableUnit> _allUnits;
 
     public BaseHero selectedHero;
     private static List<string> _availableHeroes;
+    private static List<string> _availableEnemies;
 
     [SerializeField] private GameObject _attackRangeIndicator;
 
@@ -24,6 +26,7 @@ public class UnitManager : MonoBehaviour
 
         _enemyUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units/Enemies").ToList();
         _heroUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units/Heroes").ToList();
+        _allUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units").ToList();
         Debug.Log("Nr of different Enemies: " + _enemyUnits.Count);
         Debug.Log("Nr of different Heroes : " + _heroUnits.Count);
     }
@@ -39,7 +42,7 @@ public class UnitManager : MonoBehaviour
             SetUnit(spawnedHero, randomSpawnTile);
         }
         
-        CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
+        // CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
     }
 
     public void SpawnSelectedHero(Tile spawnTile)
@@ -50,13 +53,14 @@ public class UnitManager : MonoBehaviour
             var spawnedHero = Instantiate(heroPrefab);
             
             SetUnit(spawnedHero, spawnTile);
+            CombatManager.Instance._spawnedUnitList.Add(spawnedHero);
             _availableHeroes.RemoveAt(0);
             MenuManager.Instance.UpdateAvailableHeroes(_availableHeroes);
         }
 
         if (_availableHeroes.Count <= 0)
         {
-            CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
+            CombatManager.Instance.ChangeCombatState(CombatState.SetTurnOrder);
             MenuManager.Instance.DisableAvailableHeroes();
         }
         
@@ -64,16 +68,14 @@ public class UnitManager : MonoBehaviour
     
     public void SpawnEnemies()
     {
-        // TODO Get type and number of enemies from outside
-        string[] enemySequence = { "Monster", "Zombie", "Monster", "Zombie" };
-
-        foreach (var enemyName in enemySequence)
+        foreach (var enemyName in _availableEnemies)
         {
             var enemyPrefab = GetEnemyByName(enemyName);
             var spawnedEnemy = Instantiate(enemyPrefab);
             var randomSpawnTile = WFCGenerator.Instance.GetEnemySpawnTile();
 
             SetUnit(spawnedEnemy, randomSpawnTile);
+            CombatManager.Instance._spawnedUnitList.Add(spawnedEnemy);
         }
         
         CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
@@ -85,30 +87,28 @@ public class UnitManager : MonoBehaviour
         if (tileUnit != null)
         {
             // First click -> select the hero and range indicator
-            if (tileUnit.Faction == Faction.Hero && selectedHero == null)
+            // if (tileUnit.Faction == Faction.Hero && selectedHero == null)
+            // {
+            //     SetSelectedHero((BaseHero) tileUnit);
+            //     ToggleAttackRangeIndicator((BaseHero)tileUnit, true);
+            // }
+            // Click on same hero (nothing should happen)
+            if (tileUnit.Faction == Faction.Hero && selectedHero == (BaseHero)tileUnit)
             {
-                SetSelectedHero((BaseHero) tileUnit);
-                
-                // TODO 1: wenn man hero und danach ANDEREN hero selected muss der indicator beim ersten gelöscht werden
-                // TODO 2: wenn man hero und danach SELBEN hero selected darf nicht nochmal in dies if rein
-                ToggleAttackRangeIndicator((BaseHero)tileUnit, true);
+                // Debug.Log("Same hero selected");
             }
-            // Second click on same hero (nothing should happen)
-            else if (tileUnit.Faction == Faction.Hero && selectedHero == (BaseHero)tileUnit)
-            {
-                Debug.Log("Same hero selected");
-            }
-            // Second click on either another hero -> (hero1 gets unselected and hero2 gets selected)
+            // Click on another hero -> (nothing should happen)
             else if (tileUnit.Faction == Faction.Hero && selectedHero != null)
             {
-                Debug.Log("Another hero selected");
-                ToggleAttackRangeIndicator(selectedHero, false);
-                SetSelectedHero((BaseHero)tileUnit);
-                ToggleAttackRangeIndicator((BaseHero)tileUnit, true);
+                // Debug.Log("Another hero selected");
+                // ToggleAttackRangeIndicator(selectedHero, false);
+                // SetSelectedHero((BaseHero)tileUnit);
+                // ToggleAttackRangeIndicator((BaseHero)tileUnit, true);
             }
+            
+            // Click on an enemy -> Attack it (if possible, else nothing should happen)
             else
             {
-                // When we next click on an enemy -> Attack it
                 if (selectedHero != null && tileUnit.Faction == Faction.Enemy)
                 {
                     var enemy = (BaseEnemy) tileUnit;
@@ -121,7 +121,7 @@ public class UnitManager : MonoBehaviour
                     if (canAttack)
                     {
                         enemy.Attack(selectedHero.AttackDamage);
-                        Debug.Log("Damaged " + enemy.name + " by " + selectedHero.AttackDamage);
+                        // Debug.Log("Damaged " + enemy.name + " by " + selectedHero.AttackDamage);
                         
                         // Check if attacked unit dies
                         CheckAttackedUnit(enemy);
@@ -129,7 +129,7 @@ public class UnitManager : MonoBehaviour
                         // End turn
                         ToggleAttackRangeIndicator(selectedHero, false);
                         SetSelectedHero(null);
-                        CombatManager.Instance.ChangeCombatState(CombatState.EnemiesTurn);
+                        CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
                     }
                     
                 }
@@ -144,7 +144,7 @@ public class UnitManager : MonoBehaviour
                 ToggleAttackRangeIndicator(selectedHero, false);
                 SetUnit(selectedHero, tile);
                 SetSelectedHero(null);
-                CombatManager.Instance.ChangeCombatState(CombatState.EnemiesTurn);
+                CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
             }
         }
     }
@@ -153,7 +153,7 @@ public class UnitManager : MonoBehaviour
     {
         
         Debug.Log("Enemy turn!");
-        CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
+        // CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
     }
 
     private BaseEnemy GetEnemyByName(string eName)
@@ -164,6 +164,11 @@ public class UnitManager : MonoBehaviour
     public BaseHero GetHeroByName(string hName)
     {
         return (BaseHero)_heroUnits.Where(u => u.name == hName).First().UnitPrefab;
+    }
+    
+    public BaseUnit GetUnitByName(string uName)
+    {
+        return (BaseUnit)_allUnits.Where(u => u.name == uName).First().UnitPrefab;
     }
 
     public void SetSelectedHero(BaseHero hero)
@@ -208,7 +213,28 @@ public class UnitManager : MonoBehaviour
 
     private List<Tile> CalcRangedAttackIndicator(Tile heroTile, int range)
     {
-        return null;
+        int xStart = (int)heroTile.tilePosition.x;
+        int yStart= (int)heroTile.tilePosition.y;
+        List<Tile> indicaterPositions = new List<Tile>();
+        int maxX = (int)WFCGenerator.Instance.gridSize.x;
+        int maxY = (int)WFCGenerator.Instance.gridSize.y;
+
+        for (int x = xStart - range; x <= xStart + range; x++)
+        {
+            if (x == xStart || x >= maxX || x < 0 )
+                continue;
+
+            indicaterPositions.Add(WFCGenerator.Instance._tiles[x][yStart]);
+        }
+        for (int y = yStart-range; y <= yStart+range; y++)
+        {
+            if (y == yStart ||  y >= maxY || y < 0)
+                continue;
+                
+            indicaterPositions.Add(WFCGenerator.Instance._tiles[xStart][y]);
+        }
+
+        return indicaterPositions;
     }
 
     private void SetAttackRangeIndicator(List<Tile> tilePositions) 
@@ -265,12 +291,11 @@ public class UnitManager : MonoBehaviour
     private void CheckAttackedUnit(BaseUnit aUnit)
     {
         if (aUnit.Health <= 0)
+        {
+            CombatManager.Instance._turnQueue =
+                new Queue<BaseUnit>(CombatManager.Instance._turnQueue.Where(x => x != aUnit));
             Destroy(aUnit.gameObject);
-    }
-
-    public void SetSpawnableHeroes(List<string> heroes)
-    {
-        _availableHeroes = heroes;
+        }
     }
 
     public BaseHero GetNextHero()
@@ -278,5 +303,12 @@ public class UnitManager : MonoBehaviour
         return GetHeroByName(_availableHeroes[0]);
     }
     
-    
+    public void SetSpawnableHeroes(List<string> heroes)
+    {
+        _availableHeroes = new List<string>(heroes);
+    }
+    public void SetSpawnableEnemies(List<string> enemies)
+    {
+        _availableEnemies = new List<string>(enemies);
+    }
 }

@@ -55,8 +55,8 @@ public class MenuManager : MonoBehaviour
 
     public void UpdateHealthBar(BaseUnit unit)
     {
-        var slider = unit.gameObject.GetComponentInChildren<Slider>();
-        slider.value = (float)unit.Health / unit.MaxHealth;
+        var slider = unit.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
+        slider.fillAmount = (float)unit.Health / unit.MaxHealth;
     }
 
     public void ShowAvailableHeroes(List<string> myHeroes)
