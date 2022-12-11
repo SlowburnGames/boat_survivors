@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &257058166 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9097602845791290741, guid: 39e0f5babd835f74d9faa5b2446a36a1, type: 3}
+  m_PrefabInstance: {fileID: 849016489}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49153fcbdec9d942963e52be5644019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &487642698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,6 +193,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7876251557385587698, guid: 6e7a0ca4b062e9549aa412b02dc09223, type: 3}
+      propertyPath: travelManager
+      value: 
+      objectReference: {fileID: 257058166}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e7a0ca4b062e9549aa412b02dc09223, type: 3}
 --- !u!1001 &849016489
@@ -255,6 +270,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9097602845791290741, guid: 39e0f5babd835f74d9faa5b2446a36a1, type: 3}
+      propertyPath: dialogueDisplay
+      value: 
+      objectReference: {fileID: 2046786698}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39e0f5babd835f74d9faa5b2446a36a1, type: 3}
 --- !u!1 &961493829
@@ -325,3 +344,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2046786698 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7876251557385587698, guid: 6e7a0ca4b062e9549aa412b02dc09223, type: 3}
+  m_PrefabInstance: {fileID: 487642698}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db915565be8412746a583dd5dcc2163d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

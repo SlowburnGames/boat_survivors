@@ -6,29 +6,34 @@ using System.IO;
 
 public class TravelManager : MonoBehaviour
 {
-
+    [Header("Resources/Resource Display")]
+    public int population = 3;
     [SerializeField]private int morale = 50;
     [SerializeField]private int resources = 50;
     [SerializeField]public RessourceDisplay resource_display;
     [SerializeField]private Button[] buttons;
-    [SerializeField]private List<Event> events;
 
+    [Header("Dialogue System")]
+    [SerializeField]private List<DialogueContainer> events;
+    public DialogueDisplay dialogueDisplay;
+
+    [Header("Time, Day/Night Cycle")]
+    private GameObject time_display;
     [SerializeField]public Sprite sun_sprite;
     [SerializeField]public Sprite moon_sprite;
-
-
     private bool isDay = true;
+    [Header("Boat")]
     public int travel_distance = 0;
-    public int population = 3;
-
     private Animator boat_animator;
-    private GameObject time_display;
+
+    [Header("Status Effects")]
     private List<StatusEffect> active_status_effects = new List<StatusEffect>();
 
 
     // Start is called before the first frame update
     void Start()
     {
+        loadRandomEvents();
         setupCamera();
         updateResUI();
         Transform canvas = transform.Find("Canvas");
@@ -36,11 +41,17 @@ public class TravelManager : MonoBehaviour
         time_display = time_display_transform.gameObject;
         Transform boat = canvas.Find("Boat");
         boat_animator = boat.GetComponent<Animator>();
-
-        GenericStatus test = new GenericStatus(this, +5, +5, 3);
-        active_status_effects.Add(test);
     }
 
+    void loadRandomEvents()
+    {
+        var cache = Resources.LoadAll("Dialogues", typeof(DialogueContainer));
+
+        foreach (var item in cache)
+        {
+            events.Add(item as DialogueContainer);
+        }
+    }
 
     void setupCamera()
     {
@@ -51,22 +62,6 @@ public class TravelManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    void ReadEvents()
-    {
-        string[] lines = System.IO.File.ReadAllLines("Assets/CSV/Events.csv");
-        string[] Columns= lines[0].Split(';');
-
-        for (int i=1; i<=lines.Length-1; i++)
-        {
-            if(lines[i].Length > 0)
-            {
-                string[] cols = lines[i].Split(';');
-                Event new_event = new Event(cols);
-                events.Add(new_event);
-            }
-        }
     }
 
 
@@ -87,7 +82,6 @@ public class TravelManager : MonoBehaviour
         checkLose();
         applyStatusEffects();
         startRandomEvent();
-        setButtonsInteractable(true);
 
     }
 
@@ -106,7 +100,7 @@ public class TravelManager : MonoBehaviour
 
     }
 
-    private void setButtonsInteractable(bool interactable)
+    public void setButtonsInteractable(bool interactable)
     {
         foreach (Button button in buttons)
         {
@@ -156,16 +150,45 @@ public class TravelManager : MonoBehaviour
     private void startRandomEvent()
     {
         Debug.Log("Random Event!");
+        dialogueDisplay.dialogueContainer = pickRandomEvent();
+        dialogueDisplay.init();
+        dialogueDisplay.gameObject.SetActive(true);
+    }
+
+    private DialogueContainer pickRandomEvent()
+    {
+        bool searching = true;
+        while(searching)
+        {
+            int randomIndex = Random.Range(0, events.Count);
+            if(events[randomIndex].alreadyEncountered == true)
+            {
+                continue;
+            }
+            events[randomIndex].alreadyEncountered = true;
+            return events[randomIndex];
+        }
+        return null;
     }
 
     public void addMorale(int value)
     {
+        Debug.Log("Morale changed: " + value);
         morale += value;
+        if(morale > 100)
+        {
+            morale = 100;
+        }
         updateResUI();
     }
     public void addRes(int value)
     {
+        Debug.Log("Res changed: " + value);
         resources += value;
+        if(resources > 100)
+        {
+            resources = 100;
+        }
         updateResUI();
     }
 

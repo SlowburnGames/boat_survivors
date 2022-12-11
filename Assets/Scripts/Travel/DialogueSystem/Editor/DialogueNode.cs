@@ -13,4 +13,8 @@ public class DialogueNode : Node
     public string DialogueText;
 
     public bool EntryPoint = false;
+
+    public int moraleChange = 0;
+    public int resourceChange = 0;
+    public int duration = 0;
 }

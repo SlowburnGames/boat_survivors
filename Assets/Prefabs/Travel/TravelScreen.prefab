@@ -1309,6 +1309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49153fcbdec9d942963e52be5644019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  population: 3
   morale: 50
   resources: 50
   resource_display: {fileID: 243880288745318470}
@@ -1316,10 +1317,10 @@ MonoBehaviour:
   - {fileID: 5614793594390410867}
   - {fileID: 7649253996122504143}
   events: []
+  dialogueDisplay: {fileID: 0}
   sun_sprite: {fileID: 21300000, guid: cefa8037350562d49957c855399e4f4e, type: 3}
   moon_sprite: {fileID: 21300000, guid: f6fd1f2367b716644b716c46b841d756, type: 3}
   travel_distance: 0
-  population: 3
 --- !u!1 &5614793594390410877
 GameObject:
   m_ObjectHideFlags: 0

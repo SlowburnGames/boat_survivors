@@ -30,6 +30,13 @@ public class GraphSaveUtility
 
     public void SaveGraph(string filename)
     {
+        //check for multiple EntryPoints
+        if(_nodes.FindAll((node)=>node.EntryPoint).Count != 1)
+        {
+            EditorUtility.DisplayDialog("Invalid EntryPoints!", "Graphs can only have 1 entry point.", "Sorry.");
+            return;
+        }
+
         //TODO: Save outputs without connections
         if(!_edges.Any())
         {
@@ -52,12 +59,16 @@ public class GraphSaveUtility
             });
         }
 
-        foreach (var dialogueNode in _nodes.Where(node=>!node.EntryPoint))
+        foreach (var dialogueNode in _nodes)
         {
             dialogueContainer.dialogueNodeData.Add(new DialogueNodeData{
                 NodeGUID = dialogueNode.GUID,
                 DialogueText = dialogueNode.DialogueText,
                 Position = dialogueNode.GetPosition().position,
+                entryPoint = dialogueNode.EntryPoint,
+                resourceChange = dialogueNode.resourceChange,
+                moraleChange = dialogueNode.moraleChange,
+                duration = dialogueNode.duration
             });
         }
 
@@ -81,13 +92,8 @@ public class GraphSaveUtility
 
     private void ClearGraph()
     {
-        //Set entry point
-        _nodes.Find(x=>x.EntryPoint).GUID = _containerCache.nodeLinks[0].BaseNodeGuid;
-
         foreach (var node in _nodes)
         {
-            if(node.EntryPoint) continue;
-            
             _edges.Where(x => x.input.node == node).ToList()
                 .ForEach(edge => _targetGraphView.RemoveElement(edge));
 
@@ -99,7 +105,7 @@ public class GraphSaveUtility
     {
         foreach (var dialogueNode in _containerCache.dialogueNodeData)
         {
-            var tempNode = _targetGraphView.CreateDialogueNode(dialogueNode.DialogueText);
+            var tempNode = _targetGraphView.CreateDialogueNode(dialogueNode.DialogueText, false, dialogueNode);
 
             tempNode.GUID = dialogueNode.NodeGUID;
             _targetGraphView.AddElement(tempNode);

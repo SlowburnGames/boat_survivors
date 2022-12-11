@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b12822a63964b6438caf9319c409336, type: 3}
+  m_Name: rotten_food
+  m_EditorClassIdentifier: 
+  nodeLinks:
+  - BaseNodeGuid: c9576477-1a2b-4a0b-a1bb-31dce8edfabb
+    PortName: Okay.
+    TargetNodeGuid: ee649c7c-1150-40b6-8298-c26ed15962a7
+  dialogueNodeData:
+  - NodeGUID: c9576477-1a2b-4a0b-a1bb-31dce8edfabb
+    DialogueText: Your food is rotten!
+    Position: {x: 90, y: 148}
+    entryPoint: 1
+    moraleChange: 0
+    resourceChange: 0
+    duration: 0
+  - NodeGUID: ee649c7c-1150-40b6-8298-c26ed15962a7
+    DialogueText: 'You have to throw some of it into the ocean.
+
+      The fish are
+      happy.
+
+      Your people are not.'
+    Position: {x: 536, y: 210}
+    entryPoint: 0
+    moraleChange: -10
+    resourceChange: -10
+    duration: 0
+  alreadyEncountered: 0

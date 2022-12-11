@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -22,7 +23,8 @@ public class DialogueGraphView : GraphView
         this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
 
-        AddElement(GenerateEntryNode());
+        var entry_node = CreateDialogueNode("Start", true);
+        AddElement(entry_node);
     }
 
     private Port GeneratePort(DialogueNode node, Direction portDirection, Port.Capacity capacity = Port.Capacity.Single)
@@ -68,13 +70,15 @@ public class DialogueGraphView : GraphView
         return compatiblePorts;
     }
 
-    public DialogueNode CreateDialogueNode(string nodeName)
+    public DialogueNode CreateDialogueNode(string nodeName, bool entryNode = false, DialogueNodeData nodeData = null)
     {
+
         var dialogue_node = new DialogueNode
         {
             title = nodeName,
             DialogueText = nodeName,
-            GUID = Guid.NewGuid().ToString()
+            GUID = Guid.NewGuid().ToString(),
+            EntryPoint = entryNode,
         };
 
         var input_port = GeneratePort(dialogue_node, Direction.Input, Port.Capacity.Multi);
@@ -87,7 +91,16 @@ public class DialogueGraphView : GraphView
         dialogue_node.titleContainer.Add(add_button);
 
 
-        var textField = new TextField(string.Empty);
+        var entrySwitch = new UnityEngine.UIElements.Toggle("Entry Point");
+        entrySwitch.RegisterValueChangedCallback(evt =>
+        {
+            dialogue_node.EntryPoint = evt.newValue;
+        });
+        entrySwitch.SetValueWithoutNotify(entryNode);
+        dialogue_node.mainContainer.Add(entrySwitch);
+
+        var textField = new TextField("Text:");
+        textField.multiline = true;
         textField.RegisterValueChangedCallback(evt=>{
             dialogue_node.DialogueText = evt.newValue;
             dialogue_node.title = evt.newValue;
@@ -95,12 +108,46 @@ public class DialogueGraphView : GraphView
         textField.SetValueWithoutNotify(dialogue_node.title);
         dialogue_node.mainContainer.Add(textField);
 
-        dialogue_node.RefreshPorts();
-        dialogue_node.SetPosition(new Rect(Vector2.zero, defaultNodeSize));
+        var moraleChangeField = new IntegerField("Morale Change:");
+        moraleChangeField.RegisterValueChangedCallback(evt => {
+            dialogue_node.moraleChange = evt.newValue;
+        });
+        moraleChangeField.SetValueWithoutNotify(0);
+        dialogue_node.mainContainer.Add(moraleChangeField);
         
+        var resourceChangeField = new IntegerField("Resource Change:");
+        resourceChangeField.RegisterValueChangedCallback(evt => {
+            dialogue_node.resourceChange = evt.newValue;
+        });
+        resourceChangeField.SetValueWithoutNotify(0);
+        dialogue_node.mainContainer.Add(resourceChangeField);
+
+        var effectDurationField = new IntegerField("Effect Duration:");
+        effectDurationField.RegisterValueChangedCallback(evt => {
+            dialogue_node.duration = evt.newValue;
+        });
+        effectDurationField.SetValueWithoutNotify(0);
+        effectDurationField.tooltip = "Values other than 0 result in adding a generic status effect.\n0: Apply change only once.\n -1: Infinite duration";
+        dialogue_node.mainContainer.Add(effectDurationField);
+
+        dialogue_node.RefreshPorts();
+        dialogue_node.SetPosition(new Rect(new Vector2(100,100), defaultNodeSize));
+        
+        if(nodeData != null)
+        {
+            entrySwitch.SetValueWithoutNotify(nodeData.entryPoint);
+            moraleChangeField.SetValueWithoutNotify(nodeData.moraleChange);
+            resourceChangeField.SetValueWithoutNotify(nodeData.resourceChange);
+            effectDurationField.SetValueWithoutNotify(nodeData.duration);
+            
+            dialogue_node.EntryPoint = nodeData.entryPoint;
+            dialogue_node.moraleChange = nodeData.moraleChange;
+            dialogue_node.resourceChange = nodeData.resourceChange;
+            dialogue_node.duration = nodeData.duration;
+        }
+
         return dialogue_node;
     }
-
     public void CreateNode(string nodeName)
     {
         AddElement(CreateDialogueNode(nodeName));
