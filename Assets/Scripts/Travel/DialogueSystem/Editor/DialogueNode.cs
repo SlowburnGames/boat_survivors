@@ -31,4 +31,19 @@ public class DialogueNode : Node
     {
         
     }
+
+    public DialogueNodeData createData()
+    {
+        return new DialogueNodeData{
+            NodeGUID = GUID,
+            DialogueText = DialogueText,
+            image = image,
+            Position = this.GetPosition().position,
+            entryPoint = EntryPoint,
+            resourceChange = resourceChange,
+            moraleChange = moraleChange,
+            duration = duration,
+            combat = combat,
+        };
+    }
 }

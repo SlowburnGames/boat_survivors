@@ -61,7 +61,7 @@ public class GraphSaveUtility
 
         foreach (var dialogueNode in _nodes)
         {
-            dialogueContainer.dialogueNodeData.Add(new DialogueNodeData(dialogueNode));
+            dialogueContainer.dialogueNodeData.Add(dialogueNode.createData());
         }
 
         AssetDatabase.CreateAsset(dialogueContainer, $"Assets/Resources/Dialogues/{filename}.asset");

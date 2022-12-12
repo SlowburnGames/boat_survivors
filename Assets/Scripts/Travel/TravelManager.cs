@@ -168,6 +168,7 @@ public class TravelManager : MonoBehaviour
         Debug.Log("Random Event!");
         if(currentEventIndex >= events.Count)
         {
+            setButtonsInteractable(true);
             return;
         }
         dialogueDisplay.dialogueContainer = events[currentEventIndex];

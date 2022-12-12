@@ -16,16 +16,16 @@ public class DialogueNodeData
     public int duration = 0;
     public bool combat = false;
 
-    public DialogueNodeData(DialogueNode dialogueNode)
-    {
-        NodeGUID = dialogueNode.GUID;
-        DialogueText = dialogueNode.DialogueText;
-        image = dialogueNode.image;
-        Position = dialogueNode.GetPosition().position;
-        entryPoint = dialogueNode.EntryPoint;
-        resourceChange = dialogueNode.resourceChange;
-        moraleChange = dialogueNode.moraleChange;
-        duration = dialogueNode.duration;
-        combat = dialogueNode.combat;
-    }
+//    public DialogueNodeData(DialogueNode dialogueNode)
+    //{
+        //NodeGUID = dialogueNode.GUID;
+        //DialogueText = dialogueNode.DialogueText;
+        //image = dialogueNode.image;
+        //Position = dialogueNode.GetPosition().position;
+        //entryPoint = dialogueNode.EntryPoint;
+        //resourceChange = dialogueNode.resourceChange;
+        //moraleChange = dialogueNode.moraleChange;
+        //duration = dialogueNode.duration;
+        //combat = dialogueNode.combat;
+    //}
 }
