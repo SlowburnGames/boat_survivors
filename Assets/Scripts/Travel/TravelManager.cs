@@ -87,7 +87,7 @@ public class TravelManager : MonoBehaviour
         //wait for some time 2 seconds or so
         setButtonsInteractable(false);
         boat_animator.Play("boat_travel");
-        Invoke("sail", 4);
+        Invoke("sail", 5);
     }
 
     private void sail()
