@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class DialogueDisplay : MonoBehaviour
 {
+    public static DialogueDisplay instance { get; private set; }
+
     // Start is called before the first frame update
     public DialogueContainer dialogueContainer;
     public TMP_Text description;
@@ -15,10 +18,12 @@ public class DialogueDisplay : MonoBehaviour
 
     [SerializeField]private TravelManager travelManager;
 
+    private void Awake() {
+        instance = this;
+    }
 
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -29,7 +34,10 @@ public class DialogueDisplay : MonoBehaviour
 
     void updateText()
     {
-        image.sprite = Resources.Load<Sprite>($"Dialogues/Images/{currentNode.image}");
+        if(!string.IsNullOrEmpty(currentNode.image))
+        {
+            image.sprite = Resources.Load<Sprite>($"Dialogues/Images/{currentNode.image}");
+        }
         description.SetText(currentNode.DialogueText);
         updateButtons();
     }
@@ -37,7 +45,7 @@ public class DialogueDisplay : MonoBehaviour
     void closeEvent()
     {
         travelManager.setButtonsInteractable(true);
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     void updateButtons()
@@ -75,11 +83,16 @@ public class DialogueDisplay : MonoBehaviour
         }
         else if(currentNode.duration == -1)
         {
-            travelManager.addStatus(new GenericStatus(travelManager, currentNode.moraleChange, currentNode.resourceChange, 1, true));
+            travelManager.addStatus(new GenericStatus(currentNode.moraleChange, currentNode.resourceChange, 1, true));
         }
         else
         {
-            travelManager.addStatus(new GenericStatus(travelManager, currentNode.moraleChange, currentNode.resourceChange, currentNode.duration));
+            travelManager.addStatus(new GenericStatus(currentNode.moraleChange, currentNode.resourceChange, currentNode.duration));
+        }
+        if(currentNode.applies_status)
+        {
+            var type = Type.GetType(currentNode.customStatus);
+            travelManager.addStatus(Activator.CreateInstance(type) as StatusEffect);
         }
 
     }
@@ -99,6 +112,7 @@ public class DialogueDisplay : MonoBehaviour
         currentChoices = getChoices();
         applyEffects();
         updateText();
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 
     private List<NodeLinkData> getChoices()

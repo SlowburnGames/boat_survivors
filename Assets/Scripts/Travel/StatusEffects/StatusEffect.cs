@@ -20,9 +20,9 @@ public class StatusEffect
     public bool _infinite = false;
     public TravelManager _travel_manager;
 
-    public StatusEffect(TravelManager t_mgr)
+    public StatusEffect()
     {
-        _travel_manager = t_mgr;
+        _travel_manager = TravelManager.instance;
     }
 
     public void applyStatusTick()

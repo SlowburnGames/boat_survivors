@@ -6,6 +6,8 @@ using System.IO;
 
 public class TravelManager : MonoBehaviour
 {
+    public static TravelManager instance {get; private set; }
+
     [Header("Resources/Resource Display")]
     public int population = 3;
     [SerializeField]private int morale = 50;
@@ -16,7 +18,7 @@ public class TravelManager : MonoBehaviour
     [Header("Dialogue System")]
     [SerializeField]private List<DialogueContainer> events;
     private int currentEventIndex = 0;
-    public DialogueDisplay dialogueDisplay;
+    private DialogueDisplay dialogueDisplay;
 
     [Header("Time, Day/Night Cycle")]
     private GameObject time_display;
@@ -26,10 +28,12 @@ public class TravelManager : MonoBehaviour
     [Header("Boat")]
     public int travel_distance = 0;
     private Animator boat_animator;
+    [SerializeField]public List<StatusEffect> active_status_effects = new List<StatusEffect>();
 
-    [Header("Status Effects")]
-    private List<StatusEffect> active_status_effects = new List<StatusEffect>();
 
+    private void Awake() {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +46,7 @@ public class TravelManager : MonoBehaviour
         time_display = time_display_transform.gameObject;
         Transform boat = canvas.Find("Boat");
         boat_animator = boat.GetComponent<Animator>();
+        dialogueDisplay = DialogueDisplay.instance;
     }
 
     void loadRandomEvents()
@@ -93,6 +98,7 @@ public class TravelManager : MonoBehaviour
     private void sail()
     {
         //time goes on
+        travel_distance++;
         switchTime();
         consumeResources();
         checkLose();
@@ -171,10 +177,9 @@ public class TravelManager : MonoBehaviour
             setButtonsInteractable(true);
             return;
         }
-        dialogueDisplay.dialogueContainer = events[currentEventIndex];
+        DialogueDisplay.instance.dialogueContainer = events[currentEventIndex];
         currentEventIndex++;
-        dialogueDisplay.init();
-        dialogueDisplay.gameObject.SetActive(true);
+        DialogueDisplay.instance.init();
     }
 
     private DialogueContainer pickRandomEvent()

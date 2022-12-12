@@ -8,7 +8,7 @@ public class GenericStatus : StatusEffect
     private int _morale_change;
     private int _resource_change;
     
-    public GenericStatus(TravelManager t_mgr, int morale_change, int resource_change, int dur, bool inf = false) : base(t_mgr)
+    public GenericStatus(int morale_change, int resource_change, int dur, bool inf = false) : base()
     {
         _morale_change = morale_change;
         _resource_change = resource_change;

@@ -21,6 +21,9 @@ MonoBehaviour:
     entryPoint: 1
     moraleChange: 10
     resourceChange: -2
+    customImmediate: monke
+    applies_status: 1
+    customStatus: TestStatus
     duration: -1
     combat: 0
   alreadyEncountered: 0

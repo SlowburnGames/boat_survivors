@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1c7a37dfdc0719419c7a4ecfa73bac6, type: 3}
-  m_Name: i_was_nit
+  m_Name: I_was_nit
   m_EditorClassIdentifier: 
   nodeLinks:
   - BaseNodeGuid: 78a9af23-0136-485c-9410-db4dfc93e4d2
@@ -33,6 +33,9 @@ MonoBehaviour:
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
     duration: 0
     combat: 0
   - NodeGUID: 23f6b37e-a5b8-4f7e-8bea-028fa346327e
@@ -42,6 +45,9 @@ MonoBehaviour:
     entryPoint: 0
     moraleChange: -10
     resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
     duration: 0
     combat: 0
   - NodeGUID: d5396a90-4eee-4501-a276-b84371266de2
@@ -51,6 +57,9 @@ MonoBehaviour:
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
     duration: 0
     combat: 0
   - NodeGUID: e6674e3e-9fa4-4c7e-9965-6401c2b4ab4b
@@ -60,6 +69,9 @@ MonoBehaviour:
     entryPoint: 0
     moraleChange: 0
     resourceChange: -10
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
     duration: 0
     combat: 0
   alreadyEncountered: 0

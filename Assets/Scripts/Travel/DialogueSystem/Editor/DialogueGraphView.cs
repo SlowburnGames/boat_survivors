@@ -89,6 +89,7 @@ public class DialogueGraphView : GraphView
         }
 
 
+
         var input_port = GeneratePort(dialogue_node, Direction.Input, Port.Capacity.Multi);
         input_port.portName = "Input";
 
@@ -107,6 +108,13 @@ public class DialogueGraphView : GraphView
         entrySwitch.SetValueWithoutNotify(dialogue_node.EntryPoint);
         dialogue_node.mainContainer.Add(entrySwitch);
 
+        //------------
+        //GameDisplay
+        //------------
+
+        var gameDisplayFoldout = new Foldout();
+        gameDisplayFoldout.text = "Game Display";
+
         var textField = new TextField("Text:");
         textField.multiline = true;
         textField.RegisterValueChangedCallback(evt=>{
@@ -114,7 +122,7 @@ public class DialogueGraphView : GraphView
             dialogue_node.title = evt.newValue;
         });
         textField.SetValueWithoutNotify(dialogue_node.DialogueText);
-        dialogue_node.mainContainer.Add(textField);
+        gameDisplayFoldout.contentContainer.Add(textField);
 
         //object field for images
         var imageField = new TextField("Image:");
@@ -122,21 +130,63 @@ public class DialogueGraphView : GraphView
             dialogue_node.image = evt.newValue;
         });
         imageField.SetValueWithoutNotify(dialogue_node.image);
-        dialogue_node.mainContainer.Add(imageField);
+        gameDisplayFoldout.contentContainer.Add(imageField);
+
+        dialogue_node.mainContainer.Add(gameDisplayFoldout);
+
+        //-----------------
+        //Immediate Effects
+        //-----------------
+
+        var immediateEffectsFoldout = new Foldout();
+        immediateEffectsFoldout.text = "Immediate Effects";
+        immediateEffectsFoldout.value = false;
 
         var moraleChangeField = new IntegerField("Morale Change:");
         moraleChangeField.RegisterValueChangedCallback(evt => {
             dialogue_node.moraleChange = evt.newValue;
         });
         moraleChangeField.SetValueWithoutNotify(dialogue_node.moraleChange);
-        dialogue_node.mainContainer.Add(moraleChangeField);
+        immediateEffectsFoldout.contentContainer.Add(moraleChangeField);
         
         var resourceChangeField = new IntegerField("Resource Change:");
         resourceChangeField.RegisterValueChangedCallback(evt => {
             dialogue_node.resourceChange = evt.newValue;
         });
         resourceChangeField.SetValueWithoutNotify(dialogue_node.resourceChange);
-        dialogue_node.mainContainer.Add(resourceChangeField);
+        immediateEffectsFoldout.contentContainer.Add(resourceChangeField);
+
+
+        var customImmediateField = new TextField("Custom Function:");
+        customImmediateField.RegisterValueChangedCallback((evt) => {
+            dialogue_node.customImmediate = evt.newValue;
+        });
+        customImmediateField.SetValueWithoutNotify(dialogue_node.customImmediate);
+        immediateEffectsFoldout.contentContainer.Add(customImmediateField);
+
+        dialogue_node.mainContainer.Add(immediateEffectsFoldout);
+
+        //-----------------
+        //Status Effects
+        //-----------------
+
+        var statusEffectsFoldout = new Foldout();
+        statusEffectsFoldout.text = "Status Effect";
+        statusEffectsFoldout.value = false;
+
+        var appliesStatusField = new UnityEngine.UIElements.Toggle("Applies Status:");
+        appliesStatusField.RegisterValueChangedCallback((evt) => {
+            dialogue_node.applies_status = evt.newValue;
+        });
+        appliesStatusField.SetValueWithoutNotify(dialogue_node.applies_status);
+        statusEffectsFoldout.contentContainer.Add(appliesStatusField);
+
+        var customStatusField = new TextField("Custom Status:");
+        customStatusField.RegisterValueChangedCallback((evt) => {
+            dialogue_node.customStatus = evt.newValue;
+        });
+        customStatusField.SetValueWithoutNotify(dialogue_node.customStatus);
+        statusEffectsFoldout.contentContainer.Add(customStatusField);
 
         var effectDurationField = new IntegerField("Effect Duration:");
         effectDurationField.RegisterValueChangedCallback(evt => {
@@ -144,7 +194,27 @@ public class DialogueGraphView : GraphView
         });
         effectDurationField.SetValueWithoutNotify(dialogue_node.duration);
         effectDurationField.tooltip = "Values other than 0 result in adding a generic status effect.\n0: Apply change only once.\n -1: Infinite duration";
-        dialogue_node.mainContainer.Add(effectDurationField);
+        statusEffectsFoldout.contentContainer.Add(effectDurationField);
+
+        dialogue_node.mainContainer.Add(statusEffectsFoldout);
+
+        //------
+        //Combat
+        //------
+
+        var combatFoldout = new Foldout();
+        combatFoldout.text = "Combat";
+        combatFoldout.value = false;
+
+        var startsCombatField = new UnityEngine.UIElements.Toggle("Starts Combat:");
+        startsCombatField.RegisterValueChangedCallback((evt) => {
+            dialogue_node.combat = evt.newValue;
+        });
+        startsCombatField.SetValueWithoutNotify(dialogue_node.combat);
+        combatFoldout.contentContainer.Add(startsCombatField);
+
+        dialogue_node.mainContainer.Add(combatFoldout);
+
 
         dialogue_node.RefreshPorts();
         dialogue_node.SetPosition(new Rect(new Vector2(100,100), defaultNodeSize));

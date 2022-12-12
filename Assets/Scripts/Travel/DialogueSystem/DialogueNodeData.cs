@@ -13,6 +13,9 @@ public class DialogueNodeData
     public bool entryPoint;
     public int moraleChange = 0;
     public int resourceChange = 0;
+    public string customImmediate = "";
+    public bool applies_status = false;
+    public string customStatus = "";
     public int duration = 0;
     public bool combat = false;
 

@@ -191,7 +191,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2005874675403915834, guid: 6e7a0ca4b062e9549aa412b02dc09223, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6116320258455820505, guid: 6e7a0ca4b062e9549aa412b02dc09223, type: 3}
+      propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228378243238421842, guid: 6e7a0ca4b062e9549aa412b02dc09223, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7228378243238421842, guid: 6e7a0ca4b062e9549aa412b02dc09223, type: 3}
       propertyPath: travelManager

@@ -12,6 +12,9 @@ public class DialogueNode : Node
     public bool EntryPoint = false;
     public int moraleChange = 0;
     public int resourceChange = 0;
+    public string customImmediate = "";
+    public bool applies_status = false;
+    public string customStatus = "";
     public int duration = 0;
     public bool combat = false;
 
@@ -23,6 +26,9 @@ public class DialogueNode : Node
         EntryPoint = dialogueNodeData.entryPoint;
         moraleChange = dialogueNodeData.moraleChange;
         resourceChange = dialogueNodeData.resourceChange;
+        customImmediate = dialogueNodeData.customImmediate;
+        applies_status = dialogueNodeData.applies_status;
+        customStatus = dialogueNodeData.customStatus;
         duration = dialogueNodeData.duration;
         combat = dialogueNodeData.combat;
     }
@@ -42,6 +48,9 @@ public class DialogueNode : Node
             entryPoint = EntryPoint,
             resourceChange = resourceChange,
             moraleChange = moraleChange,
+            customImmediate = customImmediate,
+            applies_status = applies_status,
+            customStatus = customStatus,
             duration = duration,
             combat = combat,
         };
