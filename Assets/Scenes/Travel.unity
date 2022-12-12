@@ -191,6 +191,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2261085438786165760, guid: 39e0f5babd835f74d9faa5b2446a36a1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -35
+      objectReference: {fileID: 0}
     - target: {fileID: 5614793594182103769, guid: 39e0f5babd835f74d9faa5b2446a36a1, type: 3}
       propertyPath: m_Name
       value: TravelScreen
