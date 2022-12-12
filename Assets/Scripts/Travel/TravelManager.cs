@@ -15,6 +15,7 @@ public class TravelManager : MonoBehaviour
 
     [Header("Dialogue System")]
     [SerializeField]private List<DialogueContainer> events;
+    private int currentEventIndex = 0;
     public DialogueDisplay dialogueDisplay;
 
     [Header("Time, Day/Night Cycle")]
@@ -51,6 +52,16 @@ public class TravelManager : MonoBehaviour
         {
             events.Add(item as DialogueContainer);
         }
+
+        var count = events.Count;
+        var last = count - 1;
+        for (var i = 0; i < last; ++i) {
+            var r = UnityEngine.Random.Range(i, count);
+            var tmp = events[i];
+            events[i] = events[r];
+            events[r] = tmp;
+        }
+
     }
 
     void setupCamera()
@@ -62,6 +73,11 @@ public class TravelManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void addStatus(StatusEffect statusEffect)
+    {
+        active_status_effects.Add(statusEffect);
     }
 
 
@@ -150,7 +166,12 @@ public class TravelManager : MonoBehaviour
     private void startRandomEvent()
     {
         Debug.Log("Random Event!");
-        dialogueDisplay.dialogueContainer = pickRandomEvent();
+        if(currentEventIndex >= events.Count)
+        {
+            return;
+        }
+        dialogueDisplay.dialogueContainer = events[currentEventIndex];
+        currentEventIndex++;
         dialogueDisplay.init();
         dialogueDisplay.gameObject.SetActive(true);
     }

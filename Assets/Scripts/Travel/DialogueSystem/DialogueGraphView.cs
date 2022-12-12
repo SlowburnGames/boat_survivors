@@ -72,14 +72,22 @@ public class DialogueGraphView : GraphView
 
     public DialogueNode CreateDialogueNode(string nodeName, bool entryNode = false, DialogueNodeData nodeData = null)
     {
-
-        var dialogue_node = new DialogueNode
+        DialogueNode dialogue_node;
+        if(nodeData == null)
         {
-            title = nodeName,
-            DialogueText = nodeName,
-            GUID = Guid.NewGuid().ToString(),
-            EntryPoint = entryNode,
-        };
+            dialogue_node = new DialogueNode
+            {
+                title = nodeName,
+                DialogueText = nodeName,
+                GUID = Guid.NewGuid().ToString(),
+                EntryPoint = entryNode,
+            };
+        }
+        else
+        {
+            dialogue_node = new DialogueNode(nodeData);
+        }
+
 
         var input_port = GeneratePort(dialogue_node, Direction.Input, Port.Capacity.Multi);
         input_port.portName = "Input";
@@ -96,7 +104,7 @@ public class DialogueGraphView : GraphView
         {
             dialogue_node.EntryPoint = evt.newValue;
         });
-        entrySwitch.SetValueWithoutNotify(entryNode);
+        entrySwitch.SetValueWithoutNotify(dialogue_node.EntryPoint);
         dialogue_node.mainContainer.Add(entrySwitch);
 
         var textField = new TextField("Text:");
@@ -105,47 +113,42 @@ public class DialogueGraphView : GraphView
             dialogue_node.DialogueText = evt.newValue;
             dialogue_node.title = evt.newValue;
         });
-        textField.SetValueWithoutNotify(dialogue_node.title);
+        textField.SetValueWithoutNotify(dialogue_node.DialogueText);
         dialogue_node.mainContainer.Add(textField);
+
+        //object field for images
+        var imageField = new TextField("Image:");
+        imageField.RegisterValueChangedCallback(evt =>{
+            dialogue_node.image = evt.newValue;
+        });
+        imageField.SetValueWithoutNotify(dialogue_node.image);
+        dialogue_node.mainContainer.Add(imageField);
 
         var moraleChangeField = new IntegerField("Morale Change:");
         moraleChangeField.RegisterValueChangedCallback(evt => {
             dialogue_node.moraleChange = evt.newValue;
         });
-        moraleChangeField.SetValueWithoutNotify(0);
+        moraleChangeField.SetValueWithoutNotify(dialogue_node.moraleChange);
         dialogue_node.mainContainer.Add(moraleChangeField);
         
         var resourceChangeField = new IntegerField("Resource Change:");
         resourceChangeField.RegisterValueChangedCallback(evt => {
             dialogue_node.resourceChange = evt.newValue;
         });
-        resourceChangeField.SetValueWithoutNotify(0);
+        resourceChangeField.SetValueWithoutNotify(dialogue_node.resourceChange);
         dialogue_node.mainContainer.Add(resourceChangeField);
 
         var effectDurationField = new IntegerField("Effect Duration:");
         effectDurationField.RegisterValueChangedCallback(evt => {
             dialogue_node.duration = evt.newValue;
         });
-        effectDurationField.SetValueWithoutNotify(0);
+        effectDurationField.SetValueWithoutNotify(dialogue_node.duration);
         effectDurationField.tooltip = "Values other than 0 result in adding a generic status effect.\n0: Apply change only once.\n -1: Infinite duration";
         dialogue_node.mainContainer.Add(effectDurationField);
 
         dialogue_node.RefreshPorts();
         dialogue_node.SetPosition(new Rect(new Vector2(100,100), defaultNodeSize));
         
-        if(nodeData != null)
-        {
-            entrySwitch.SetValueWithoutNotify(nodeData.entryPoint);
-            moraleChangeField.SetValueWithoutNotify(nodeData.moraleChange);
-            resourceChangeField.SetValueWithoutNotify(nodeData.resourceChange);
-            effectDurationField.SetValueWithoutNotify(nodeData.duration);
-            
-            dialogue_node.EntryPoint = nodeData.entryPoint;
-            dialogue_node.moraleChange = nodeData.moraleChange;
-            dialogue_node.resourceChange = nodeData.resourceChange;
-            dialogue_node.duration = nodeData.duration;
-        }
-
         return dialogue_node;
     }
     public void CreateNode(string nodeName)

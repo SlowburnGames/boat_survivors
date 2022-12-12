@@ -9,31 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b12822a63964b6438caf9319c409336, type: 3}
+  m_Script: {fileID: 11500000, guid: a1c7a37dfdc0719419c7a4ecfa73bac6, type: 3}
   m_Name: rotten_food
   m_EditorClassIdentifier: 
-  nodeLinks:
-  - BaseNodeGuid: c9576477-1a2b-4a0b-a1bb-31dce8edfabb
-    PortName: Okay.
-    TargetNodeGuid: ee649c7c-1150-40b6-8298-c26ed15962a7
+  nodeLinks: []
   dialogueNodeData:
-  - NodeGUID: c9576477-1a2b-4a0b-a1bb-31dce8edfabb
-    DialogueText: Your food is rotten!
-    Position: {x: 90, y: 148}
+  - NodeGUID: 09ced5d3-d7a2-466f-897d-796f90de3c26
+    DialogueText: 'Your food is rotten and you need to throw it away.
+
+      The
+      fish are happy.
+
+      Your People are not.'
+    image: rotten_food
+    Position: {x: 100, y: 100}
     entryPoint: 1
-    moraleChange: 0
-    resourceChange: 0
-    duration: 0
-  - NodeGUID: ee649c7c-1150-40b6-8298-c26ed15962a7
-    DialogueText: 'You have to throw some of it into the ocean.
-
-      The fish are
-      happy.
-
-      Your people are not.'
-    Position: {x: 536, y: 210}
-    entryPoint: 0
     moraleChange: -10
     resourceChange: -10
     duration: 0
+    combat: 0
   alreadyEncountered: 0

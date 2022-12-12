@@ -37,11 +37,11 @@ public class GraphSaveUtility
             return;
         }
 
-        //TODO: Save outputs without connections
-        if(!_edges.Any())
-        {
-            return;
-        }
+//        //TODO: Save outputs without connections
+        //if(!_edges.Any())
+        //{
+            //return;
+        //}
 
         var dialogueContainer = ScriptableObject.CreateInstance<DialogueContainer>();
 
@@ -61,15 +61,7 @@ public class GraphSaveUtility
 
         foreach (var dialogueNode in _nodes)
         {
-            dialogueContainer.dialogueNodeData.Add(new DialogueNodeData{
-                NodeGUID = dialogueNode.GUID,
-                DialogueText = dialogueNode.DialogueText,
-                Position = dialogueNode.GetPosition().position,
-                entryPoint = dialogueNode.EntryPoint,
-                resourceChange = dialogueNode.resourceChange,
-                moraleChange = dialogueNode.moraleChange,
-                duration = dialogueNode.duration
-            });
+            dialogueContainer.dialogueNodeData.Add(new DialogueNodeData(dialogueNode));
         }
 
         AssetDatabase.CreateAsset(dialogueContainer, $"Assets/Resources/Dialogues/{filename}.asset");
@@ -84,6 +76,8 @@ public class GraphSaveUtility
             EditorUtility.DisplayDialog("File Not Found", "Target dialogue graph file does not exist!", "Sorry");
             return;
         }
+
+
 
         ClearGraph();
         CreateNodes();

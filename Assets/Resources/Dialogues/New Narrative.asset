@@ -9,56 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b12822a63964b6438caf9319c409336, type: 3}
+  m_Script: {fileID: 11500000, guid: a1c7a37dfdc0719419c7a4ecfa73bac6, type: 3}
   m_Name: New Narrative
   m_EditorClassIdentifier: 
-  nodeLinks:
-  - BaseNodeGuid: e5597090-e9de-4430-8672-0b2bef17a660
-    PortName: Na.
-    TargetNodeGuid: a4c83bce-95ee-4632-9749-aceec14aeb9d
-  - BaseNodeGuid: ca798408-ddbd-4365-b62b-73f8100ab549
-    PortName: Jo
-    TargetNodeGuid: b8939bdd-678c-456c-88d8-01af165d5f1e
-  - BaseNodeGuid: ca798408-ddbd-4365-b62b-73f8100ab549
-    PortName: Na
-    TargetNodeGuid: e5597090-e9de-4430-8672-0b2bef17a660
-  - BaseNodeGuid: b8939bdd-678c-456c-88d8-01af165d5f1e
-    PortName: Ok.
-    TargetNodeGuid: f1f797f9-d5e3-497a-810c-c2e661ba1a5b
+  nodeLinks: []
   dialogueNodeData:
-  - NodeGUID: e5597090-e9de-4430-8672-0b2bef17a660
-    DialogueText: I tua glei dein gsicht weh.
-    Position: {x: 570, y: 412}
-    entryPoint: 0
-    moraleChange: 0
-    resourceChange: 0
-    duration: 0
-  - NodeGUID: a4c83bce-95ee-4632-9749-aceec14aeb9d
-    DialogueText: Er schlog dir aufd nosn. Guate nocht.
-    Position: {x: 926, y: 352}
-    entryPoint: 0
-    moraleChange: -20
-    resourceChange: 0
-    duration: 0
-  - NodeGUID: f1f797f9-d5e3-497a-810c-c2e661ba1a5b
-    DialogueText: Er geht weg
-    Position: {x: 951, y: 173}
-    entryPoint: 0
-    moraleChange: 10
-    resourceChange: 0
-    duration: 0
-  - NodeGUID: ca798408-ddbd-4365-b62b-73f8100ab549
-    DialogueText: Tuat dei gsicht weh?
+  - NodeGUID: a2b956be-a34b-4dbc-b811-90651c477f11
+    DialogueText: You find a monkey. The spirits are high.
+    image: monke
     Position: {x: 100, y: 100}
     entryPoint: 1
-    moraleChange: 20
-    resourceChange: 0
-    duration: 0
-  - NodeGUID: b8939bdd-678c-456c-88d8-01af165d5f1e
-    DialogueText: Pech ghobt.
-    Position: {x: 593, y: 180}
-    entryPoint: 0
-    moraleChange: 40
-    resourceChange: 0
-    duration: 0
+    moraleChange: 10
+    resourceChange: -2
+    duration: -1
+    combat: 0
   alreadyEncountered: 0
