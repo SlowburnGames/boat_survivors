@@ -637,5 +637,30 @@ public class WFCGenerator : MonoBehaviour
             }
         return walkableTiles;
     }
+    public List<Tile> getNeighbours(Tile tile)
+    {
+        List<Tile> neighbours = new List<Tile>();
+
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                if(x == 0 && y == 0)
+                    continue;
+                
+                int checkX = tile.position.x + x;
+                int checkY = tile.position.y + y;
+
+                if(checkX >= 0 && checkX < gridSize.x
+                    && checkY >= 0 && checkY < gridSize.y)
+                {
+                    neighbours.Add(_tiles[checkX][checkY]);
+                }
+            }
+        }
+
+        return neighbours;
+    }
+
 
 }

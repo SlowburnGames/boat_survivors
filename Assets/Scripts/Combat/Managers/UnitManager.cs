@@ -115,6 +115,7 @@ public class UnitManager : MonoBehaviour
                 if(tile.calculatedDistance(selectedHero.OccupiedTile.gameObject) <= selectedHero.MoveDistance)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
+                    Pathfinding.Instance.FindPath(selectedHero.OccupiedTile, tile);
                     SetUnit(selectedHero, tile);
                     SetSelectedHero(null);
                     CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);

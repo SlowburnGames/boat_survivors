@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] private bool isWalkable;
+    [SerializeField] public bool isWalkable;
     [SerializeField] private Material[] normal = new Material[2];
     [SerializeField] private Material[] highlight = new Material[2];
 
@@ -21,6 +21,17 @@ public class Tile : MonoBehaviour
     public List<GameObject> tilesToWalk = new List<GameObject>();
 
     public bool walkable => isWalkable && tileUnit == null;
+
+    //Pathfinding Variables
+    public int gCost;
+    public int hCost;
+    public int fCost {
+        get {
+            return gCost + hCost;
+        }
+    }
+
+    public Tile parent;
 
     public void OnMouseEnter()
     {
@@ -137,7 +148,7 @@ public class Tile : MonoBehaviour
 
         foreach (var t in tilesToWalk)
         {
-            Debug.Log("Tile: " + t.name);
+            //Debug.Log("Tile: " + t.name);
             t.transform.GetChild(0).GetComponent<SpriteRenderer>().color = c;
             t.transform.GetChild(0).gameObject.gameObject.SetActive(true);
             t.transform.GetChild(0).localPosition = new Vector3(0, 0.6f, 0);
