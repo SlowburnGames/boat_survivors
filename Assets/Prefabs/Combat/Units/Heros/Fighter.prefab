@@ -101,9 +101,9 @@ MonoBehaviour:
   OccupiedTile: {fileID: 0}
   Faction: 0
   UnitName: Fighter
-  _maxHealth: 150
+  _maxHealth: 4
   _health: 0
-  _attackDamage: 20
+  _attackDamage: 1
   _moveDistance: 3
   _attackRange: 1
   _isRanged: 0

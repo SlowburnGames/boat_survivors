@@ -9,9 +9,9 @@ public class BaseUnit : MonoBehaviour
     public Faction Faction;
     public string UnitName;
 
-    [SerializeField] protected int _maxHealth = 100;
+    [SerializeField] protected int _maxHealth = 2;
     [SerializeField] protected int _health;
-    [SerializeField] protected int _attackDamage = 20;
+    [SerializeField] protected int _attackDamage = 1;
     [SerializeField] protected int _moveDistance = 3;
     [SerializeField] protected int _attackRange = 1;
     [SerializeField] protected bool _isRanged = false;

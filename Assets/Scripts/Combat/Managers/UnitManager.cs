@@ -112,10 +112,9 @@ public class UnitManager : MonoBehaviour
             // When we next click on an empty tile -> Move Hero to this tile
             if (selectedHero != null && isWalkable && tile.tileUnit == null)
             {
-                if(tile.calculatedDistance(selectedHero.OccupiedTile.gameObject) <= selectedHero.MoveDistance)
+                if(Pathfinding.Instance.FindPath(selectedHero.OccupiedTile, tile).Count <= selectedHero.MoveDistance)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
-                    Pathfinding.Instance.FindPath(selectedHero.OccupiedTile, tile);
                     SetUnit(selectedHero, tile);
                     SetSelectedHero(null);
                     CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
@@ -152,6 +151,7 @@ public class UnitManager : MonoBehaviour
                 SetUnit(enemy, path[path.Count - 2]);
             }
             targetedHero.Attack(enemy.AttackDamage);
+            CheckAttackedUnit(targetedHero);
         }
         else //hero is not reachable
         {
@@ -355,7 +355,7 @@ public class UnitManager : MonoBehaviour
         }
         else if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Hero).Count == 0)
         {
-            SceneManager.LoadScene("Travel");
+            SceneManager.LoadScene("GameOver");
         }
     }
     

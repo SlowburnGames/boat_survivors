@@ -8,7 +8,7 @@ public class Wizard : BaseHero
     {
         Faction = Faction.Hero;
         UnitName = "Wizard";
-        _maxHealth = 90;
+        _maxHealth = 2;
         _attackRange = 4;
         _isRanged = true;
     }

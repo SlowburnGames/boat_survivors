@@ -8,6 +8,6 @@ public class Fighter : BaseHero
     {
         Faction = Faction.Hero;
         UnitName = "Fighter";
-        _maxHealth = 150;
+        _maxHealth = 3;
     }
 }

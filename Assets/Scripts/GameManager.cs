@@ -14,8 +14,15 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
-        Instance = this;
         DontDestroyOnLoad(this);
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
@@ -41,6 +48,11 @@ public class GameManager : MonoBehaviour
         heroesInCombat = currentHeroes;
         enemiesInCombat = enemies;
         SceneManager.LoadScene("Combat");
+    }
+
+    public void resetGame()
+    {
+        Start();
     }
 
 }

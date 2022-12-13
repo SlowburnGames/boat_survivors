@@ -18,7 +18,7 @@ public class Tile : MonoBehaviour
     public Vector2 tilePosition;
     public Vector2Int position;
 
-    public List<GameObject> tilesToWalk = new List<GameObject>();
+    public List<Tile> tilesToWalk = new List<Tile>();
 
     public bool walkable => isWalkable && tileUnit == null;
 
@@ -105,35 +105,36 @@ public class Tile : MonoBehaviour
     {
         Tile start = this.GetComponent<Tile>();
         
+        tilesToWalk = Pathfinding.Instance.FindPath(start, end);
 
-        if(start.position.x <= end.position.x)
-        {
-            for (int i = start.position.x; i <= end.position.x; i++)
-            {
-                tilesToWalk.Add(WFCGenerator.Instance._tiles[i][start.position.y].gameObject);
-            }
-        }
-        else
-        {
-            for (int i = end.position.x; i <= start.position.x; i++)
-            {
-                tilesToWalk.Add(WFCGenerator.Instance._tiles[i][start.position.y].gameObject);
-            }
-        }
-        if (start.position.y <= end.position.y)
-        {
-            for (int i = start.position.y; i <= end.position.y; i++)
-            {
-                tilesToWalk.Add(WFCGenerator.Instance._tiles[end.position.x][i].gameObject);
-            }
-        }
-        else
-        {
-            for (int i = end.position.y; i <= start.position.y; i++)
-            {
-                tilesToWalk.Add(WFCGenerator.Instance._tiles[end.position.x][i].gameObject);
-            }
-        }
+        //if(start.position.x <= end.position.x)
+        //{
+            //for (int i = start.position.x; i <= end.position.x; i++)
+            //{
+                //tilesToWalk.Add(WFCGenerator.Instance._tiles[i][start.position.y].gameObject);
+            //}
+        //}
+        //else
+        //{
+            //for (int i = end.position.x; i <= start.position.x; i++)
+            //{
+                //tilesToWalk.Add(WFCGenerator.Instance._tiles[i][start.position.y].gameObject);
+            //}
+        //}
+        //if (start.position.y <= end.position.y)
+        //{
+            //for (int i = start.position.y; i <= end.position.y; i++)
+            //{
+                //tilesToWalk.Add(WFCGenerator.Instance._tiles[end.position.x][i].gameObject);
+            //}
+        //}
+        //else
+        //{
+            //for (int i = end.position.y; i <= start.position.y; i++)
+            //{
+                //tilesToWalk.Add(WFCGenerator.Instance._tiles[end.position.x][i].gameObject);
+            //}
+        //}
 
         Color c = Color.green;
 

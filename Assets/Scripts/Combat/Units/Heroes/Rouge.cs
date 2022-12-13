@@ -8,7 +8,7 @@ public class Rouge : BaseHero
     {
         Faction = Faction.Hero;
         UnitName = "Rouge";
-        _maxHealth = 50;
+        _maxHealth = 2;
         _moveDistance = 5;
     }
 }

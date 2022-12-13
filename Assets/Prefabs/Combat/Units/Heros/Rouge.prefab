@@ -160,9 +160,9 @@ MonoBehaviour:
   OccupiedTile: {fileID: 0}
   Faction: 0
   UnitName: Rouge
-  _maxHealth: 50
+  _maxHealth: 2
   _health: 0
-  _attackDamage: 20
+  _attackDamage: 2
   _moveDistance: 5
   _attackRange: 1
   _isRanged: 0
