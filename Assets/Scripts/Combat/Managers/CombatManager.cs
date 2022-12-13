@@ -27,7 +27,7 @@ public class CombatManager : MonoBehaviour
         switch (newState)
         {
             case CombatState.SetHeroesAndEnemies:
-                UnitManager.Instance.SetSpawnableHeroes(GameManager.Instance.heroesInCombat);
+                UnitManager.Instance.SetSpawnableHeroes(GameManager.Instance.currentHeroes);
                 UnitManager.Instance.SetSpawnableEnemies(GameManager.Instance.enemiesInCombat);
                 ChangeCombatState(CombatState.GenerateGrid);
                 break;
@@ -40,13 +40,14 @@ public class CombatManager : MonoBehaviour
             case CombatState.SpawnHeroes:
                 // Logic in Tile.OnMouseDown and UnitManager.SpawnSelectedHero
                 Debug.Log("Spawn Heroes by clicking on tile!");
-                MenuManager.Instance.ShowAvailableHeroes(GameManager.Instance.heroesInCombat);
+                MenuManager.Instance.ShowAvailableHeroes(GameManager.Instance.currentHeroes);
                 break;
             case CombatState.SetTurnOrder:
                 SetTurnOrder();
                 break;
             case CombatState.UnitTurn:
 
+                UnitManager.Instance.checkCombatOver();
                 BaseUnit nextUnit = _turnQueue.Dequeue();
                 _turnQueue.Enqueue(nextUnit);
 
@@ -66,27 +67,13 @@ public class CombatManager : MonoBehaviour
                     Debug.Log("Enemy " + enemy.name + " turn!");
                     
                     // TODO implement enemy turn
-                    ChangeCombatState(CombatState.UnitTurn);
+                    UnitManager.Instance.EnemiesTurn();
                 }
-                
-                
-                
                 break;
-            // case CombatState.HeroesTurn:
-            //     // Logic in Tile.OnMouseDown and UnitManager.HeroesTurn
-            //     Debug.Log("Hero turn!");
-            //     break;
-            // case CombatState.EnemiesTurn:
-            //     UnitManager.Instance.EnemiesTurn();
-            //     break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
-    }
-
-    public void helper()
-    {
-        ChangeCombatState(CombatState.UnitTurn);
+        
     }
 
     private void SetTurnOrder()

@@ -66,9 +66,6 @@ MonoBehaviour:
     combat: 1
     enemies:
     - Zombie
-    - Zombie
-    - Monster
-    - Monster
   - NodeGUID: e6674e3e-9fa4-4c7e-9965-6401c2b4ab4b
     DialogueText: Doch.
     image: 

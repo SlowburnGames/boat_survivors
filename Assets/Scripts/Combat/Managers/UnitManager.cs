@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 public class UnitManager : MonoBehaviour
@@ -30,22 +31,6 @@ public class UnitManager : MonoBehaviour
         Debug.Log("Nr of different Enemies: " + _enemyUnits.Count);
         Debug.Log("Nr of different Heroes : " + _heroUnits.Count);
     }
-
-    // public void SpawnHeroes()
-    // {
-    //     // TODO Select heroes to spwan from menue
-    //     foreach (var hero in _heroUnits)
-    //     {
-    //         var randomPrefab = GetRandomUnit<BaseHero>(Faction.Hero);
-    //         var spawnedHero = Instantiate(randomPrefab);
-    //         spawnedHero.MovementRange = 6;
-    //         var randomSpawnTile = WFCGenerator.Instance.GetHeroSpawnTile();
-    //
-    //         SetUnit(spawnedHero, randomSpawnTile);
-    //     }
-    //     
-    //     // CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
-    // }
 
     public void SpawnSelectedHero(Tile spawnTile)
     {
@@ -152,7 +137,7 @@ public class UnitManager : MonoBehaviour
     {
         
         Debug.Log("Enemy turn!");
-        // CombatManager.Instance.ChangeCombatState(CombatState.HeroesTurn);
+        CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
     }
 
     private BaseEnemy GetEnemyByName(string eName)
@@ -240,9 +225,9 @@ public class UnitManager : MonoBehaviour
     {
         foreach (var tilePos in tilePositions)
         {
-            tilePos.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.blue;
-            tilePos.transform.GetChild(0).gameObject.gameObject.SetActive(true);
-            tilePos.transform.GetChild(0).localPosition = new Vector3(0, 0.6f, 0);
+            tilePos.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
+            tilePos.transform.GetChild(1).gameObject.gameObject.SetActive(true);
+            tilePos.transform.GetChild(1).localPosition = new Vector3(0, 0.6f, 0);
             // Instantiate(_attackRangeIndicator, tilePos.transform);
         }
     }
@@ -252,7 +237,7 @@ public class UnitManager : MonoBehaviour
         foreach (var tilePos in tilePositions)
             if (tilePos.transform.childCount != 0)
             {
-                tilePos.transform.GetChild(0).gameObject.SetActive(false);
+                tilePos.transform.GetChild(1).gameObject.SetActive(false);
                 // Destroy(tilePos.transform.GetChild(0).gameObject);
             }
 
@@ -318,5 +303,18 @@ public class UnitManager : MonoBehaviour
     {
         _availableEnemies = new List<string>(enemies);
     }
+
+    public void checkCombatOver()
+    {
+        if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Enemy).Count == 0)
+        {
+            SceneManager.LoadScene("Travel");
+        }
+        else if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Hero).Count == 0)
+        {
+            SceneManager.LoadScene("Travel");
+        }
+    }
+    
     
 }

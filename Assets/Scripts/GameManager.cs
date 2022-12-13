@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentHeroes = new List<string>();
-        currentHeroes.Add("Rogue");
+        currentHeroes.Add("Rouge");
         currentHeroes.Add("Fighter");
         currentHeroes.Add("Wizard");
         SceneManager.LoadScene("Travel");
