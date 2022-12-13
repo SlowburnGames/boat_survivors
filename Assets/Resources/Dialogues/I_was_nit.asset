@@ -38,6 +38,7 @@ MonoBehaviour:
     customStatus: 
     duration: 0
     combat: 0
+    enemies: []
   - NodeGUID: 23f6b37e-a5b8-4f7e-8bea-028fa346327e
     DialogueText: Aso?
     image: 
@@ -50,6 +51,7 @@ MonoBehaviour:
     customStatus: 
     duration: 0
     combat: 0
+    enemies: []
   - NodeGUID: d5396a90-4eee-4501-a276-b84371266de2
     DialogueText: Guate Nocht.
     image: monke
@@ -61,7 +63,12 @@ MonoBehaviour:
     applies_status: 0
     customStatus: 
     duration: 0
-    combat: 0
+    combat: 1
+    enemies:
+    - Zombie
+    - Zombie
+    - Monster
+    - Monster
   - NodeGUID: e6674e3e-9fa4-4c7e-9965-6401c2b4ab4b
     DialogueText: Doch.
     image: 
@@ -74,4 +81,5 @@ MonoBehaviour:
     customStatus: 
     duration: 0
     combat: 0
+    enemies: []
   alreadyEncountered: 0

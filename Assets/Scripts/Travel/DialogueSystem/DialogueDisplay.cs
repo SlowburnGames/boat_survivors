@@ -102,11 +102,19 @@ public class DialogueDisplay : MonoBehaviour
         currentNode = dialogueContainer.dialogueNodeData.Find((node)=>node.NodeGUID == edge.TargetNodeGuid);
         currentChoices = getChoices();
         applyEffects();
+        startCombat();
         updateText();
     }
 
+    private void startCombat()
+    {
+        if(currentNode.combat)
+        {
+            GameManager.Instance.startCombat(currentNode.enemies);
+        }
+    }
 
-    public void init()
+  public void init()
     {
         currentNode = dialogueContainer.dialogueNodeData.Find((node)=>node.entryPoint);
         currentChoices = getChoices();

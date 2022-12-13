@@ -27,8 +27,8 @@ public class CombatManager : MonoBehaviour
         switch (newState)
         {
             case CombatState.SetHeroesAndEnemies:
-                UnitManager.Instance.SetSpawnableHeroes(GameManagerTemp.Instance.spawnableHeroes);
-                UnitManager.Instance.SetSpawnableEnemies(GameManagerTemp.Instance.spawnableEnemies);
+                UnitManager.Instance.SetSpawnableHeroes(GameManager.Instance.heroesInCombat);
+                UnitManager.Instance.SetSpawnableEnemies(GameManager.Instance.enemiesInCombat);
                 ChangeCombatState(CombatState.GenerateGrid);
                 break;
             case CombatState.GenerateGrid:
@@ -40,7 +40,7 @@ public class CombatManager : MonoBehaviour
             case CombatState.SpawnHeroes:
                 // Logic in Tile.OnMouseDown and UnitManager.SpawnSelectedHero
                 Debug.Log("Spawn Heroes by clicking on tile!");
-                MenuManager.Instance.ShowAvailableHeroes(GameManagerTemp.Instance.spawnableHeroes);
+                MenuManager.Instance.ShowAvailableHeroes(GameManager.Instance.heroesInCombat);
                 break;
             case CombatState.SetTurnOrder:
                 SetTurnOrder();

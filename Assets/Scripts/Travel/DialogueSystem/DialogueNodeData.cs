@@ -18,6 +18,7 @@ public class DialogueNodeData
     public string customStatus = "";
     public int duration = 0;
     public bool combat = false;
+    public List<string> enemies = new List<string>();
 
 //    public DialogueNodeData(DialogueNode dialogueNode)
     //{
