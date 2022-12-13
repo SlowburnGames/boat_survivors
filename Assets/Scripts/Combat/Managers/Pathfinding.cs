@@ -12,7 +12,7 @@ public class Pathfinding : MonoBehaviour
     {
         Instance = this;
     }
-    public void FindPath(Tile start, Tile target)
+    public List<Tile> FindPath(Tile start, Tile target)
     {
         Debug.Log("Pathfinding");
         Tile[][] grid = WFCGenerator.Instance._tiles;
@@ -38,8 +38,7 @@ public class Pathfinding : MonoBehaviour
 
             if(currentTile == target)
             {
-                retracePath(start, target);
-                return;
+                return retracePath(start, target);
             }
 
             var neighbours = WFCGenerator.Instance.getNeighbours(currentTile);
@@ -63,9 +62,11 @@ public class Pathfinding : MonoBehaviour
                 }
             }
         }
+
+        return null;
     }
 
-    void retracePath(Tile startTile, Tile endTile)
+    List<Tile> retracePath(Tile startTile, Tile endTile)
     {
         List<Tile> path = new List<Tile>();
 
@@ -79,8 +80,7 @@ public class Pathfinding : MonoBehaviour
 
         path.Reverse();
         
-        found_path = path;
-        Debug.Log(path.Count);
+        return path;
     }
 
     int getDistance(Tile a, Tile b)

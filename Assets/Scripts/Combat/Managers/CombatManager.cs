@@ -67,7 +67,7 @@ public class CombatManager : MonoBehaviour
                     Debug.Log("Enemy " + enemy.name + " turn!");
                     
                     // TODO implement enemy turn
-                    UnitManager.Instance.EnemiesTurn();
+                    UnitManager.Instance.EnemiesTurn(enemy);
                 }
                 break;
             default:

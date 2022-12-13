@@ -134,13 +134,55 @@ public class UnitManager : MonoBehaviour
     }
     
     
-    public void EnemiesTurn()
+    public void EnemiesTurn(BaseEnemy enemy)
     {
-        
         Debug.Log("Enemy turn!");
+
+        var target = findNearestHero(enemy);
+
+        BaseUnit targetedHero = target.Item1;
+        int distance = target.Item2;
+        List<Tile> path = target.Item3;
+
+        //if enemy is reachable with melee attack
+        if(distance <= enemy.MoveDistance)
+        {
+            if(distance > 1)
+            {
+                SetUnit(enemy, path[path.Count - 2]);
+            }
+            targetedHero.Attack(enemy.AttackDamage);
+        }
+        else //hero is not reachable
+        {
+            SetUnit(enemy, path[enemy.MoveDistance - 1]);
+        }
+
         CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
     }
 
+    Tuple<BaseUnit, int, List<Tile>> findNearestHero(BaseEnemy enemy)
+    {
+        List<BaseUnit> allHeroes = CombatManager.Instance._turnQueue.ToList().FindAll(unit => unit.Faction == Faction.Hero);
+
+        BaseUnit nearestHero = null;
+        int minDistance = Int32.MaxValue;
+        List<Tile> best_path = new List<Tile>();
+
+        foreach (var hero in allHeroes)
+        {
+            List<Tile> path = Pathfinding.Instance.FindPath(enemy.OccupiedTile, hero.OccupiedTile);
+            if(minDistance > path.Count)
+            {
+                minDistance = path.Count;
+                nearestHero = hero;
+                best_path = path;
+            }
+        }
+
+        return Tuple.Create(nearestHero, minDistance, best_path);
+
+    }
     private BaseEnemy GetEnemyByName(string eName)
     {
         return (BaseEnemy)_enemyUnits.Where(u => u.name == eName).First().UnitPrefab;
