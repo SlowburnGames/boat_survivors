@@ -14,6 +14,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _avaliableHeroes;
     [SerializeField] private GameObject _avaliableHeroesImg;
 
+    [SerializeField] private GameObject _endTurnButton;
+
     [SerializeField] private GameObject _fighterImage;
     
     
@@ -21,6 +23,12 @@ public class MenuManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+
+    public void toggleButtons(bool active)
+    {
+        _endTurnButton.gameObject.SetActive(active);
     }
     
     public void ShowSelectedHero(BaseHero hero)

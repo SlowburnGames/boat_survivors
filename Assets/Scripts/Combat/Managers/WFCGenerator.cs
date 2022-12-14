@@ -641,6 +641,7 @@ public class WFCGenerator : MonoBehaviour
     {
         List<Tile> neighbours = new List<Tile>();
 
+        //8 neighbourhood
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
@@ -651,16 +652,53 @@ public class WFCGenerator : MonoBehaviour
                 int checkX = tile.position.x + x;
                 int checkY = tile.position.y + y;
 
-                if(checkX >= 0 && checkX < gridSize.x
-                    && checkY >= 0 && checkY < gridSize.y)
-                {
+            if(checkX >= 0 && checkX < gridSize.x
+                && checkY >= 0 && checkY < gridSize.y)
+            {
                     neighbours.Add(_tiles[checkX][checkY]);
                 }
             }
         }
 
+        //4 neighbourhood
+        //int checkX = tile.position.x + 1;
+        //int checkY = tile.position.y;
+        //if(checkX >= 0 && checkX < gridSize.x
+            //&& checkY >= 0 && checkY < gridSize.y)
+        //{
+            //neighbours.Add(_tiles[checkX][checkY]);
+        //}
+        
+        //checkX = tile.position.x - 1;
+        //checkY = tile.position.y;
+        //if(checkX >= 0 && checkX < gridSize.x
+            //&& checkY >= 0 && checkY < gridSize.y)
+        //{
+            //neighbours.Add(_tiles[checkX][checkY]);
+        //}
+        //checkX = tile.position.x;
+        //checkY = tile.position.y + 1;
+        //if(checkX >= 0 && checkX < gridSize.x
+            //&& checkY >= 0 && checkY < gridSize.y)
+        //{
+            //neighbours.Add(_tiles[checkX][checkY]);
+        //}
+
+        //checkX = tile.position.x;
+        //checkY = tile.position.y - 1;
+        //if(checkX >= 0 && checkX < gridSize.x
+            //&& checkY >= 0 && checkY < gridSize.y)
+        //{
+            //neighbours.Add(_tiles[checkX][checkY]);
+        //}
+        
         return neighbours;
     }
 
+    public static Vector2Int getDirectionVector(Vector2Int from, Vector2Int to)
+    {
+        var retval = to - from;
+        return retval;
+    }
 
 }

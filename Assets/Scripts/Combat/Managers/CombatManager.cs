@@ -60,6 +60,7 @@ public class CombatManager : MonoBehaviour
                     UnitManager.Instance.SetSelectedHero(hero);
                     UnitManager.Instance.ToggleAttackRangeIndicator(hero, true);
                     combatState = CombatState.HeroTurn;
+                    MenuManager.Instance.toggleButtons(true);
                 }
                 else if (nextUnit.Faction == Faction.Enemy)
                 {
@@ -86,6 +87,14 @@ public class CombatManager : MonoBehaviour
         ChangeCombatState(CombatState.UnitTurn);
     }
     
+    public void endPlayerTurn()
+    {
+        UnitManager.Instance.selectedHero.tilesWalkedThisTurn = 0;
+        UnitManager.Instance.selectedHero.usedAction = false;
+        UnitManager.Instance.ToggleAttackRangeIndicator(UnitManager.Instance.selectedHero, false);
+        UnitManager.Instance.SetSelectedHero(null);
+        ChangeCombatState(CombatState.UnitTurn);
+    }
     
     
 }

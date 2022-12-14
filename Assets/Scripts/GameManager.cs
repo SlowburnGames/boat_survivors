@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        currentHeroes = new List<string>();
+        currentHeroes.Add("Rouge");
+        currentHeroes.Add("Fighter");
+        currentHeroes.Add("Wizard");
+        if(SceneManager.GetActiveScene().name != "Combat")
+            SceneManager.LoadScene("Travel");
     }
 
     private void Start()
@@ -31,7 +37,8 @@ public class GameManager : MonoBehaviour
         currentHeroes.Add("Rouge");
         currentHeroes.Add("Fighter");
         currentHeroes.Add("Wizard");
-        SceneManager.LoadScene("Travel");
+        if(SceneManager.GetActiveScene().name != "Combat")
+            SceneManager.LoadScene("Travel");
     }
 
     List<string> makeHeroList()

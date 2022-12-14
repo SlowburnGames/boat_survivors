@@ -20,7 +20,11 @@ public class Tile : MonoBehaviour
 
     public List<Tile> tilesToWalk = new List<Tile>();
 
-    public bool walkable => isWalkable && tileUnit == null;
+    public bool walkable {
+        get {
+            return isWalkable && tileUnit == null;
+        }
+    }
 
     //Pathfinding Variables
     public int gCost;
@@ -138,7 +142,7 @@ public class Tile : MonoBehaviour
 
         Color c = Color.green;
 
-        if(calculatedDistance(UnitManager.Instance.selectedHero.OccupiedTile.gameObject) <= UnitManager.Instance.selectedHero.MoveDistance)
+        if(calculatedDistance(UnitManager.Instance.selectedHero.OccupiedTile.gameObject) <= UnitManager.Instance.selectedHero.MoveDistance - UnitManager.Instance.selectedHero.tilesWalkedThisTurn)
         {
             c = Color.green;
         }

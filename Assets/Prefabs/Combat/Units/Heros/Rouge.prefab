@@ -160,12 +160,15 @@ MonoBehaviour:
   OccupiedTile: {fileID: 0}
   Faction: 0
   UnitName: Rouge
+  invisible: 0
   _maxHealth: 2
   _health: 0
-  _attackDamage: 2
+  _attackDamage: 1
   _moveDistance: 5
   _attackRange: 1
   _isRanged: 0
+  tilesWalkedThisTurn: 0
+  usedAction: 0
 --- !u!1 &6294326389844811678
 GameObject:
   m_ObjectHideFlags: 0

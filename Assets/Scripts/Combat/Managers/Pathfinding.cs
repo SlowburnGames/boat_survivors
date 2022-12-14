@@ -13,7 +13,7 @@ public class Pathfinding : MonoBehaviour
         Instance = this;
     }
     public List<Tile> FindPath(Tile start, Tile target)
-    {
+    {   
         Debug.Log("Pathfinding");
         Tile[][] grid = WFCGenerator.Instance._tiles;
 
@@ -45,7 +45,7 @@ public class Pathfinding : MonoBehaviour
 
             foreach (var neighbour in neighbours)
             {
-                if(!neighbour.isWalkable ||closedSet.Contains(neighbour))
+                if(!neighbour.isWalkable || closedSet.Contains(neighbour))
                     continue;
                 
                 int newMovementCostToNeighbour = currentTile.gCost + getDistance(currentTile, neighbour);
@@ -63,7 +63,7 @@ public class Pathfinding : MonoBehaviour
             }
         }
 
-        return null;
+        return new List<Tile>();
     }
 
     List<Tile> retracePath(Tile startTile, Tile endTile)
