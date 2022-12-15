@@ -78,23 +78,22 @@ public class DialogueDisplay : MonoBehaviour
     {
         if(currentNode.duration == 0)
         {
-            travelManager.addMorale(currentNode.moraleChange);
-            travelManager.addRes(currentNode.resourceChange);
+            GameManager.Instance.addMorale(currentNode.moraleChange);
+            GameManager.Instance.addRes(currentNode.resourceChange);
         }
         else if(currentNode.duration == -1)
         {
-            travelManager.addStatus(new GenericStatus(currentNode.moraleChange, currentNode.resourceChange, 1, true));
+            GameManager.Instance.addStatus(new GenericStatus(currentNode.moraleChange, currentNode.resourceChange, 1, true));
         }
         else
         {
-            travelManager.addStatus(new GenericStatus(currentNode.moraleChange, currentNode.resourceChange, currentNode.duration));
+            GameManager.Instance.addStatus(new GenericStatus(currentNode.moraleChange, currentNode.resourceChange, currentNode.duration));
         }
         if(currentNode.applies_status)
         {
             var type = Type.GetType(currentNode.customStatus);
-            travelManager.addStatus(Activator.CreateInstance(type) as StatusEffect);
+            GameManager.Instance.addStatus(Activator.CreateInstance(type) as StatusEffect);
         }
-
     }
 
     void traverse(NodeLinkData edge)
@@ -104,6 +103,7 @@ public class DialogueDisplay : MonoBehaviour
         applyEffects();
         startCombat();
         updateText();
+        TravelManager.instance.updateResUI();
     }
 
     private void startCombat()

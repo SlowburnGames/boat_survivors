@@ -16,12 +16,10 @@ public class GenericStatus : StatusEffect
         _infinite = inf;
     }
 
-
   public override void applyStatus()
   {
-    _travel_manager.addMorale(_morale_change);
-    _travel_manager.addRes(_resource_change);
+    GameManager.Instance.addMorale(_morale_change);
+    GameManager.Instance.addRes(_resource_change);
   }
-
 
 }

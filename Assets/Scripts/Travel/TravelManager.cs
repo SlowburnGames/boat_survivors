@@ -9,26 +9,18 @@ public class TravelManager : MonoBehaviour
     public static TravelManager instance {get; private set; }
 
     [Header("Resources/Resource Display")]
-    public int population = 3;
-    [SerializeField]private int morale = 50;
-    [SerializeField]private int resources = 50;
     [SerializeField]public RessourceDisplay resource_display;
     [SerializeField]private Button[] buttons;
 
     [Header("Dialogue System")]
-    [SerializeField]private List<DialogueContainer> events;
-    private int currentEventIndex = 0;
     private DialogueDisplay dialogueDisplay;
 
     [Header("Time, Day/Night Cycle")]
     private GameObject time_display;
     [SerializeField]public Sprite sun_sprite;
     [SerializeField]public Sprite moon_sprite;
-    private bool isDay = true;
     [Header("Boat")]
-    public int travel_distance = 0;
     private Animator boat_animator;
-    [SerializeField]public List<StatusEffect> active_status_effects = new List<StatusEffect>();
 
 
     private void Awake() {
@@ -38,7 +30,6 @@ public class TravelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        loadRandomEvents();
         setupCamera();
         updateResUI();
         Transform canvas = transform.Find("Canvas");
@@ -47,26 +38,6 @@ public class TravelManager : MonoBehaviour
         Transform boat = canvas.Find("Boat");
         boat_animator = boat.GetComponent<Animator>();
         dialogueDisplay = DialogueDisplay.instance;
-    }
-
-    void loadRandomEvents()
-    {
-        var cache = Resources.LoadAll("Dialogues", typeof(DialogueContainer));
-
-        foreach (var item in cache)
-        {
-            events.Add(item as DialogueContainer);
-        }
-
-        var count = events.Count;
-        var last = count - 1;
-        for (var i = 0; i < last; ++i) {
-            var r = UnityEngine.Random.Range(i, count);
-            var tmp = events[i];
-            events[i] = events[r];
-            events[r] = tmp;
-        }
-
     }
 
     void setupCamera()
@@ -80,12 +51,6 @@ public class TravelManager : MonoBehaviour
         
     }
 
-    public void addStatus(StatusEffect statusEffect)
-    {
-        active_status_effects.Add(statusEffect);
-    }
-
-
     public void sailButton()
     {
         //set animations for sailing
@@ -98,20 +63,19 @@ public class TravelManager : MonoBehaviour
     private void sail()
     {
         //time goes on
-        travel_distance++;
+        GameManager.Instance.travel_distance++;
         switchTime();
-        consumeResources();
-        checkLose();
-        applyStatusEffects();
-        startRandomEvent();
-
+        GameManager.Instance.consumeResources();
+        GameManager.Instance.checkLose();
+        GameManager.Instance.applyStatusEffects();
+        GameManager.Instance.startRandomEvent();
     }
 
     private void switchTime()
     {
-        isDay = !isDay;
+        GameManager.Instance.isDay = !GameManager.Instance.isDay;
 
-        if(isDay)
+        if(GameManager.Instance.isDay)
         {
             time_display.GetComponent<Image>().sprite = sun_sprite;
         }
@@ -130,108 +94,9 @@ public class TravelManager : MonoBehaviour
         }
     }
 
-    void applyStatusEffects()
+    public void updateResUI()
     {
-        List<StatusEffect> to_remove = new List<StatusEffect>();
-        foreach (var status in active_status_effects)
-        {
-            status.applyStatusTick();
-            if(status._duration == 0)
-            {
-                to_remove.Add(status);
-            }
-        }
-        foreach (var status in to_remove)
-        {
-            active_status_effects.Remove(status);
-        }
-    }
-
-
-    private void consumeResources()
-    {
-        if(resources > 0)
-        {
-            //TODO: change depending on amount of people on the ship
-            addRes(population * -2);
-        }
-        else //if resources are empty use up morale
-        {
-            addMorale(-20);
-        }
-    }
-
-    private void checkLose()
-    {
-        if(morale < 0)
-        {
-            Debug.Log("Your crew kills you. You lose :(");
-        }
-    }
-
-    private void startRandomEvent()
-    {
-        Debug.Log("Random Event!");
-        if(currentEventIndex >= events.Count)
-        {
-            setButtonsInteractable(true);
-            return;
-        }
-        DialogueDisplay.instance.dialogueContainer = events[currentEventIndex];
-        currentEventIndex++;
-        DialogueDisplay.instance.init();
-    }
-
-    private DialogueContainer pickRandomEvent()
-    {
-        bool searching = true;
-        while(searching)
-        {
-            int randomIndex = Random.Range(0, events.Count);
-            if(events[randomIndex].alreadyEncountered == true)
-            {
-                continue;
-            }
-            events[randomIndex].alreadyEncountered = true;
-            return events[randomIndex];
-        }
-        return null;
-    }
-
-    public void addMorale(int value)
-    {
-        Debug.Log("Morale changed: " + value);
-        morale += value;
-        if(morale > 100)
-        {
-            morale = 100;
-        }
-        updateResUI();
-    }
-    public void addRes(int value)
-    {
-        Debug.Log("Res changed: " + value);
-        resources += value;
-        if(resources > 100)
-        {
-            resources = 100;
-        }
-        updateResUI();
-    }
-
-    int getMorale()
-    {
-        return morale;
-    }
-
-    int getResources()
-    {
-        return resources;
-    }
-
-    void updateResUI()
-    {
-        resource_display.updateUI(morale, resources);
+        resource_display.updateUI(GameManager.Instance.Morale, GameManager.Instance.Resource);
     }
 }
 
