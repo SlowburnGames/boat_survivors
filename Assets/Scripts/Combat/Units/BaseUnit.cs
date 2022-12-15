@@ -55,7 +55,10 @@ public class BaseUnit : MonoBehaviour
     public int MoveDistance { get => _moveDistance; }
     public int AttackRange { get => _attackRange; }
     public bool IsRanged { get => _isRanged; }
+    public bool usedAction = false;
+    public bool standAction = false;
 
+    public string standActionName;
     public virtual void AttackTarget(BaseUnit target)
     {
         target.Attack(_attackDamage);

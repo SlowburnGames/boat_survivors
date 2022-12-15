@@ -68,9 +68,23 @@ public class UnitManager : MonoBehaviour
         CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
     }
 
+    public void useHeroAbility()
+    {
+        if(!selectedHero.usedAction)
+        {
+            selectedHero.SpecialMove(null);
+            selectedHero.usedAction = true;
+            ToggleAttackRangeIndicator(selectedHero, false);
+            if(selectedHero.usedAction && selectedHero.tilesWalkedThisTurn == selectedHero.MoveDistance)
+            {
+                CombatManager.Instance.endPlayerTurn();
+            }
+        }
+    }
+
     public void HeroesTurn(Tile tile, BaseUnit tileUnit, bool isWalkable)
     {   
-        if (tileUnit == selectedHero && !selectedHero.usedAction)
+        if (tileUnit == selectedHero && !selectedHero.usedAction && selectedHero.standAction)
         {
             selectedHero.SpecialMove(null);
             selectedHero.usedAction = true;
@@ -87,7 +101,7 @@ public class UnitManager : MonoBehaviour
             // Click on an enemy -> Attack it (if possible, else nothing should happen)
             else
             {
-                if (selectedHero != null && tileUnit.Faction == Faction.Enemy)
+                if (selectedHero != null && tileUnit.Faction == Faction.Enemy && !selectedHero.usedAction)
                 {
                     var enemy = (BaseEnemy) tileUnit;
                     
@@ -130,6 +144,7 @@ public class UnitManager : MonoBehaviour
                     {
                         ToggleAttackRangeIndicator(selectedHero,true);
                     }
+                    MenuManager.Instance.ShowSelectedHero(selectedHero);
                     //selectedHero.tilesWalkedThisTurn = 0;
                     //SetSelectedHero(null);
                     //CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Rouge : BaseHero
 {
+    private void Start() {
+      standAction = true;
+      standActionName = "Hide";
+    }
     public void Reset()
     {
         Faction = Faction.Hero;
@@ -16,7 +20,7 @@ public class Rouge : BaseHero
   {
     if(invisible)
     {
-        target.Attack(AttackDamage * 2);
+        target.Attack(AttackDamage * 3);
         invisible = false;
         return;
     }

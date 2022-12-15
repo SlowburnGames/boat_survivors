@@ -167,10 +167,12 @@ MonoBehaviour:
   _moveDistance: 5
   _attackRange: 1
   _isRanged: 0
-  unitDescription: Can go invisible by clicking on them during their turn. Attacking
-    from invisibility does double damage.
-  tilesWalkedThisTurn: 0
+  unitDescription: 'Hide: Goes invisible. Deals triple damage when attacking from
+    invisibility.'
   usedAction: 0
+  standAction: 0
+  standActionName: 
+  tilesWalkedThisTurn: 0
 --- !u!1 &6294326389844811678
 GameObject:
   m_ObjectHideFlags: 0

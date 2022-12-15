@@ -42,8 +42,40 @@ public class MenuManager : MonoBehaviour
             _selectedHeroObject.SetActive(false);
             return;
         }
+        var hero_image = _selectedHeroObject.transform.Find("HeroImage").gameObject.GetComponent<Image>();
+        hero_image.sprite = hero.GetComponent<SpriteRenderer>().sprite;
         _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName + "\n" + hero.unitDescription;
         _selectedHeroObject.SetActive(true);
+        var ability_button = _selectedHeroObject.transform.Find("HeroAbility").gameObject;
+        ability_button.gameObject.SetActive(false);
+        if(hero.standAction)
+        {
+            ability_button.transform.Find("HeroAbilityText").GetComponent<TMP_Text>().SetText(hero.standActionName);
+            ability_button.gameObject.SetActive(true);
+        }
+        var heroHPDisplay = _selectedHeroObject.transform.Find("HP");
+        string heroHPText = hero.Health + "/" + hero.MaxHealth;
+        heroHPDisplay.transform.Find("HeroHP").gameObject.GetComponent<TMP_Text>().SetText(heroHPText);
+        var heroSpeedDisplay = _selectedHeroObject.transform.Find("Speed");
+        string heroSpeedText = hero.tilesWalkedThisTurn + "/" + hero.MoveDistance;
+        heroSpeedDisplay.transform.Find("HeroSpeed").gameObject.GetComponent<TMP_Text>().SetText(heroSpeedText);
+
+        updateInitiative(hero);
+    }
+
+    void updateInitiative(BaseUnit unit)
+    {
+        var initiativeDisplay = _selectedHeroObject.transform.Find("Initiative");
+
+        List<string> initList = new List<string>();
+        initList.Add(unit.UnitName);
+        foreach (var currentUnit in CombatManager.Instance._turnQueue)
+        {
+            initList.Add(currentUnit.UnitName);
+        }
+
+        string initiativeText = "Turn order:" + String.Join(", ", initList);
+        initiativeDisplay.transform.Find("Text").gameObject.GetComponent<TMP_Text>().SetText(initiativeText);
     }
 
     public void ShowTileInfo(Tile tile)
