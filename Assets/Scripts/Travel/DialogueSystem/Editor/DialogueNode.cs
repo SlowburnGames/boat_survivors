@@ -17,7 +17,9 @@ public class DialogueNode : Node
     public string customStatus = "";
     public int duration = 0;
     public bool combat = false;
-
+    public List<string> enemies = new List<string>();
+    public int combatMoraleChange = 0;
+    public int combatResourceChange = 0;
     public DialogueNode(DialogueNodeData dialogueNodeData) : base()
     {
         GUID = dialogueNodeData.NodeGUID;
@@ -31,6 +33,9 @@ public class DialogueNode : Node
         customStatus = dialogueNodeData.customStatus;
         duration = dialogueNodeData.duration;
         combat = dialogueNodeData.combat;
+        enemies = dialogueNodeData.enemies;
+        combatMoraleChange = dialogueNodeData.combatMoraleChange;
+        combatResourceChange = dialogueNodeData.combatResourceChange;
     }
 
     public DialogueNode() : base()

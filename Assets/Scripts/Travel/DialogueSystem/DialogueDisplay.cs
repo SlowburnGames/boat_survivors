@@ -110,12 +110,14 @@ public class DialogueDisplay : MonoBehaviour
     {
         if(currentNode.combat)
         {
+            GameManager.Instance.setCombatRewards(currentNode.combatMoraleChange, currentNode.combatResourceChange);
             GameManager.Instance.startCombat(currentNode.enemies);
         }
     }
 
   public void init()
     {
+        image.sprite = null;
         currentNode = dialogueContainer.dialogueNodeData.Find((node)=>node.entryPoint);
         currentChoices = getChoices();
         applyEffects();

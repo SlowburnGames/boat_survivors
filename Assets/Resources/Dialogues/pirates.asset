@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c7a37dfdc0719419c7a4ecfa73bac6, type: 3}
+  m_Name: pirates
+  m_EditorClassIdentifier: 
+  nodeLinks:
+  - BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    PortName: Approach them.
+    TargetNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
+  - BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    PortName: 'Avoid them. '
+    TargetNodeGuid: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
+  - BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
+    PortName: Fight.
+    TargetNodeGuid: 21596e6f-7d6d-4742-a047-25ccb9d48180
+  - BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
+    PortName: Trade.
+    TargetNodeGuid: 2f93ad71-3c98-470a-aa3d-54da5f4f5645
+  dialogueNodeData:
+  - NodeGUID: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    DialogueText: The man in the shouts:"Pirates!" You take a look with your binoculars
+      and you see the clichee black flag with skull and bones.
+    image: 
+    Position: {x: 54, y: 29}
+    entryPoint: 1
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
+    DialogueText: You take a big turn to avoid the pirates.
+    image: 
+    Position: {x: 972, y: 159}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 4d99230d-156d-4d7e-a908-63d178f1c08e
+    DialogueText: The captain of their ship asks:"What do you want? We dont have
+      any space for you!"
+    image: 
+    Position: {x: 972, y: -182}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 21596e6f-7d6d-4742-a047-25ccb9d48180
+    DialogueText: You attack the pirates out of spite. "Maybe they just like skulls
+      and bones..." you think to yourself...
+    image: 
+    Position: {x: 1682, y: -393}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 1
+    enemies:
+    - Zombie
+    - Zombie
+    - Zombie
+    - Zombie
+    - Zombie
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 2f93ad71-3c98-470a-aa3d-54da5f4f5645
+    DialogueText: '"Here''s some bread and some nails, now get the hell away from
+      us."'
+    image: 
+    Position: {x: 1682, y: -52}
+    entryPoint: 0
+    moraleChange: 5
+    resourceChange: 10
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  alreadyEncountered: 0

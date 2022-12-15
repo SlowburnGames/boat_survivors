@@ -213,8 +213,32 @@ public class DialogueGraphView : GraphView
         startsCombatField.SetValueWithoutNotify(dialogue_node.combat);
         combatFoldout.contentContainer.Add(startsCombatField);
 
-        dialogue_node.mainContainer.Add(combatFoldout);
 
+        var enemiesView = new ListView(dialogue_node.enemies);
+        enemiesView.headerTitle = "Enemies";
+        enemiesView.showAddRemoveFooter = true;
+        enemiesView.showBoundCollectionSize = true;
+        enemiesView.showFoldoutHeader = true;
+        enemiesView.showBorder = true;
+
+        combatFoldout.contentContainer.Add(enemiesView);
+
+        var combatMoraleRewardField = new IntegerField("Morale Reward");
+        combatMoraleRewardField.RegisterValueChangedCallback((evt)=>{
+            dialogue_node.combatMoraleChange = evt.newValue;
+        });
+        combatMoraleRewardField.SetValueWithoutNotify(dialogue_node.combatMoraleChange);
+        combatFoldout.contentContainer.Add(combatMoraleRewardField);
+
+
+        var combatResRewardField = new IntegerField("Resource Reward");
+        combatResRewardField.RegisterValueChangedCallback((evt)=>{
+            dialogue_node.combatResourceChange = evt.newValue;
+        });
+        combatResRewardField.SetValueWithoutNotify(dialogue_node.combatResourceChange);
+        combatFoldout.contentContainer.Add(combatResRewardField);
+
+        dialogue_node.mainContainer.Add(combatFoldout);
 
         dialogue_node.RefreshPorts();
         dialogue_node.SetPosition(new Rect(new Vector2(100,100), defaultNodeSize));

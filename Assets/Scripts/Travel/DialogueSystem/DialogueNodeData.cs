@@ -19,7 +19,8 @@ public class DialogueNodeData
     public int duration = 0;
     public bool combat = false;
     public List<string> enemies = new List<string>();
-
+    public int combatMoraleChange = 0;
+    public int combatResourceChange = 0;
 //    public DialogueNodeData(DialogueNode dialogueNode)
     //{
         //NodeGUID = dialogueNode.GUID;

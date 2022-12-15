@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
     public int travel_distance = 0;
     public List<StatusEffect> active_status_effects = new List<StatusEffect>();
 
+    private int combatMoraleReward;
+    private int combatResReward;
+
     public void Awake()
     {
         DontDestroyOnLoad(this);
@@ -46,10 +49,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        currentHeroes = new List<string>();
-        currentHeroes.Add("Rouge");
-        currentHeroes.Add("Fighter");
-        currentHeroes.Add("Wizard");
     }
 
     private void Start()
@@ -161,6 +160,18 @@ public class GameManager : MonoBehaviour
         DialogueDisplay.instance.dialogueContainer = events[currentEventIndex];
         currentEventIndex++;
         DialogueDisplay.instance.init();
+    }
+
+    public void addCombatRewards()
+    {
+        morale += combatMoraleReward;
+        resource += combatResReward;
+    }
+
+    public void setCombatRewards(int morale, int res)
+    {
+        combatMoraleReward = morale;
+        combatResReward = res;
     }
 
     public void addRes(int value)

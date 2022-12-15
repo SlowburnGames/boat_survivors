@@ -391,6 +391,7 @@ public class UnitManager : MonoBehaviour
     {
         if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Enemy).Count == 0)
         {
+            GameManager.Instance.addCombatRewards();
             SceneManager.LoadScene("Travel");
         }
         else if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Hero).Count == 0)

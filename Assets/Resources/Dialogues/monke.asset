@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c7a37dfdc0719419c7a4ecfa73bac6, type: 3}
+  m_Name: monke
+  m_EditorClassIdentifier: 
+  nodeLinks: []
+  dialogueNodeData:
+  - NodeGUID: a2b956be-a34b-4dbc-b811-90651c477f11
+    DialogueText: You find a monkey. The spirits are high.
+    image: monke
+    Position: {x: 100, y: 100}
+    entryPoint: 1
+    moraleChange: 10
+    resourceChange: -2
+    customImmediate: monke
+    applies_status: 1
+    customStatus: TestStatus
+    duration: -1
+    combat: 0
+  alreadyEncountered: 0
