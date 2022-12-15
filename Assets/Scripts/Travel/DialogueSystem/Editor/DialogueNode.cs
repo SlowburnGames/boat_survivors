@@ -58,6 +58,8 @@ public class DialogueNode : Node
             customStatus = customStatus,
             duration = duration,
             combat = combat,
+            combatMoraleChange = combatMoraleChange,
+            combatResourceChange = combatResourceChange,
         };
     }
 }

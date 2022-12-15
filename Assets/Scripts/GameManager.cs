@@ -34,8 +34,10 @@ public class GameManager : MonoBehaviour
     public int travel_distance = 0;
     public List<StatusEffect> active_status_effects = new List<StatusEffect>();
 
-    private int combatMoraleReward;
-    private int combatResReward;
+    public int combatMoraleReward;
+    public int combatResReward;
+
+    public bool intro_played = false;
 
     public void Awake()
     {
@@ -49,6 +51,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        currentHeroes = new List<string>();
+        currentHeroes.Add("Rouge");
+        currentHeroes.Add("Fighter");
+        currentHeroes.Add("Wizard");
     }
 
     private void Start()
@@ -59,10 +65,17 @@ public class GameManager : MonoBehaviour
         currentHeroes.Add("Wizard");
 
         loadRandomEvents();
+        morale = 50;
+        resource = 50;
+        active_status_effects = new List<StatusEffect>();
+        isDay = true;
+        travel_distance = 0;
+        population = 3;
 
-        if(SceneManager.GetActiveScene().name != "Combat")
-            SceneManager.LoadScene("Travel");
+
     }
+
+
 
     List<string> makeHeroList()
     {
@@ -82,11 +95,26 @@ public class GameManager : MonoBehaviour
 
     public void resetGame()
     {
-        Start();
+        loadRandomEvents();
+        morale = 50;
+        resource = 50;
+        active_status_effects = new List<StatusEffect>();
+        isDay = true;
+        travel_distance = 0;
+        population = 3;
+        Debug.Log(morale);
+        SceneManager.LoadScene("Travel");
+    }
+
+    public void exitGame()
+    {
+        Debug.Log("it's working");
+        Application.Quit();
     }
 
     void loadRandomEvents()
     {
+        currentEventIndex = 0;
         var cache = Resources.LoadAll("Dialogues", typeof(DialogueContainer));
 
         foreach (var item in cache)
@@ -154,7 +182,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Random Event!");
         if(currentEventIndex >= events.Count)
         {
-            TravelManager.instance.setButtonsInteractable(true);
+            SceneManager.LoadScene("Win");
             return;
         }
         DialogueDisplay.instance.dialogueContainer = events[currentEventIndex];

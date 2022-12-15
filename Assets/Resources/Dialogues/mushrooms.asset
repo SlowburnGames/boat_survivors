@@ -87,7 +87,10 @@ MonoBehaviour:
     customStatus: 
     duration: 0
     combat: 1
-    enemies: []
+    enemies:
+    - Zombie
+    - Monster
+    - Monster
     combatMoraleChange: 0
     combatResourceChange: 0
   alreadyEncountered: 0

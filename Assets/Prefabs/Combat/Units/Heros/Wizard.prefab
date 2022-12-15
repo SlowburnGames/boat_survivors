@@ -230,12 +230,16 @@ MonoBehaviour:
   OccupiedTile: {fileID: 0}
   Faction: 0
   UnitName: Wizard
+  invisible: 0
   _maxHealth: 2
   _health: 0
   _attackDamage: 1
   _moveDistance: 3
   _attackRange: 4
   _isRanged: 1
+  unitDescription: Has a ranged attack.
+  tilesWalkedThisTurn: 0
+  usedAction: 0
 --- !u!1 &6056418182739433378
 GameObject:
   m_ObjectHideFlags: 0

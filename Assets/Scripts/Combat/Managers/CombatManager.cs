@@ -71,6 +71,8 @@ public class CombatManager : MonoBehaviour
                     UnitManager.Instance.EnemiesTurn(enemy);
                 }
                 break;
+            case CombatState.CombatEnd:
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
@@ -108,5 +110,6 @@ public enum CombatState
     SetTurnOrder = 4,
     UnitTurn = 5,
     HeroTurn = 6,
-    EnemyTurn = 7
+    EnemyTurn = 7,
+    CombatEnd = 8
 }

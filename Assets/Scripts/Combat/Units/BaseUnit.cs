@@ -36,6 +36,8 @@ public class BaseUnit : MonoBehaviour
     [SerializeField] protected int _attackRange = 1;
     [SerializeField] protected bool _isRanged = false;
 
+    [SerializeField]public string unitDescription;
+
     public void OnEnable()
     {
         _health = _maxHealth;

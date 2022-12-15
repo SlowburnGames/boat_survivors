@@ -30,7 +30,7 @@ MonoBehaviour:
     DialogueText: The man in the shouts:"Pirates!" You take a look with your binoculars
       and you see the clichee black flag with skull and bones.
     image: 
-    Position: {x: 54, y: 29}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -73,6 +73,22 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
+  - NodeGUID: 2f93ad71-3c98-470a-aa3d-54da5f4f5645
+    DialogueText: '"Here''s some bread and some nails, now get the hell away from
+      us."'
+    image: 
+    Position: {x: 1682, y: 112}
+    entryPoint: 0
+    moraleChange: 5
+    resourceChange: 5
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
   - NodeGUID: 21596e6f-7d6d-4742-a047-25ccb9d48180
     DialogueText: You attack the pirates out of spite. "Maybe they just like skulls
       and bones..." you think to yourself...
@@ -86,28 +102,7 @@ MonoBehaviour:
     customStatus: 
     duration: 0
     combat: 1
-    enemies:
-    - Zombie
-    - Zombie
-    - Zombie
-    - Zombie
-    - Zombie
-    combatMoraleChange: 0
-    combatResourceChange: 0
-  - NodeGUID: 2f93ad71-3c98-470a-aa3d-54da5f4f5645
-    DialogueText: '"Here''s some bread and some nails, now get the hell away from
-      us."'
-    image: 
-    Position: {x: 1682, y: -52}
-    entryPoint: 0
-    moraleChange: 5
-    resourceChange: 10
-    customImmediate: 
-    applies_status: 0
-    customStatus: 
-    duration: 0
-    combat: 0
     enemies: []
     combatMoraleChange: 0
-    combatResourceChange: 0
+    combatResourceChange: 15
   alreadyEncountered: 0

@@ -22,6 +22,8 @@ public class TravelManager : MonoBehaviour
     [Header("Boat")]
     private Animator boat_animator;
 
+    [SerializeField] DialogueContainer intro_sequence;
+
 
     private void Awake() {
         instance = this;
@@ -38,6 +40,18 @@ public class TravelManager : MonoBehaviour
         Transform boat = canvas.Find("Boat");
         boat_animator = boat.GetComponent<Animator>();
         dialogueDisplay = DialogueDisplay.instance;
+
+        if(!GameManager.Instance.intro_played)
+        {
+            playIntro();
+        }
+    }
+    void playIntro()
+    {
+        setButtonsInteractable(false);
+        DialogueDisplay.instance.dialogueContainer = intro_sequence;
+        DialogueDisplay.instance.init();
+        GameManager.Instance.intro_played = true;
     }
 
     void setupCamera()

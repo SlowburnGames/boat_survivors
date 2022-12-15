@@ -369,6 +369,11 @@ public class UnitManager : MonoBehaviour
             CombatManager.Instance._turnQueue =
                 new Queue<BaseUnit>(CombatManager.Instance._turnQueue.Where(x => x != aUnit));
             Destroy(aUnit.gameObject);
+            if(aUnit.Faction == Faction.Hero)
+            {
+                GameManager.Instance.combatMoraleReward -= 10;
+                GameManager.Instance.combatResReward -= 10;
+            }
             checkCombatOver();
         }
     }
@@ -392,7 +397,8 @@ public class UnitManager : MonoBehaviour
         if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Enemy).Count == 0)
         {
             GameManager.Instance.addCombatRewards();
-            SceneManager.LoadScene("Travel");
+            CombatManager.Instance.ChangeCombatState(CombatState.CombatEnd);
+            MenuManager.Instance.openVictoryScreen();
         }
         else if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Hero).Count == 0)
         {

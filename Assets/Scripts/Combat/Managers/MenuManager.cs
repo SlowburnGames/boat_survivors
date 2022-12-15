@@ -3,18 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
     [SerializeField] private GameObject _selectedHeroObject;
+    [SerializeField] private GameObject _placeHeroes;
     [SerializeField] private GameObject _tileObject;
     [SerializeField] private GameObject _tileUnitObject;
     [SerializeField] private GameObject _avaliableHeroes;
     [SerializeField] private GameObject _avaliableHeroesImg;
 
     [SerializeField] private GameObject _endTurnButton;
+
+    [SerializeField] private GameObject _combatEndScreen;
 
     [SerializeField] private GameObject _fighterImage;
     
@@ -38,7 +42,7 @@ public class MenuManager : MonoBehaviour
             _selectedHeroObject.SetActive(false);
             return;
         }
-        _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName;
+        _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName + "\n" + hero.unitDescription;
         _selectedHeroObject.SetActive(true);
     }
 
@@ -72,6 +76,7 @@ public class MenuManager : MonoBehaviour
         _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
         _avaliableHeroes.SetActive(true);
 
+        _placeHeroes.SetActive(true);
         // Instantiate(_fighterImage, _avaliableHeroesImg.transform);
 
     }
@@ -79,11 +84,26 @@ public class MenuManager : MonoBehaviour
     public void UpdateAvailableHeroes(List<string> myHeroes)
     {
         _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
+        _placeHeroes.SetActive(true);
     }
 
     public void DisableAvailableHeroes()
     {
         _avaliableHeroes.SetActive(false);
+        _placeHeroes.SetActive(false);
+    }
+
+    public void openVictoryScreen()
+    {
+        var stats = _combatEndScreen.transform.Find("Stats").GetComponent<TMP_Text>();
+        stats.SetText("Rewards:\nMorale:\t"+ GameManager.Instance.combatMoraleReward + "\nResources:\t" + GameManager.Instance.combatResReward);
+
+        _combatEndScreen.SetActive(true);
+    }
+
+    public void victoryReturnButton()
+    {
+        SceneManager.LoadScene("Travel");
     }
     
     

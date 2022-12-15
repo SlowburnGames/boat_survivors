@@ -62,6 +62,11 @@ public class DialogueDisplay : MonoBehaviour
             first_button.GetComponentInChildren<TMP_Text>().SetText("Okay.");
             first_button.onClick.AddListener(closeEvent);
             first_button.gameObject.SetActive(true);
+            if(currentNode.combat)
+            {
+                first_button.onClick.AddListener(startCombat);
+                first_button.GetComponentInChildren<TMP_Text>().SetText("Fight.");
+            }
         }
 
         for (int i = 0; i < currentChoices.Count; i++)
@@ -101,7 +106,6 @@ public class DialogueDisplay : MonoBehaviour
         currentNode = dialogueContainer.dialogueNodeData.Find((node)=>node.NodeGUID == edge.TargetNodeGuid);
         currentChoices = getChoices();
         applyEffects();
-        startCombat();
         updateText();
         TravelManager.instance.updateResUI();
     }
