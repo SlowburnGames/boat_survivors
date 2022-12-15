@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c7a37dfdc0719419c7a4ecfa73bac6, type: 3}
+  m_Name: Myterious_Man_1
+  m_EditorClassIdentifier: 
+  nodeLinks:
+  - BaseNodeGuid: 6d4c9491-0b10-4447-a3b3-e38e2063d2f8
+    PortName: What do you want from us?
+    TargetNodeGuid: e87cc877-88f2-4255-9086-ee7b315ef786
+  - BaseNodeGuid: e87cc877-88f2-4255-9086-ee7b315ef786
+    PortName: What do you want from us?
+    TargetNodeGuid: 8c1cc1e8-0b96-4e87-bb70-b639ba016351
+  - BaseNodeGuid: 6d4c9491-0b10-4447-a3b3-e38e2063d2f8
+    PortName: Leave us alone, we have no place for more passengers.
+    TargetNodeGuid: bff9e3d7-dce7-41b4-b925-733557d5a4be
+  dialogueNodeData:
+  - NodeGUID: 6d4c9491-0b10-4447-a3b3-e38e2063d2f8
+    DialogueText: 'Out of nowhere, a mysterious man appears infront of you boat.
+      His raft  seems to make no noise whatsoever and almost floats a bit above the
+      dark waves. '
+    image: mysterious_man
+    Position: {x: 100, y: 100}
+    entryPoint: 1
+    moraleChange: 0
+    resourceChange: 0
+    duration: 0
+    combat: 0
+  - NodeGUID: e87cc877-88f2-4255-9086-ee7b315ef786
+    DialogueText: The myterious man gives you no awnser but he must have heard you,
+      because he slowly turns to face you directly. No words. The crew starts to
+      get uneasy and many of them give you a questioning look.
+    image: mysterious_man
+    Position: {x: 100, y: 312}
+    entryPoint: 0
+    moraleChange: 1
+    resourceChange: 0
+    duration: 0
+    combat: 0
+  - NodeGUID: 8c1cc1e8-0b96-4e87-bb70-b639ba016351
+    DialogueText: 'Hearing the same question again, he turns around and without making
+      any sounds other boats usually makes when travelling this hopeless sea. You
+      look at your crew, not knowing what just happened. When you look back at the
+      sea, the man disappeared. '
+    image: mysterious_man
+    Position: {x: 100, y: 527}
+    entryPoint: 0
+    moraleChange: -10
+    resourceChange: 0
+    duration: 0
+    combat: 0
+  - NodeGUID: bff9e3d7-dce7-41b4-b925-733557d5a4be
+    DialogueText: The mysterious man sharply twists his head to look you directly
+      into the eyes. This moment seems to last forever. He throws a sack or something
+      wrapped in cloth on board, which quickly garners the attention of most of the
+      crew on board. You take a look at the package, it contains technical equipment
+      . Surprised you raise your head and want to say something to the mysterious
+      man, but he is gone.
+    image: mysterious_man
+    Position: {x: 100, y: 734}
+    entryPoint: 0
+    moraleChange: -5
+    resourceChange: 20
+    duration: 0
+    combat: 0
+  alreadyEncountered: 0

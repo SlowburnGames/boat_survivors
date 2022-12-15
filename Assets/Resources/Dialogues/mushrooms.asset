@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c7a37dfdc0719419c7a4ecfa73bac6, type: 3}
+  m_Name: mushrooms
+  m_EditorClassIdentifier: 
+  nodeLinks:
+  - BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    PortName: Stomp.
+    TargetNodeGuid: fa7f1d17-a2bd-43e5-9d27-0ba33807e57e
+  - BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    PortName: Eat.
+    TargetNodeGuid: 173e3a5d-b9ec-43fa-97f2-5d5251bc2bd2
+  - BaseNodeGuid: fa7f1d17-a2bd-43e5-9d27-0ba33807e57e
+    PortName: Okay.
+    TargetNodeGuid: 0173c4ad-c8d1-46a9-ae85-83e025047bea
+  dialogueNodeData:
+  - NodeGUID: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    DialogueText: 'You come across an island full of hypnotizing colored mushrooms.
+
+      Due
+      to your lack of specialization you are unable to identify the specimens.
+
+      You
+      want to escape, but feel oddly compelled to eat a mushroom.'
+    image: 
+    Position: {x: 100, y: 100}
+    entryPoint: 1
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: fa7f1d17-a2bd-43e5-9d27-0ba33807e57e
+    DialogueText: You make some noise and are ambushed by Zombies!
+    image: 
+    Position: {x: 828, y: 11}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 173e3a5d-b9ec-43fa-97f2-5d5251bc2bd2
+    DialogueText: You give in to the unnatural desire to eat. The mushrooms are delicious
+      and you take some onto the ship.
+    image: 
+    Position: {x: 828, y: 302}
+    entryPoint: 0
+    moraleChange: 10
+    resourceChange: 15
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 0173c4ad-c8d1-46a9-ae85-83e025047bea
+    DialogueText: Ambush!!!
+    image: 
+    Position: {x: 1462, y: -143}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 1
+    enemies:
+    - Zombie
+    - Monster
+    - Monster
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  alreadyEncountered: 0
