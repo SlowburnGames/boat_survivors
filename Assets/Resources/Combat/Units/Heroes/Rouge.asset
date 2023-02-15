@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
   m_Name: Rouge
   m_EditorClassIdentifier: 
-  Faction: 0
   UnitPrefab: {fileID: 5070908024623995816, guid: c7bad3be7eab3f34fbe1927d67037c96, type: 3}
+  faction: 0
+  unitName: Rouge
+  unitDescription: You are dead before you see him
+  isRanged: 0
+  attacks: 2
+  damage: 1
+  movementRange: 5
+  attackRange: 1
+  health: 1
+  sprite: {fileID: 21300000, guid: fd82cb8052624a949b04dc7c704c44e7, type: 2}
+  ability: {fileID: 11400000, guid: 9fc92dcffcaa29141819c294020d8ec0, type: 2}

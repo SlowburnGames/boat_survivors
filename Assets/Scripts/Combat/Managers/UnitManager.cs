@@ -70,61 +70,70 @@ public class UnitManager : MonoBehaviour
 
     public void useHeroAbility()
     {
-        if(!selectedHero.usedAction)
+        //if(!selectedHero.usedAction)
         {
             selectedHero.SpecialMove(null);
-            selectedHero.usedAction = true;
+            //selectedHero.usedAction = true;
             ToggleAttackRangeIndicator(selectedHero, false);
-            if(selectedHero.usedAction && selectedHero.tilesWalkedThisTurn == selectedHero.MoveDistance)
-            {
-                CombatManager.Instance.endPlayerTurn();
-            }
+            //if(selectedHero.usedAction && selectedHero.tilesWalked == selectedHero.MoveDistance)
+            //{
+            //    //CombatManager.Instance.endPlayerTurn();
+            //}
         }
     }
 
     public void HeroesTurn(Tile tile, BaseUnit tileUnit, bool isWalkable)
     {   
-        if (tileUnit == selectedHero && !selectedHero.usedAction && selectedHero.standAction)
+        if (tileUnit == selectedHero && /*!selectedHero.usedAction &&*/ selectedHero.standAction)
         {
-            selectedHero.SpecialMove(null);
-            selectedHero.usedAction = true;
-            ToggleAttackRangeIndicator(selectedHero, false);
+            if(selectedHero.attacksMade - selectedHero.MaxAttacks > 0)
+            {
+                selectedHero.SpecialMove(null);
+                //selectedHero.usedAction = true;
+                ToggleAttackRangeIndicator(selectedHero, false);
+            }
+            
         }
         // Attacking enemy branch
         else if (tileUnit != null)
         {
             // Click on same hero or another hero (nothing should happen)
-            if (tileUnit.Faction == Faction.Hero && (selectedHero == (BaseHero)tileUnit || selectedHero != null))
+            if (tileUnit.faction == Faction.Hero && (selectedHero == (BaseHero)tileUnit || selectedHero != null))
             {
                 // Debug.Log("Same hero selected");
             }
             // Click on an enemy -> Attack it (if possible, else nothing should happen)
             else
             {
-                if (selectedHero != null && tileUnit.Faction == Faction.Enemy && !selectedHero.usedAction)
+                if (selectedHero != null && tileUnit.faction == Faction.Enemy /*&& !selectedHero.usedAction*/)
                 {
-                    var enemy = (BaseEnemy) tileUnit;
-                    
-                    // Check if attack possible
-                    bool canAttack = CheckAttackPossible(selectedHero, enemy);
-                    
-                    // Do the attack (dmg + unselecting unit)
-                    if (canAttack)
+                    // check how many attacks left
+                    if (selectedHero.attacksMade > 0)
                     {
-                        selectedHero.AttackTarget(enemy);
+                        var enemy = (BaseEnemy)tileUnit;
 
-                        // Debug.Log("Damaged " + enemy.name + " by " + selectedHero.AttackDamage);
-                        
-                        // Check if attacked unit dies
-                        CheckAttackedUnit(enemy);
-                        selectedHero.usedAction = true;
-                        
-                        // End turn
-                        ToggleAttackRangeIndicator(selectedHero, false);
-                        //SetSelectedHero(null);
-                        //CombatManager.Instance.ChangeCombatState(CombatState.HeroTurn);
-                    }
-                    
+                        // Check if attack possible
+                        bool canAttack = CheckAttackPossible(selectedHero, enemy);
+
+                        // Do the attack (dmg + unselecting unit)
+                        if (canAttack)
+                        {
+                            selectedHero.AttackTarget(enemy);
+                            selectedHero.attacksMade--;
+                            MenuManager.Instance.updateAttacks(selectedHero);
+
+                            // Debug.Log("Damaged " + enemy.name + " by " + selectedHero.AttackDamage);
+
+                            // Check if attacked unit dies
+                            CheckAttackedUnit(enemy);
+                            //selectedHero.usedAction = true;
+
+                            // End turn
+                            ToggleAttackRangeIndicator(selectedHero, false);
+                            //SetSelectedHero(null);
+                            //CombatManager.Instance.ChangeCombatState(CombatState.HeroTurn);
+                        }
+                    }     
                 }
             }
         }
@@ -135,15 +144,15 @@ public class UnitManager : MonoBehaviour
             if (selectedHero != null && isWalkable && tile.tileUnit == null)
             {
                 var path = Pathfinding.Instance.FindPath(selectedHero.OccupiedTile, tile);
-                if(path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalkedThisTurn)
+                if(path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalked)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
                     SetUnit(selectedHero, tile);
-                    selectedHero.tilesWalkedThisTurn += path.Count;
-                    if(!selectedHero.usedAction)
-                    {
-                        ToggleAttackRangeIndicator(selectedHero,true);
-                    }
+                    selectedHero.tilesWalked += path.Count;
+                    //if(!selectedHero.usedAction)
+                    //{
+                    //    ToggleAttackRangeIndicator(selectedHero,true);
+                    //}
                     MenuManager.Instance.ShowSelectedHero(selectedHero);
                     //selectedHero.tilesWalkedThisTurn = 0;
                     //SetSelectedHero(null);
@@ -160,10 +169,10 @@ public class UnitManager : MonoBehaviour
             }
         }
 
-        if(selectedHero.usedAction && selectedHero.tilesWalkedThisTurn == selectedHero.MoveDistance)
-        {
-            CombatManager.Instance.endPlayerTurn();
-        }
+        //if(selectedHero.usedAction && selectedHero.tilesWalked == selectedHero.MoveDistance)
+        //{
+        //    //CombatManager.Instance.endPlayerTurn();
+        //}
     }
 
 
@@ -205,7 +214,7 @@ public class UnitManager : MonoBehaviour
         foreach (var tile in neighbours)
         {
 
-            if(tile.tileUnit != null && tile.tileUnit.Faction == Faction.Hero && tile.tileUnit.invisible)
+            if(tile.tileUnit != null && tile.tileUnit.faction == Faction.Hero && tile.tileUnit.invisible)
             {
                 tile.tileUnit.invisible = false;
             }
@@ -214,7 +223,7 @@ public class UnitManager : MonoBehaviour
 
     Tuple<BaseUnit, int, List<Tile>> findNearestHero(BaseEnemy enemy)
     {
-        List<BaseUnit> allHeroes = CombatManager.Instance._turnQueue.ToList().FindAll(unit => unit.Faction == Faction.Hero);
+        List<BaseUnit> allHeroes = CombatManager.Instance._turnQueue.ToList().FindAll(unit => unit.faction == Faction.Hero);
 
         BaseUnit nearestHero = null;
         int minDistance = Int32.MaxValue;
@@ -384,7 +393,7 @@ public class UnitManager : MonoBehaviour
             CombatManager.Instance._turnQueue =
                 new Queue<BaseUnit>(CombatManager.Instance._turnQueue.Where(x => x != aUnit));
             Destroy(aUnit.gameObject);
-            if(aUnit.Faction == Faction.Hero)
+            if(aUnit.faction == Faction.Hero)
             {
                 GameManager.Instance.combatMoraleReward -= 10;
                 GameManager.Instance.combatResReward -= 10;
@@ -409,13 +418,13 @@ public class UnitManager : MonoBehaviour
 
     public void checkCombatOver()
     {
-        if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Enemy).Count == 0)
+        if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.faction == Faction.Enemy).Count == 0)
         {
             GameManager.Instance.addCombatRewards();
             CombatManager.Instance.ChangeCombatState(CombatState.CombatEnd);
             MenuManager.Instance.openVictoryScreen();
         }
-        else if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Hero).Count == 0)
+        else if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.faction == Faction.Hero).Count == 0)
         {
             SceneManager.LoadScene("GameOver");
         }

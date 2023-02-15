@@ -10,6 +10,9 @@ public class CombatManager : MonoBehaviour
     public CombatState combatState;
     public Queue<BaseUnit> _turnQueue = new Queue<BaseUnit>();
     public List<BaseUnit> _spawnedUnitList = new List<BaseUnit>();
+
+    private int turnCounter = 0;
+    private int currentTurn = 0;
     
     public void Awake()
     {
@@ -46,12 +49,18 @@ public class CombatManager : MonoBehaviour
                 SetTurnOrder();
                 break;
             case CombatState.UnitTurn:
-
                 UnitManager.Instance.checkCombatOver();
                 BaseUnit nextUnit = _turnQueue.Dequeue();
                 _turnQueue.Enqueue(nextUnit);
 
-                if (nextUnit.Faction == Faction.Hero)
+                currentTurn++;
+                if(currentTurn == turnCounter)
+                {
+                    currentTurn = 0;
+                    updateTimers();
+                }
+
+                if (nextUnit.faction == Faction.Hero)
                 {
                     var hero = (BaseHero) nextUnit;
                     Debug.Log("Hero " + hero.name + " turn!");
@@ -62,7 +71,7 @@ public class CombatManager : MonoBehaviour
                     combatState = CombatState.HeroTurn;
                     MenuManager.Instance.toggleButtons(true);
                 }
-                else if (nextUnit.Faction == Faction.Enemy)
+                else if (nextUnit.faction == Faction.Enemy)
                 {
                     var enemy = (BaseEnemy) nextUnit;
                     Debug.Log("Enemy " + enemy.name + " turn!");
@@ -85,17 +94,28 @@ public class CombatManager : MonoBehaviour
 
         foreach (var unit in _spawnedUnitList)
             _turnQueue.Enqueue(unit);
+
+        turnCounter = _turnQueue.Count;
         
         ChangeCombatState(CombatState.UnitTurn);
     }
     
     public void endPlayerTurn()
     {
-        UnitManager.Instance.selectedHero.tilesWalkedThisTurn = 0;
-        UnitManager.Instance.selectedHero.usedAction = false;
+        UnitManager.Instance.selectedHero.tilesWalked = 0;
+        //UnitManager.Instance.selectedHero.usedAction = false;
         UnitManager.Instance.ToggleAttackRangeIndicator(UnitManager.Instance.selectedHero, false);
         UnitManager.Instance.SetSelectedHero(null);
         ChangeCombatState(CombatState.UnitTurn);
+    }
+
+    public void updateTimers()
+    {
+        foreach (var unit in _turnQueue)
+        {
+            unit.updateCooldowns();
+        }
+        
     }
     
     

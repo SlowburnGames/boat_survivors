@@ -158,13 +158,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}
-  Faction: 0
+  faction: 0
   UnitName: Rouge
+  unitClass: {fileID: 11400000, guid: ca1b994d53402fd4fb6b834ffcc73879, type: 2}
   invisible: 0
   _maxHealth: 2
   _health: 0
   _attackDamage: 1
   _moveDistance: 5
+  _maxAttacks: 3
   _attackRange: 1
   _isRanged: 0
   unitDescription: 'Hide: Goes invisible. Deals triple damage when attacking from
@@ -173,6 +175,7 @@ MonoBehaviour:
   standAction: 0
   standActionName: 
   tilesWalkedThisTurn: 0
+  attacksUsedThisTurn: 0
 --- !u!1 &6294326389844811678
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class Rouge : BaseHero
     }
     public void Reset()
     {
-        Faction = Faction.Hero;
+        faction = Faction.Hero;
         UnitName = "Rouge";
         _maxHealth = 2;
         _moveDistance = 5;
@@ -20,18 +20,11 @@ public class Rouge : BaseHero
   {
     if(invisible)
     {
-        target.Attack(AttackDamage * 3);
+        target.TakeDamage(AttackDamage * 3);
         invisible = false;
         return;
     }
-    target.Attack(AttackDamage);
+    target.TakeDamage(AttackDamage);
 
-  }
-
-  public override void SpecialMove(Tile target)
-  {
-    Debug.Log("Rogue Goes Invisible:");
-    invisible = true;
-    tilesWalkedThisTurn = 5;
   }
 }

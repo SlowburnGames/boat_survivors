@@ -363,11 +363,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}
-  Faction: 1
+  faction: 0
   UnitName: Monster
+  unitClass: {fileID: 11400000, guid: 1ff936d1bd0e5704083e2fa69e61d71e, type: 2}
+  invisible: 0
   _maxHealth: 4
   _health: 0
   _attackDamage: 1
   _moveDistance: 2
+  _maxAttacks: 3
   _attackRange: 1
   _isRanged: 0
+  unitDescription: 
+  usedAction: 0
+  standAction: 0
+  standActionName: 

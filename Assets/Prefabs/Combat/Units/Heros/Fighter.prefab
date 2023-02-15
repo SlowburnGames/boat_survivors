@@ -99,19 +99,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}
-  Faction: 0
+  faction: 0
   UnitName: Fighter
+  unitClass: {fileID: 11400000, guid: 00e092cc87dd99444a83f4b473cd42b3, type: 2}
   invisible: 0
   _maxHealth: 4
   _health: 0
   _attackDamage: 1
   _moveDistance: 3
+  _maxAttacks: 3
   _attackRange: 1
   _isRanged: 0
   unitDescription: The Fighter pushes enemies 1 tile when attack. Pushiing enemies
     into water kills them.
-  tilesWalkedThisTurn: 0
   usedAction: 0
+  standAction: 0
+  standActionName: 
+  tilesWalkedThisTurn: 0
+  attacksUsedThisTurn: 0
 --- !u!1 &5009325867127900422
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class Fighter : BaseHero
 {
     public void Reset()
     {
-        Faction = Faction.Hero;
+        faction = Faction.Hero;
         UnitName = "Fighter";
         _maxHealth = 3;
     }
@@ -29,7 +29,7 @@ public class Fighter : BaseHero
     
     if(WFCGenerator.Instance._tiles[target_pos.x][target_pos.y].tileName == "Water")
     {
-        target.Attack(int.MaxValue);
+        target.TakeDamage(int.MaxValue);
     }
   }
 }

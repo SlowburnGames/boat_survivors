@@ -6,7 +6,7 @@ public class Zombie : BaseEnemy
 {
     public void Reset()
     {
-        Faction = Faction.Enemy;
+        faction = Faction.Enemy;
         UnitName = "Zombie";
         _maxHealth = 2;
     }

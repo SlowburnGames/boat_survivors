@@ -142,7 +142,7 @@ public class Tile : MonoBehaviour
 
         Color c = Color.green;
 
-        if(tilesToWalk.Count <= UnitManager.Instance.selectedHero.MoveDistance - UnitManager.Instance.selectedHero.tilesWalkedThisTurn)
+        if(tilesToWalk.Count <= UnitManager.Instance.selectedHero.MoveDistance - UnitManager.Instance.selectedHero.tilesWalked)
         {
             c = Color.green;
         }

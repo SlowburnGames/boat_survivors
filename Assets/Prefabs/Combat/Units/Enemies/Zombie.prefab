@@ -99,14 +99,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}
-  Faction: 1
+  faction: 0
   UnitName: Zombie
+  unitClass: {fileID: 11400000, guid: 005364fd7a73b594dba51c8e2be774f1, type: 2}
+  invisible: 0
   _maxHealth: 2
   _health: 0
   _attackDamage: 1
   _moveDistance: 3
+  _maxAttacks: 3
   _attackRange: 1
   _isRanged: 0
+  unitDescription: 
+  usedAction: 0
+  standAction: 0
+  standActionName: 
 --- !u!1 &7232352137110558798
 GameObject:
   m_ObjectHideFlags: 0

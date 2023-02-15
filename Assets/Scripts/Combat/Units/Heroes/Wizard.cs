@@ -6,7 +6,7 @@ public class Wizard : BaseHero
 {
     public void Reset()
     {
-        Faction = Faction.Hero;
+        faction = Faction.Hero;
         UnitName = "Wizard";
         _maxHealth = 2;
         _attackRange = 4;

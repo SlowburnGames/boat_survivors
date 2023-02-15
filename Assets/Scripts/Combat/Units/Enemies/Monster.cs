@@ -7,7 +7,7 @@ public class Monster : BaseEnemy
 {
     public void Reset()
     {
-        Faction = Faction.Enemy;
+        faction = Faction.Enemy;
         UnitName = "Monster";
         _maxHealth = 4;
     }

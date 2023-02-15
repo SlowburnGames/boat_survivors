@@ -46,9 +46,10 @@ public class MenuManager : MonoBehaviour
         hero_image.sprite = hero.GetComponent<SpriteRenderer>().sprite;
         _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName + "\n" + hero.unitDescription;
         _selectedHeroObject.SetActive(true);
+        updateAttacks(hero);
         var ability_button = _selectedHeroObject.transform.Find("HeroAbility").gameObject;
         ability_button.gameObject.SetActive(false);
-        if(hero.standAction)
+        if(true/*hero.standAction*/)
         {
             ability_button.transform.Find("HeroAbilityText").GetComponent<TMP_Text>().SetText(hero.standActionName);
             ability_button.gameObject.SetActive(true);
@@ -57,8 +58,10 @@ public class MenuManager : MonoBehaviour
         string heroHPText = hero.Health + "/" + hero.MaxHealth;
         heroHPDisplay.transform.Find("HeroHP").gameObject.GetComponent<TMP_Text>().SetText(heroHPText);
         var heroSpeedDisplay = _selectedHeroObject.transform.Find("Speed");
-        string heroSpeedText = hero.tilesWalkedThisTurn + "/" + hero.MoveDistance;
+        string heroSpeedText = hero.MoveDistance - hero.tilesWalked + "/" + hero.MoveDistance;
         heroSpeedDisplay.transform.Find("HeroSpeed").gameObject.GetComponent<TMP_Text>().SetText(heroSpeedText);
+
+        updataAbility(hero);
 
         updateInitiative(hero);
     }
@@ -76,6 +79,31 @@ public class MenuManager : MonoBehaviour
 
         string initiativeText = "Turn order:" + String.Join(", ", initList);
         initiativeDisplay.transform.Find("Text").gameObject.GetComponent<TMP_Text>().SetText(initiativeText);
+    }
+
+    public void updataAbility(BaseHero hero)
+    {
+        var ability_button = _selectedHeroObject.transform.Find("HeroAbility").gameObject;
+
+        if(hero.cooldown != 0)
+        {
+            ability_button.GetComponent<Button>().enabled = false;
+            ability_button.transform.Find("HeroAbilityText").gameObject.SetActive(false);
+            ability_button.transform.Find("AbilityCooldown").gameObject.SetActive(true);
+            ability_button.transform.Find("AbilityCooldown").GetComponent<TMP_Text>().SetText(hero.cooldown.ToString());
+        }
+        else
+        {
+            ability_button.GetComponent<Button>().enabled = true;
+            ability_button.transform.Find("HeroAbilityText").gameObject.SetActive(true);
+            ability_button.transform.Find("AbilityCooldown").gameObject.SetActive(false);
+        }  
+    }
+
+    public void updateAttacks(BaseUnit unit)
+    {
+        Debug.LogError("MAX ATTACKS: " + unit.MaxAttacks.ToString()); 
+        _selectedHeroObject.transform.Find("Attack").Find("HeroAttacks").GetComponent<TMP_Text>().SetText(unit.attacksMade.ToString() + "/" + unit.MaxAttacks.ToString());
     }
 
     public void ShowTileInfo(Tile tile)
