@@ -77,6 +77,8 @@ public class BaseUnit : MonoBehaviour
             _block = _block - temp;
         }
         _health -= dmg;
+        this.GetComponent<HitEffect>().StartCoroutine(this.GetComponent<HitEffect>().hitFlash());
+        DamagePopup.Create(transform.position, dmg, 0);
         MenuManager.Instance.UpdateHealthBar(this);
     }
 

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2871775792722394985}
   - component: {fileID: 7810361016412041444}
   - component: {fileID: 3599614547267196368}
+  - component: {fileID: 4681041951262205674}
+  - component: {fileID: 3341639678290821120}
   m_Layer: 0
   m_Name: Fighter
   m_TagString: Untagged
@@ -102,9 +104,14 @@ MonoBehaviour:
   faction: 0
   UnitName: Fighter
   unitClass: {fileID: 11400000, guid: 00e092cc87dd99444a83f4b473cd42b3, type: 2}
+  effects: []
+  cooldown: 0
+  attacksMade: 0
   invisible: 0
+  abilityReady: 1
   _maxHealth: 4
   _health: 0
+  _block: 0
   _attackDamage: 1
   _moveDistance: 3
   _maxAttacks: 3
@@ -112,11 +119,36 @@ MonoBehaviour:
   _isRanged: 0
   unitDescription: The Fighter pushes enemies 1 tile when attack. Pushiing enemies
     into water kills them.
-  usedAction: 0
   standAction: 0
   standActionName: 
-  tilesWalkedThisTurn: 0
-  attacksUsedThisTurn: 0
+  tilesWalked: 0
+--- !u!114 &4681041951262205674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5004274753709797847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfaa14f6d0c8043429aea5402446a5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: 0
+--- !u!114 &3341639678290821120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5004274753709797847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dcd66b871bd31446a17c6f81a631ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  red: {fileID: 2100000, guid: d8d397bf36ccd6a448b8a2b4692b5c5d, type: 2}
+  white: {fileID: 2100000, guid: 6195ff1f83f5768459fe1178e406aab3, type: 2}
 --- !u!1 &5009325867127900422
 GameObject:
   m_ObjectHideFlags: 0

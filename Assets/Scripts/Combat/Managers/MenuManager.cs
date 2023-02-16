@@ -102,7 +102,7 @@ public class MenuManager : MonoBehaviour
 
     public void updateAttacks(BaseUnit unit)
     {
-        Debug.LogError("MAX ATTACKS: " + unit.MaxAttacks.ToString()); 
+        //Debug.LogError("MAX ATTACKS: " + unit.MaxAttacks.ToString()); 
         _selectedHeroObject.transform.Find("Attack").Find("HeroAttacks").GetComponent<TMP_Text>().SetText(unit.attacksMade.ToString() + "/" + unit.MaxAttacks.ToString());
     }
 

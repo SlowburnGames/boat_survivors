@@ -220,6 +220,7 @@ public class WFCGenerator : MonoBehaviour
 
     public void runWFC()
     {
+        Debug.Log("WFC");
         if (!gridReady)
         {
             createGrid();

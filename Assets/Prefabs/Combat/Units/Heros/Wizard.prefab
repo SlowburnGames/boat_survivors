@@ -140,6 +140,8 @@ GameObject:
   - component: {fileID: 2871775792722394985}
   - component: {fileID: 7810361016412041444}
   - component: {fileID: -7962685250005770754}
+  - component: {fileID: -3372475183468305729}
+  - component: {fileID: -6857570113927103454}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -231,20 +233,50 @@ MonoBehaviour:
   faction: 0
   UnitName: Wizard
   unitClass: {fileID: 11400000, guid: ea6247a95d951f4498b36cbc4d3dea8f, type: 2}
+  effects: []
+  cooldown: 0
+  attacksMade: 0
   invisible: 0
+  abilityReady: 1
   _maxHealth: 2
   _health: 0
+  _block: 0
   _attackDamage: 1
   _moveDistance: 3
   _maxAttacks: 3
   _attackRange: 4
   _isRanged: 1
   unitDescription: Has a ranged attack.
-  usedAction: 0
   standAction: 0
   standActionName: 
-  tilesWalkedThisTurn: 0
-  attacksUsedThisTurn: 0
+  tilesWalked: 0
+--- !u!114 &-3372475183468305729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5004274753709797847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfaa14f6d0c8043429aea5402446a5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: 0
+--- !u!114 &-6857570113927103454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5004274753709797847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dcd66b871bd31446a17c6f81a631ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  red: {fileID: 2100000, guid: d8d397bf36ccd6a448b8a2b4692b5c5d, type: 2}
+  white: {fileID: 2100000, guid: 6195ff1f83f5768459fe1178e406aab3, type: 2}
 --- !u!1 &6056418182739433378
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class Pathfinding : MonoBehaviour
     }
     public List<Tile> FindPath(Tile start, Tile target)
     {   
-        Debug.Log("Pathfinding");
+        //Debug.Log("Pathfinding");
         Tile[][] grid = WFCGenerator.Instance._tiles;
 
         List<Tile> openSet = new List<Tile>();
@@ -77,9 +77,11 @@ public class Pathfinding : MonoBehaviour
             path.Add(currentTile);
             currentTile = currentTile.parent;
         }
+        path.Add(currentTile);
 
         path.Reverse();
-        
+        path.RemoveAt(0);
+
         return path;
     }
 
