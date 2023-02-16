@@ -86,7 +86,7 @@ public class MenuManager : MonoBehaviour
                 break;
         }   
 
-        string initiativeText = "Next:" + String.Join(", ", initList);
+        string initiativeText = "Next: " + String.Join(", ", initList);
         initiativeDisplay.transform.Find("Text").gameObject.GetComponent<TMP_Text>().SetText(initiativeText);
     }
 
