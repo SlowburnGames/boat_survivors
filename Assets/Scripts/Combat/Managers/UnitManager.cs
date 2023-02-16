@@ -16,8 +16,12 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> _allUnits;
 
     public BaseHero selectedHero;
-    private static List<string> _availableHeroes;
-    private static List<string> _availableEnemies;
+    private List<BaseHero> _availableHeroes;
+    private int _previewHeroCount = 0;
+    // private List<BaseHero> _spawnableHeroes;
+    private static List<BaseEnemy> _availableEnemies;
+    
+    private static int unitIDCount = 0;
 
     [SerializeField] private GameObject _attackRangeIndicator;
 
@@ -28,39 +32,48 @@ public class UnitManager : MonoBehaviour
         _enemyUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units/Enemies").ToList();
         _heroUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units/Heroes").ToList();
         _allUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units").ToList();
-        Debug.Log("Nr of different Enemies: " + _enemyUnits.Count);
-        Debug.Log("Nr of different Heroes : " + _heroUnits.Count);
+        Debug.Log("Nr of different Enemy Types: " + _enemyUnits.Count);
+        Debug.Log("Nr of different Hero Types : " + _heroUnits.Count);
     }
 
     public void SpawnSelectedHero(Tile spawnTile)
     {
-        if (_availableHeroes.Count > 0)
-        {
-            var heroPrefab = GetHeroByName(_availableHeroes.First());
-            var spawnedHero = Instantiate(heroPrefab);
-            
-            SetUnit(spawnedHero, spawnTile);
-            CombatManager.Instance._spawnedUnitList.Add(spawnedHero);
-            _availableHeroes.RemoveAt(0);
-            MenuManager.Instance.UpdateAvailableHeroes(_availableHeroes);
-        }
 
-        if (_availableHeroes.Count <= 0)
+        if (_previewHeroCount < _availableHeroes.Count)
+        {
+            var heroPrefab = getNextHero();
+            var spawnedHero = Instantiate(heroPrefab);
+            SetUnit(spawnedHero, spawnTile);
+            _previewHeroCount++;
+            CombatManager.Instance._spawnedUnitList.Add(spawnedHero);
+            
+            // TODO -> look UpdateAvailableHeroes method
+            MenuManager.Instance.UpdateAvailableHeroes(
+                _availableHeroes.GetRange(_previewHeroCount, _availableHeroes.Count-_previewHeroCount));
+        }
+        
+        
+        if (_previewHeroCount >= _availableHeroes.Count)
         {
             CombatManager.Instance.ChangeCombatState(CombatState.SetTurnOrder);
             MenuManager.Instance.DisableAvailableHeroes();
+            _previewHeroCount = 0;
         }
-        
+    }
+
+    public BaseHero getNextHero()
+    {
+        return _availableHeroes[_previewHeroCount];
     }
     
     public void SpawnEnemies()
     {
-        foreach (var enemyName in _availableEnemies)
+        
+        foreach (var enemy in _availableEnemies)
         {
-            var enemyPrefab = GetEnemyByName(enemyName);
-            var spawnedEnemy = Instantiate(enemyPrefab);
+            var spawnedEnemy = Instantiate(enemy);
             var randomSpawnTile = WFCGenerator.Instance.GetEnemySpawnTile();
-
+        
             SetUnit(spawnedEnemy, randomSpawnTile);
             CombatManager.Instance._spawnedUnitList.Add(spawnedEnemy);
         }
@@ -199,11 +212,13 @@ public class UnitManager : MonoBehaviour
         }
         else //hero is not reachable
         {
+            if (!heroesAlive()) // When all heroes are dead -> Game over
+                return;
             SetUnit(enemy, path[enemy.MoveDistance - 1]);
         }
 
         findInvisible(enemy.OccupiedTile);
-        
+        checkCombatOver();
         CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
     }
 
@@ -246,7 +261,7 @@ public class UnitManager : MonoBehaviour
         return Tuple.Create(nearestHero, minDistance, best_path);
 
     }
-    private BaseEnemy GetEnemyByName(string eName)
+    public BaseEnemy GetEnemyByName(string eName)
     {
         return (BaseEnemy)_enemyUnits.Where(u => u.name == eName).First().UnitPrefab;
     }
@@ -344,7 +359,6 @@ public class UnitManager : MonoBehaviour
             if (tilePos.transform.childCount != 0)
             {
                 tilePos.transform.GetChild(1).gameObject.SetActive(false);
-                // Destroy(tilePos.transform.GetChild(0).gameObject);
             }
 
     }
@@ -392,34 +406,58 @@ public class UnitManager : MonoBehaviour
         {
             CombatManager.Instance._turnQueue =
                 new Queue<BaseUnit>(CombatManager.Instance._turnQueue.Where(x => x != aUnit));
-            Destroy(aUnit.gameObject);
             if(aUnit.faction == Faction.Hero)
             {
+                
+                // int index = _availableHeroes.Find((BaseHero)aUnit);
+                int index = _availableHeroes.FindIndex(a => a.unitID == aUnit.unitID);
+                _availableHeroes.RemoveAt(index);
+                
                 GameManager.Instance.combatMoraleReward -= 10;
                 GameManager.Instance.combatResReward -= 10;
             }
+            Destroy(aUnit.gameObject);
+            MenuManager.Instance.updateInitiative();
             checkCombatOver();
         }
     }
 
-    public BaseHero GetNextHero()
+    public void SetUnitIDs(List<BaseHero> heroes, List<BaseEnemy> enemies)
     {
-        return GetHeroByName(_availableHeroes[0]);
-    }
-    
-    public void SetSpawnableHeroes(List<string> heroes)
-    {
-        _availableHeroes = new List<string>(heroes);
-    }
-    public void SetSpawnableEnemies(List<string> enemies)
-    {
-        _availableEnemies = new List<string>(enemies);
+        foreach (var hero in heroes)
+        {
+            hero.unitID = unitIDCount;
+            unitIDCount++;
+        }
+        foreach (var enemy in enemies)
+        {
+            enemy.unitID = unitIDCount;
+            unitIDCount++;
+        }
     }
 
+    public void SetSpawnableHeroes(List<BaseHero> heroes)
+    {
+        _availableHeroes = new List<BaseHero>(heroes);
+        // _spawnableHeroes = new List<BaseHero>(heroes);
+    }
+    
+    public void SetSpawnableEnemies(List<BaseEnemy> enemies)
+    {
+        _availableEnemies = new List<BaseEnemy>(enemies);
+    }
+
+    public bool heroesAlive()
+    {
+        return CombatManager.Instance._turnQueue.ToList().FindAll(x => x.faction == Faction.Hero).Count != 0;
+    }
     public void checkCombatOver()
     {
         if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.faction == Faction.Enemy).Count == 0)
         {
+            Debug.Log("Heroes: " + _availableHeroes.Count);
+            GameManager.Instance.heroesAlive = _availableHeroes;
+            
             GameManager.Instance.addCombatRewards();
             CombatManager.Instance.ChangeCombatState(CombatState.CombatEnd);
             MenuManager.Instance.openVictoryScreen();

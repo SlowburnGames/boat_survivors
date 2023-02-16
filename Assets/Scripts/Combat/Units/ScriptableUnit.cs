@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Unit", menuName = "Scriptable Unit")]
 
+
 public class ScriptableUnit : ScriptableObject
 {
     // public Faction Faction;
@@ -20,6 +21,7 @@ public class ScriptableUnit : ScriptableObject
     public int health;
     public Sprite sprite;
     public Ability ability;
+
 }
 
 public enum Faction

@@ -85,7 +85,10 @@ public class Tile : MonoBehaviour
     
     private void SpawnHeroPreview()
     {
-        var heroPreviewPrefab = UnitManager.Instance.GetNextHero();
+        if (GameManager.Instance.heroesAlive.Count == 0)
+            Debug.LogError("No Heroes alive! (or set in the game manager)");
+
+        var heroPreviewPrefab = UnitManager.Instance.getNextHero();
         _tileHeroPreview = Instantiate(heroPreviewPrefab);
         _tileHeroPreview.GetComponent<SpriteRenderer>().color -= new Color (0, 0, 0, 0.6f);
         _tileHeroPreview.GetComponentInChildren<Canvas>().gameObject.SetActive(false);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -63,21 +64,29 @@ public class MenuManager : MonoBehaviour
 
         updataAbility(hero);
 
-        updateInitiative(hero);
+        updateInitiative();
     }
 
-    void updateInitiative(BaseUnit unit)
+    public void updateInitiative()
     {
         var initiativeDisplay = _selectedHeroObject.transform.Find("Initiative");
 
         List<string> initList = new List<string>();
-        initList.Add(unit.UnitName);
+        string last = CombatManager.Instance._turnQueue.ToArray().Last().name.Remove(
+            CombatManager.Instance._turnQueue.ToArray().Last().name.Length - 7);
+        initList.Add(last);
+        int maxShow = 3;
         foreach (var currentUnit in CombatManager.Instance._turnQueue)
         {
-            initList.Add(currentUnit.UnitName);
-        }
+            if (currentUnit.name.Remove(currentUnit.name.Length - 7) == last)
+                break;
+            maxShow--;
+            initList.Add(currentUnit.name.Remove(currentUnit.name.Length - 7));
+            if (maxShow <= 0)
+                break;
+        }   
 
-        string initiativeText = "Turn order:" + String.Join(", ", initList);
+        string initiativeText = "Next:" + String.Join(", ", initList);
         initiativeDisplay.transform.Find("Text").gameObject.GetComponent<TMP_Text>().SetText(initiativeText);
     }
 
@@ -102,7 +111,7 @@ public class MenuManager : MonoBehaviour
 
     public void updateAttacks(BaseUnit unit)
     {
-        Debug.LogError("MAX ATTACKS: " + unit.MaxAttacks.ToString()); 
+        Debug.Log("MAX ATTACKS: " + unit.MaxAttacks.ToString()); 
         _selectedHeroObject.transform.Find("Attack").Find("HeroAttacks").GetComponent<TMP_Text>().SetText(unit.attacksMade.ToString() + "/" + unit.MaxAttacks.ToString());
     }
 
@@ -131,9 +140,20 @@ public class MenuManager : MonoBehaviour
         slider.fillAmount = (float)unit.Health / unit.MaxHealth;
     }
 
-    public void ShowAvailableHeroes(List<string> myHeroes)
+    public List<String> heroListToStringList(List<BaseHero> heroes)
     {
-        _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
+        List<String> heroNames = new List<string>();
+        foreach (var hero in heroes)
+            heroNames.Add(hero.name);
+
+        return heroNames;
+    }
+
+    public void ShowAvailableHeroes(List<BaseHero> myHeroes)
+    {
+        List<String> myHeroNames = heroListToStringList(myHeroes);
+        
+        _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroNames.ToArray());
         _avaliableHeroes.SetActive(true);
 
         _placeHeroes.SetActive(true);
@@ -141,9 +161,11 @@ public class MenuManager : MonoBehaviour
 
     }
 
-    public void UpdateAvailableHeroes(List<string> myHeroes)
+    public void UpdateAvailableHeroes(List<BaseHero> myHeroes)
     {
-        _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
+        // TODO: Fix, and use portraits
+        List<String> myHeroNames = heroListToStringList(myHeroes);
+        _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroNames.ToArray());
         _placeHeroes.SetActive(true);
     }
 

@@ -10,6 +10,11 @@ public class CombatManager : MonoBehaviour
     public CombatState combatState;
     public Queue<BaseUnit> _turnQueue = new Queue<BaseUnit>();
     public List<BaseUnit> _spawnedUnitList = new List<BaseUnit>();
+    
+    // DEBUG ONLY
+    public List<BaseHero> _defaultHeroes = new List<BaseHero>();
+    public List<BaseEnemy> _defaultEnemies = new List<BaseEnemy>();
+    // DEBUG ONLY
 
     private int turnCounter = 0;
     private int currentTurn = 0;
@@ -30,8 +35,20 @@ public class CombatManager : MonoBehaviour
         switch (newState)
         {
             case CombatState.SetHeroesAndEnemies:
-                UnitManager.Instance.SetSpawnableHeroes(GameManager.Instance.currentHeroes);
+                
+                // DEBUG ONLY START
+                var DEBUG = true;
+                if (DEBUG)
+                {
+                    GameManager.Instance.heroesAlive = _defaultHeroes;
+                    GameManager.Instance.enemiesInCombat = _defaultEnemies;
+                }
+                
+                UnitManager.Instance.SetUnitIDs(GameManager.Instance.heroesAlive, GameManager.Instance.enemiesInCombat);
+                
+                UnitManager.Instance.SetSpawnableHeroes(GameManager.Instance.heroesAlive);
                 UnitManager.Instance.SetSpawnableEnemies(GameManager.Instance.enemiesInCombat);
+                
                 ChangeCombatState(CombatState.GenerateGrid);
                 break;
             case CombatState.GenerateGrid:
@@ -43,7 +60,7 @@ public class CombatManager : MonoBehaviour
             case CombatState.SpawnHeroes:
                 // Logic in Tile.OnMouseDown and UnitManager.SpawnSelectedHero
                 Debug.Log("Spawn Heroes by clicking on tile!");
-                MenuManager.Instance.ShowAvailableHeroes(GameManager.Instance.currentHeroes);
+                MenuManager.Instance.ShowAvailableHeroes(GameManager.Instance.heroesAlive);
                 break;
             case CombatState.SetTurnOrder:
                 SetTurnOrder();
@@ -76,7 +93,6 @@ public class CombatManager : MonoBehaviour
                     var enemy = (BaseEnemy) nextUnit;
                     Debug.Log("Enemy " + enemy.name + " turn!");
                     
-                    // TODO implement enemy turn
                     UnitManager.Instance.EnemiesTurn(enemy);
                 }
                 break;

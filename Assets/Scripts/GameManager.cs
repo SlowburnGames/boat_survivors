@@ -7,9 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public int population = 3;
-    public List<string> currentHeroes;
-    public List<string> heroesInCombat;
-    public List<string> enemiesInCombat;
+    public List<BaseHero> heroesAlive;
+    public List<BaseEnemy> enemiesInCombat;
     private int morale = 50;
     public int Morale
     {
@@ -51,19 +50,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        currentHeroes = new List<string>();
-        currentHeroes.Add("Rouge");
-        currentHeroes.Add("Fighter");
-        currentHeroes.Add("Wizard");
     }
 
     private void Start()
     {
-        currentHeroes = new List<string>();
-        currentHeroes.Add("Rouge");
-        currentHeroes.Add("Fighter");
-        currentHeroes.Add("Wizard");
-
         loadRandomEvents();
         morale = 50;
         resource = 50;
@@ -71,25 +61,15 @@ public class GameManager : MonoBehaviour
         isDay = true;
         travel_distance = 0;
         population = 3;
-
-
     }
 
-
-
-    List<string> makeHeroList()
+    public void startCombat(List<string> enemyNames)
     {
-        List<string> stringList = new List<string>();
-        foreach (var hero in currentHeroes)
-        {
-        }
-        return stringList;
-    }
+        enemiesInCombat.Clear();
 
-    public void startCombat(List<string> enemies)
-    {
-        heroesInCombat = currentHeroes;
-        enemiesInCombat = enemies;
+        foreach (var enemyName in enemyNames)
+            enemiesInCombat.Add(UnitManager.Instance.GetEnemyByName(enemyName));
+        
         SceneManager.LoadScene("Combat");
     }
 
@@ -102,7 +82,7 @@ public class GameManager : MonoBehaviour
         isDay = true;
         travel_distance = 0;
         population = 3;
-        Debug.Log(morale);
+        Debug.Log("Morale " + morale);
         SceneManager.LoadScene("Travel");
     }
 
@@ -179,6 +159,9 @@ public class GameManager : MonoBehaviour
 
     public void startRandomEvent()
     {
+        Debug.Log("TODO: NEXT LINE ONLY FOR DEBUG REASONS");
+        startCombat(new List<string>{"Zombie", "Zombie"});
+        
         Debug.Log("Random Event!");
         if(currentEventIndex >= events.Count)
         {

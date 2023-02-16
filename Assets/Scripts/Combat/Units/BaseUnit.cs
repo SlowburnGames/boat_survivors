@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BaseUnit : MonoBehaviour
 {
+    public int unitID = -1;
     public Tile OccupiedTile;
     public Faction faction;
     public string UnitName;

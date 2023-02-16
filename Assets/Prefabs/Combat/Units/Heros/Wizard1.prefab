@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 7810361016412041444}
   - component: {fileID: -7962685250005770754}
   m_Layer: 0
-  m_Name: Wizard
+  m_Name: Wizard1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,24 +227,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 525802f5ff870aa4aab243d624f5000e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitID: 0
   OccupiedTile: {fileID: 0}
   faction: 0
-  UnitName: Wizard
+  UnitName: Wizard1
   unitClass: {fileID: 11400000, guid: ea6247a95d951f4498b36cbc4d3dea8f, type: 2}
+  effects: []
+  cooldown: 0
+  attacksMade: 0
   invisible: 0
+  abilityReady: 1
   _maxHealth: 2
   _health: 0
+  _block: 0
   _attackDamage: 1
   _moveDistance: 3
   _maxAttacks: 3
   _attackRange: 4
   _isRanged: 1
   unitDescription: Has a ranged attack.
-  usedAction: 0
   standAction: 0
   standActionName: 
-  tilesWalkedThisTurn: 0
-  attacksUsedThisTurn: 0
+  tilesWalked: 0
 --- !u!1 &6056418182739433378
 GameObject:
   m_ObjectHideFlags: 0
