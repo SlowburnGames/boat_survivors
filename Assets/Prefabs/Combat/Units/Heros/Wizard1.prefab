@@ -140,6 +140,8 @@ GameObject:
   - component: {fileID: 2871775792722394985}
   - component: {fileID: 7810361016412041444}
   - component: {fileID: -7962685250005770754}
+  - component: {fileID: -3372475183468305729}
+  - component: {fileID: -6857570113927103454}
   m_Layer: 0
   m_Name: Wizard1
   m_TagString: Untagged

@@ -77,7 +77,6 @@ public class UnitManager : MonoBehaviour
             SetUnit(spawnedEnemy, randomSpawnTile);
             CombatManager.Instance._spawnedUnitList.Add(spawnedEnemy);
         }
-        
         CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
     }
 
@@ -157,10 +156,12 @@ public class UnitManager : MonoBehaviour
             if (selectedHero != null && isWalkable && tile.tileUnit == null)
             {
                 var path = Pathfinding.Instance.FindPath(selectedHero.OccupiedTile, tile);
-                if(path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalked)
+                //print("[Unit] start: " + selectedHero.OccupiedTile + ", end: " + tile);
+                if (path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalked)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
-                    SetUnit(selectedHero, tile);
+                    //SetUnit(selectedHero, tile);
+                    StartCoroutine(MoveUnit(selectedHero, path, tile));
                     selectedHero.tilesWalked += path.Count;
                     //if(!selectedHero.usedAction)
                     //{
@@ -206,6 +207,7 @@ public class UnitManager : MonoBehaviour
             if(distance > 1)
             {
                 SetUnit(enemy, path[path.Count - 2]);
+                //StartCoroutine(MoveUnit(enemy, path, path[path.Count - 2]));
             }
             enemy.AttackTarget(targetedHero);
             CheckAttackedUnit(targetedHero);
@@ -215,6 +217,7 @@ public class UnitManager : MonoBehaviour
             if (!heroesAlive()) // When all heroes are dead -> Game over
                 return;
             SetUnit(enemy, path[enemy.MoveDistance - 1]);
+            //StartCoroutine(MoveUnit(enemy, path, path[enemy.MoveDistance - 1]));
         }
 
         findInvisible(enemy.OccupiedTile);
@@ -360,7 +363,6 @@ public class UnitManager : MonoBehaviour
             {
                 tilePos.transform.GetChild(1).gameObject.SetActive(false);
             }
-
     }
     
     public void SetUnit(BaseUnit unit, Tile tile)
@@ -369,6 +371,20 @@ public class UnitManager : MonoBehaviour
             unit.OccupiedTile.tileUnit = null;
         unit.transform.position = tile.transform.position + Vector3.up;
         unit.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+        tile.tileUnit = unit;
+        unit.OccupiedTile = tile;
+    }
+
+    public IEnumerator MoveUnit(BaseUnit unit, List<Tile> path, Tile tile)
+    {
+        float time = 0.5f;
+        Vector3[] waypoints = new Vector3[path.Count];
+        for (int i = 0; i < path.Count; i++)
+        {
+            waypoints[i] = path[i].transform.position + Vector3.up;
+        }
+        unit.transform.GetComponent<MovementManager>().moveUnit(waypoints, time);
+        yield return new WaitForSeconds(time);
         tile.tileUnit = unit;
         unit.OccupiedTile = tile;
     }

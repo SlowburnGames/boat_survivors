@@ -108,10 +108,12 @@ public class Tile : MonoBehaviour
         return distance;
     }
 
-    public void showPath(Tile end)
+    public void showPath(Tile start)
     {
-        Tile start = this.GetComponent<Tile>();
-        
+        Tile end = this.GetComponent<Tile>();
+
+        //print("[TILE] start: " + start + ", end: " + end);
+
         tilesToWalk = Pathfinding.Instance.FindPath(start, end);
 
         //if(start.position.x <= end.position.x)
