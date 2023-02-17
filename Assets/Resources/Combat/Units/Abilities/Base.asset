@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6833cbd192b16945bd9f112512882dc, type: 3}
   m_Name: Base
   m_EditorClassIdentifier: 
-  abilityName: NULL
+  abilityName: Base Ability
   cooldown: 0
-  description: NULL
-  effectName: NULL
+  description: Nothing special
+  effectName: No special effect

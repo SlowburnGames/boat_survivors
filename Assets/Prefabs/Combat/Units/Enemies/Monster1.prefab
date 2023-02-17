@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 6627556305796168791}
   - component: {fileID: 663366689699073346}
   m_Layer: 0
-  m_Name: Monster
+  m_Name: Monster1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,7 +342,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: de9f67e14c0fa0f4dae1dcd5a8985cf8, type: 2}
-  m_Color: {r: 0.26415092, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.8584906, g: 0.60455954, b: 0.14173192, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -364,9 +364,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813c2b404d310424597f0c5c4e045505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitID: -1
   OccupiedTile: {fileID: 0}
   faction: 1
-  UnitName: Monster
+  UnitName: Monster1
   unitClass: {fileID: 11400000, guid: 1ff936d1bd0e5704083e2fa69e61d71e, type: 2}
   effects: []
   cooldown: 0

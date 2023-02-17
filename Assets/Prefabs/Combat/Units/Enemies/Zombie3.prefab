@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5017373577162795077}
   - component: {fileID: 5516523256823983362}
   m_Layer: 0
-  m_Name: Zombie
+  m_Name: Zombie3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1c6b246507dce0b4c91ed579890e24e4, type: 2}
-  m_Color: {r: 0.126064, g: 0.3773585, b: 0, a: 1}
+  m_Color: {r: 0.069182426, g: 0.20754719, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,9 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56e1c7326751064c9df8e5e477e4908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitID: -1
   OccupiedTile: {fileID: 0}
   faction: 1
-  UnitName: Zombie
+  UnitName: Zombie3
   unitClass: {fileID: 11400000, guid: 005364fd7a73b594dba51c8e2be774f1, type: 2}
   effects: []
   cooldown: 0

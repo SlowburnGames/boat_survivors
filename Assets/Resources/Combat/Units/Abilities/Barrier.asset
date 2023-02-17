@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Barrier
   cooldown: 3
-  description: You block X damage the next time you get attacked
+  description: You block 2 damage the next time you get attacked
+  effectName: 
   damageBlocked: 2

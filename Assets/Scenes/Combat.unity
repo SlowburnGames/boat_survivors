@@ -1132,14 +1132,14 @@ MonoBehaviour:
   combatState: 0
   _spawnedUnitList: []
   _defaultHeroes:
-  - {fileID: 3599614547267196368, guid: a41127da50fe02841856068c6b331436, type: 3}
+  - {fileID: -2134232415845045823, guid: 1f11e23ec4a8f2d4b9e29aaf2996c197, type: 3}
   - {fileID: -7962685250005770754, guid: 4bcb8a898a2eeed43b0483c0c159224f, type: 3}
-  - {fileID: 3599614547267196368, guid: a41127da50fe02841856068c6b331436, type: 3}
   - {fileID: 5070908024623995816, guid: c7bad3be7eab3f34fbe1927d67037c96, type: 3}
   _defaultEnemies:
-  - {fileID: -3353402785419243975, guid: 9850df4fb45f15845a301fa3ead2bd27, type: 3}
+  - {fileID: -3353402785419243975, guid: fed9ed9fd4946f34284ff70e5e3269c2, type: 3}
+  - {fileID: 5333343898471474015, guid: abfb7260e8b50ee45987d1719faadcf4, type: 3}
+  - {fileID: 5333343898471474015, guid: 906da68174f623947bdd0a087081b0ea, type: 3}
   - {fileID: 5333343898471474015, guid: a0f0c07224e8f6c4ab0069c08b745477, type: 3}
-  - {fileID: -3353402785419243975, guid: 9850df4fb45f15845a301fa3ead2bd27, type: 3}
 --- !u!4 &418657085
 Transform:
   m_ObjectHideFlags: 0
@@ -4947,7 +4947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -20.000015}
+  m_AnchoredPosition: {x: 422, y: -224.9}
   m_SizeDelta: {x: 210.9758, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1999099617

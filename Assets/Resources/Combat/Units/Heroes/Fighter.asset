@@ -21,6 +21,6 @@ MonoBehaviour:
   damage: 2
   movementRange: 2
   attackRange: 1
-  health: 5
+  health: 12
   sprite: {fileID: 21300000, guid: c76100af60ce7ba4d9af0477974d2e39, type: 2}
   ability: {fileID: 11400000, guid: 22b6ea0cc36cafa449f8aae358c7a810, type: 2}

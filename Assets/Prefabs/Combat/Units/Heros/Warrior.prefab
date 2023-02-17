@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2871775792722394985}
   - component: {fileID: 7810361016412041444}
-  - component: {fileID: 3599614547267196368}
+  - component: {fileID: -2134232415845045823}
   - component: {fileID: 4681041951262205674}
   - component: {fileID: 3341639678290821120}
   m_Layer: 0
-  m_Name: Fighter
+  m_Name: Warrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c76100af60ce7ba4d9af0477974d2e39, type: 2}
+  m_Sprite: {fileID: 21300000, guid: 0d460c24fd6a1dd408e3b945ad341ac9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3599614547267196368
+--- !u!114 &-2134232415845045823
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,19 +97,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 5004274753709797847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ba0d1f25078bcd46ba8f154823a1663, type: 3}
+  m_Script: {fileID: 11500000, guid: 06d6ff6b1e0b09b4a8b23d2c77067422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitID: -1
   OccupiedTile: {fileID: 0}
   faction: 0
-  UnitName: Fighter
-  unitClass: {fileID: 11400000, guid: 00e092cc87dd99444a83f4b473cd42b3, type: 2}
+  UnitName: Warrior
+  unitClass: {fileID: 11400000, guid: e8961cd907aad374ab72ac2865b2fbe7, type: 2}
   effects: []
   cooldown: 0
   attacksMade: 0
   invisible: 0
   abilityReady: 1
+  _maxHealth: 2
+  _health: 0
+  _block: 0
+  _attackDamage: 1
+  _moveDistance: 3
+  _maxAttacks: 3
+  _attackRange: 1
+  _isRanged: 0
   unitDescription: 
   standAction: 0
   standActionName: 
@@ -235,9 +243,9 @@ RectTransform:
   m_Father: {fileID: 2407299688975122312}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.49645, y: 0.461}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0.49645, y: 0.803}
   m_SizeDelta: {x: 0.9929, y: 0.702}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &8891645741936951677

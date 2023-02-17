@@ -45,14 +45,14 @@ public class MenuManager : MonoBehaviour
         }
         var hero_image = _selectedHeroObject.transform.Find("HeroImage").gameObject.GetComponent<Image>();
         hero_image.sprite = hero.GetComponent<SpriteRenderer>().sprite;
-        _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName + "\n" + hero.unitDescription;
+        _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName + "\n" + hero.UnitDescription;
         _selectedHeroObject.SetActive(true);
         updateAttacks(hero);
         var ability_button = _selectedHeroObject.transform.Find("HeroAbility").gameObject;
         ability_button.gameObject.SetActive(false);
         if(true/*hero.standAction*/)
         {
-            ability_button.transform.Find("HeroAbilityText").GetComponent<TMP_Text>().SetText(hero.standActionName);
+            ability_button.transform.Find("HeroAbilityText").GetComponent<TMP_Text>().SetText(hero.StandActionName);
             ability_button.gameObject.SetActive(true);
         }
         var heroHPDisplay = _selectedHeroObject.transform.Find("HP");
@@ -111,7 +111,7 @@ public class MenuManager : MonoBehaviour
 
     public void updateAttacks(BaseUnit unit)
     {
-        _selectedHeroObject.transform.Find("Attack").Find("HeroAttacks").GetComponent<TMP_Text>().SetText(unit.attacksMade.ToString() + "/" + unit.MaxAttacks.ToString());
+        _selectedHeroObject.transform.Find("Attack").Find("HeroAttacks").GetComponent<TMP_Text>().SetText(unit.AttacksMade.ToString() + "/" + unit.MaxAttacks.ToString());
     }
 
     public void ShowTileInfo(Tile tile)

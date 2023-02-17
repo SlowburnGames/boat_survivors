@@ -98,7 +98,7 @@ public class UnitManager : MonoBehaviour
     {   
         if (tileUnit == selectedHero && /*!selectedHero.usedAction &&*/ selectedHero.standAction)
         {
-            if(selectedHero.attacksMade - selectedHero.MaxAttacks > 0)
+            if(selectedHero.AttacksMade - selectedHero.MaxAttacks > 0)
             {
                 selectedHero.SpecialMove(null);
                 //selectedHero.usedAction = true;
@@ -110,17 +110,17 @@ public class UnitManager : MonoBehaviour
         else if (tileUnit != null)
         {
             // Click on same hero or another hero (nothing should happen)
-            if (tileUnit.faction == Faction.Hero && (selectedHero == (BaseHero)tileUnit || selectedHero != null))
+            if (tileUnit.Faction == Faction.Hero && (selectedHero == (BaseHero)tileUnit || selectedHero != null))
             {
                 // Debug.Log("Same hero selected");
             }
             // Click on an enemy -> Attack it (if possible, else nothing should happen)
             else
             {
-                if (selectedHero != null && tileUnit.faction == Faction.Enemy /*&& !selectedHero.usedAction*/)
+                if (selectedHero != null && tileUnit.Faction == Faction.Enemy /*&& !selectedHero.usedAction*/)
                 {
                     // check how many attacks left
-                    if (selectedHero.attacksMade > 0)
+                    if (selectedHero.AttacksMade > 0)
                     {
                         var enemy = (BaseEnemy)tileUnit;
 
@@ -131,7 +131,7 @@ public class UnitManager : MonoBehaviour
                         if (canAttack)
                         {
                             selectedHero.AttackTarget(enemy);
-                            selectedHero.attacksMade--;
+                            selectedHero.AttacksMade--;
                             MenuManager.Instance.updateAttacks(selectedHero);
 
                             // Debug.Log("Damaged " + enemy.name + " by " + selectedHero.AttackDamage);
@@ -160,8 +160,8 @@ public class UnitManager : MonoBehaviour
                 if (path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalked)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
-                    //SetUnit(selectedHero, tile);
-                    StartCoroutine(MoveUnit(selectedHero, path, tile));
+                    SetUnit(selectedHero, tile);
+                    // StartCoroutine(MoveUnit(selectedHero, path, tile));
                     selectedHero.tilesWalked += path.Count;
                     //if(!selectedHero.usedAction)
                     //{
@@ -232,7 +232,7 @@ public class UnitManager : MonoBehaviour
         foreach (var tile in neighbours)
         {
 
-            if(tile.tileUnit != null && tile.tileUnit.faction == Faction.Hero && tile.tileUnit.invisible)
+            if(tile.tileUnit != null && tile.tileUnit.Faction == Faction.Hero && tile.tileUnit.invisible)
             {
                 tile.tileUnit.invisible = false;
             }
@@ -241,7 +241,7 @@ public class UnitManager : MonoBehaviour
 
     Tuple<BaseUnit, int, List<Tile>> findNearestHero(BaseEnemy enemy)
     {
-        List<BaseUnit> allHeroes = CombatManager.Instance._turnQueue.ToList().FindAll(unit => unit.faction == Faction.Hero);
+        List<BaseUnit> allHeroes = CombatManager.Instance._turnQueue.ToList().FindAll(unit => unit.Faction == Faction.Hero);
 
         BaseUnit nearestHero = null;
         int minDistance = Int32.MaxValue;
@@ -422,7 +422,7 @@ public class UnitManager : MonoBehaviour
         {
             CombatManager.Instance._turnQueue =
                 new Queue<BaseUnit>(CombatManager.Instance._turnQueue.Where(x => x != aUnit));
-            if(aUnit.faction == Faction.Hero)
+            if(aUnit.Faction == Faction.Hero)
             {
                 
                 // int index = _availableHeroes.Find((BaseHero)aUnit);
@@ -465,11 +465,11 @@ public class UnitManager : MonoBehaviour
 
     public bool heroesAlive()
     {
-        return CombatManager.Instance._turnQueue.ToList().FindAll(x => x.faction == Faction.Hero).Count != 0;
+        return CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Hero).Count != 0;
     }
     public void checkCombatOver()
     {
-        if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.faction == Faction.Enemy).Count == 0)
+        if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Enemy).Count == 0)
         {
             Debug.Log("Heroes: " + _availableHeroes.Count);
             GameManager.Instance.heroesAlive = _availableHeroes;
@@ -478,7 +478,7 @@ public class UnitManager : MonoBehaviour
             CombatManager.Instance.ChangeCombatState(CombatState.CombatEnd);
             MenuManager.Instance.openVictoryScreen();
         }
-        else if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.faction == Faction.Hero).Count == 0)
+        else if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Hero).Count == 0)
         {
             SceneManager.LoadScene("GameOver");
         }

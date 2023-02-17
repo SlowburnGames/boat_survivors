@@ -77,7 +77,7 @@ public class CombatManager : MonoBehaviour
                     updateTimers();
                 }
 
-                if (nextUnit.faction == Faction.Hero)
+                if (nextUnit.Faction == Faction.Hero)
                 {
                     var hero = (BaseHero) nextUnit;
                     Debug.Log("Hero " + hero.name + " turn!");
@@ -88,7 +88,7 @@ public class CombatManager : MonoBehaviour
                     combatState = CombatState.HeroTurn;
                     MenuManager.Instance.toggleButtons(true);
                 }
-                else if (nextUnit.faction == Faction.Enemy)
+                else if (nextUnit.Faction == Faction.Enemy)
                 {
                     var enemy = (BaseEnemy) nextUnit;
                     Debug.Log("Enemy " + enemy.name + " turn!");

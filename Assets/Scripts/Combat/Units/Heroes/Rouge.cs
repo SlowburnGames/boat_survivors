@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class Rouge : BaseHero
 {
+  // Unit Stats are copied from scriptable Unit
     private void Start() {
       standAction = true;
-      standActionName = "Hide";
-    }
-    public void Reset()
-    {
-        faction = Faction.Hero;
-        UnitName = "Rouge";
-        _maxHealth = 2;
-        _moveDistance = 5;
+      StandActionName = "Hide";
     }
 
   public override void AttackTarget(BaseUnit target)

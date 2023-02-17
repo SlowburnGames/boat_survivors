@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
-  m_Name: Zombie
+  m_Name: Warrior
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: 5333343898471474015, guid: a0f0c07224e8f6c4ab0069c08b745477, type: 3}
-  faction: 1
-  unitName: Zombie
-  unitDescription: Already dead, what do you want?
+  UnitPrefab: {fileID: 0}
+  faction: 0
+  unitName: Warrior
+  unitDescription: 
   isRanged: 0
   attacks: 1
-  damage: 2
-  movementRange: 1
+  damage: 3
+  movementRange: 2
   attackRange: 1
-  health: 5
-  sprite: {fileID: 21300000, guid: 1c6b246507dce0b4c91ed579890e24e4, type: 2}
+  health: 15
+  sprite: {fileID: 21300000, guid: 0d460c24fd6a1dd408e3b945ad341ac9, type: 3}
   ability: {fileID: 11400000, guid: a68ac3882e817f54886b220254d02358, type: 2}

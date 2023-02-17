@@ -7,13 +7,10 @@ public class BaseUnit : MonoBehaviour
 {
     public int unitID = -1;
     public Tile OccupiedTile;
-    public Faction faction;
-    public string UnitName;
     public ScriptableUnit unitClass;
     public List<EffectList> effects = new List<EffectList>();
 
     public int cooldown = 0;
-    public int attacksMade = 0;
 
     public bool invisible = false;
     public bool abilityReady = true;
@@ -36,16 +33,19 @@ public class BaseUnit : MonoBehaviour
         }
     }
 
-    [SerializeField] protected int _maxHealth = 2;
-    [SerializeField] protected int _health;
-    [SerializeField] protected int _block = 0;
-    [SerializeField] protected int _attackDamage = 1;
-    [SerializeField] protected int _moveDistance = 3;
-    [SerializeField] protected int _maxAttacks = 3;
-    [SerializeField] protected int _attackRange = 1;
-    [SerializeField] protected bool _isRanged = false;
-
-    [SerializeField] public string unitDescription;
+    private int _maxHealth = -1;
+    private int _health = -1;
+    private int _block = -1;
+    private int _attackDamage = -1;
+    private int _moveDistance = -1;
+    private int _maxAttacks = -1;
+    private int _attacksMade = 0;
+    private int _attackRange = -1;
+    private bool _isRanged = false;
+    private string _unitDescription;
+    private Faction _faction;
+    private string _UnitName;
+    private string _standActionName;
 
     public void OnEnable()
     {
@@ -60,13 +60,13 @@ public class BaseUnit : MonoBehaviour
         _attackDamage = unitClass.damage;
         _moveDistance = unitClass.movementRange;
         _maxAttacks = unitClass.attacks;
-        attacksMade = unitClass.attacks;
+        _attacksMade = unitClass.attacks;
         _attackRange = unitClass.attackRange;
         _isRanged = unitClass.isRanged;
-        unitDescription = unitClass.unitDescription;
-        faction = unitClass.faction;
-        UnitName = unitClass.name;
-        standActionName = unitClass.ability.abilityName;
+        _unitDescription = unitClass.unitDescription;
+        _faction = unitClass.faction;
+        _UnitName = unitClass.name;
+        _standActionName = unitClass.ability.abilityName;
     }
 
     public void TakeDamage(int dmg)
@@ -78,6 +78,7 @@ public class BaseUnit : MonoBehaviour
             _block = _block - temp;
         }
         _health -= dmg;
+        // BUG: often is null -> crash
         this.GetComponent<HitEffect>().StartCoroutine(this.GetComponent<HitEffect>().hitFlash());
         DamagePopup.Create(transform.position, dmg, 0);
         MenuManager.Instance.UpdateHealthBar(this);
@@ -90,12 +91,26 @@ public class BaseUnit : MonoBehaviour
     public void changeBlock(int amount = 0) { _block = _block + amount; if (amount == 0) { _block = 0; } }
     public int MoveDistance { get => _moveDistance; }
     public int AttackRange { get => _attackRange; }
+    public Faction Faction { get => _faction; }
     public int MaxAttacks { get => _maxAttacks; }
+    public string UnitName { get => _UnitName; }
+    public string UnitDescription { get => _unitDescription; }
+
+    public string StandActionName
+    {
+        get { return _standActionName;}
+        set { _standActionName = value; }
+        
+    }
+    public int AttacksMade
+    {
+        get { return _attacksMade;}
+        set { _attacksMade = value; }
+    }
     public bool IsRanged { get => _isRanged; }
     //public bool usedAction = false;
     public bool standAction = false;
 
-    public string standActionName;
     public virtual void AttackTarget(BaseUnit target)
     {
         target.TakeDamage(_attackDamage);
@@ -110,7 +125,7 @@ public class BaseUnit : MonoBehaviour
     
     public void updateCooldowns()
     {
-        attacksMade = _maxAttacks;
+        _attacksMade = _maxAttacks;
 
         if(cooldown >0)
         {
