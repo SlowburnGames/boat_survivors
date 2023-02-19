@@ -71,23 +71,43 @@ public class MenuManager : MonoBehaviour
     {
         var initiativeDisplay = _selectedHeroObject.transform.Find("Initiative");
 
-        List<string> initList = new List<string>();
-        string last = CombatManager.Instance._turnQueue.ToArray().Last().name.Remove(
-            CombatManager.Instance._turnQueue.ToArray().Last().name.Length - 7);
+        // Get the next 4 turning units
+        List<BaseUnit> initList = new List<BaseUnit>();
+        BaseUnit last = CombatManager.Instance._turnQueue.ToArray().Last();
         initList.Add(last);
-        int maxShow = 3;
+        
         foreach (var currentUnit in CombatManager.Instance._turnQueue)
         {
-            if (currentUnit.name.Remove(currentUnit.name.Length - 7) == last)
+            // Break if current unit is in the next 4 moves again (only 3 or less units remaining)
+            // if (currentUnit.name.Remove(currentUnit.name.Length - 7) == last.name)
+            if (currentUnit == last)
                 break;
-            maxShow--;
-            initList.Add(currentUnit.name.Remove(currentUnit.name.Length - 7));
-            if (maxShow <= 0)
+            initList.Add(currentUnit);
+            if (initList.Count >= 4)
                 break;
-        }   
+        }
 
-        string initiativeText = "Next: " + String.Join(", ", initList);
-        initiativeDisplay.transform.Find("Text").gameObject.GetComponent<TMP_Text>().SetText(initiativeText);
+        // Update the 4 (or less) portraits 
+        int i = 1;
+        foreach (var unit in initList)
+        {
+            // var hero_image = _selectedHeroObject.transform.Find("HeroImage").gameObject.GetComponent<Image>();
+            // hero_image.sprite = hero.GetComponent<SpriteRenderer>().sprite;
+            var portrait = unit.gameObject.transform.Find("portrait");
+
+            if (portrait == null)
+                Debug.LogError("Unit: " + unit.name + " has no child object named portrait!");
+            
+            var portraitObject = portrait.gameObject.GetComponent<SpriteRenderer>();
+            var unitDisplay = initiativeDisplay.Find("unit" + i).gameObject.GetComponent<Image>();
+            
+            unitDisplay.sprite = portraitObject.sprite;
+            unitDisplay.gameObject.SetActive(true);
+            i++;
+        }
+
+        // string initiativeText = "Next: " + String.Join(", ", initList);
+        // initiativeDisplay.transform.Find("Text").gameObject.GetComponent<TMP_Text>().SetText(initiativeText);
     }
 
     public void updataAbility(BaseHero hero)
