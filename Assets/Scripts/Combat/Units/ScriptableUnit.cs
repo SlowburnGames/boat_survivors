@@ -22,7 +22,13 @@ public class ScriptableUnit : ScriptableObject
     public int health;
     public Ability ability;
 
+    public void Heal(int amount)
+    {
+        if (health < maxHealth)
+            health += amount;
+    }
 }
+
 
 public enum Faction
 {

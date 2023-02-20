@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -164,8 +165,15 @@ public class GameManager : MonoBehaviour
 
     public void startRandomEvent()
     {
+        // Example for healing all heroes (for now before EVERY event)
+        healAllHeroes(2);
+        // healHero(startingHeroes.First(), 666);
+        
+        
+        // DEBUG ONLY START
         Debug.Log("TODO: NEXT LINE ONLY FOR DEBUG REASONS");
         startCombat(new List<string>{"Zombie1", "Zombie2"});
+        // DEBUG ONLY END
         
         Debug.Log("Random Event!");
         if(currentEventIndex >= events.Count)
@@ -176,6 +184,17 @@ public class GameManager : MonoBehaviour
         DialogueDisplay.instance.dialogueContainer = events[currentEventIndex];
         currentEventIndex++;
         DialogueDisplay.instance.init();
+    }
+
+    public void healAllHeroes(int amount)
+    {
+        foreach (var hero in startingHeroes)
+            hero.unitClass.Heal(amount);
+    }
+
+    public void healHero(BaseHero hero, int amount)
+    {
+        hero.unitClass.Heal(amount);
     }
 
     public void addCombatRewards()
