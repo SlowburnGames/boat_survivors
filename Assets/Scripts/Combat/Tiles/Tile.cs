@@ -85,7 +85,7 @@ public class Tile : MonoBehaviour
     
     private void SpawnHeroPreview()
     {
-        if (GameManager.Instance.heroesAlive.Count == 0)
+        if (GameManager.Instance.startingHeroes.Count == 0)
             Debug.LogError("No Heroes alive! (or set in the game manager)");
 
         var heroPreviewPrefab = UnitManager.Instance.getNextHero();

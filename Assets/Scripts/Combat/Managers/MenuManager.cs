@@ -64,12 +64,12 @@ public class MenuManager : MonoBehaviour
 
         updataAbility(hero);
 
-        updateInitiative();
+        updateTurnOrderDisplay();
     }
 
-    public void updateInitiative()
+    public void updateTurnOrderDisplay()
     {
-        var initiativeDisplay = _selectedHeroObject.transform.Find("Initiative");
+        var turnOrderDisplay = _selectedHeroObject.transform.Find("TurnOrder");
 
         // Get the next 4 turning units
         List<BaseUnit> initList = new List<BaseUnit>();
@@ -99,15 +99,13 @@ public class MenuManager : MonoBehaviour
                 Debug.LogError("Unit: " + unit.name + " has no child object named portrait!");
             
             var portraitObject = portrait.gameObject.GetComponent<SpriteRenderer>();
-            var unitDisplay = initiativeDisplay.Find("unit" + i).gameObject.GetComponent<Image>();
+            var unitDisplay = turnOrderDisplay.Find("unit" + i).gameObject.GetComponent<Image>();
             
             unitDisplay.sprite = portraitObject.sprite;
+            unitDisplay.color = portraitObject.color;
             unitDisplay.gameObject.SetActive(true);
             i++;
         }
-
-        // string initiativeText = "Next: " + String.Join(", ", initList);
-        // initiativeDisplay.transform.Find("Text").gameObject.GetComponent<TMP_Text>().SetText(initiativeText);
     }
 
     public void updataAbility(BaseHero hero)

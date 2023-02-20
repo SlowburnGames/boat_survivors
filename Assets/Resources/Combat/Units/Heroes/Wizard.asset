@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
   m_Name: Wizard
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: -7962685250005770754, guid: 4bcb8a898a2eeed43b0483c0c159224f, type: 3}
+  UnitPrefab: {fileID: -7962685250005770754, guid: 8e588aaa20aa3ed4088c50f0d28e26bd, type: 3}
   faction: 0
   unitName: Albus Percival Wulfric Brian Dumbledore
   unitDescription: ' Headmaster of Hogwarts, School of Witchcraft and Wizardry'
@@ -21,6 +21,6 @@ MonoBehaviour:
   damage: 1
   movementRange: 3
   attackRange: 3
+  maxHealth: 10
   health: 10
-  sprite: {fileID: 21300000, guid: f84b4f8eef53b654d940f5a3895aaba9, type: 2}
   ability: {fileID: 11400000, guid: 18e705f165685bd40b6e647155903930, type: 2}

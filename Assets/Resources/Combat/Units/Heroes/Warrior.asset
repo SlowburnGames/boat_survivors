@@ -21,6 +21,6 @@ MonoBehaviour:
   damage: 3
   movementRange: 2
   attackRange: 1
-  health: 15
-  sprite: {fileID: 21300000, guid: 0d460c24fd6a1dd408e3b945ad341ac9, type: 3}
+  maxHealth: 15
+  health: 13
   ability: {fileID: 11400000, guid: a68ac3882e817f54886b220254d02358, type: 2}

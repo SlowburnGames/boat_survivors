@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public int population = 3;
-    public List<BaseHero> heroesAlive;
+    public List<BaseHero> startingHeroes;
     public List<BaseEnemy> enemiesInCombat;
+
     private int morale = 50;
     public int Morale
     {
@@ -61,6 +62,10 @@ public class GameManager : MonoBehaviour
         isDay = true;
         travel_distance = 0;
         population = 3;
+
+        // Reset Health
+        foreach (var hero in startingHeroes)
+            hero.unitClass.health = hero.unitClass.maxHealth;
     }
 
     public void startCombat(List<string> enemyNames)
@@ -160,7 +165,7 @@ public class GameManager : MonoBehaviour
     public void startRandomEvent()
     {
         Debug.Log("TODO: NEXT LINE ONLY FOR DEBUG REASONS");
-        startCombat(new List<string>{"Zombie", "Zombie"});
+        startCombat(new List<string>{"Zombie1", "Zombie2"});
         
         Debug.Log("Random Event!");
         if(currentEventIndex >= events.Count)

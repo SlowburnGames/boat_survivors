@@ -269,16 +269,6 @@ public class UnitManager : MonoBehaviour
         return (BaseEnemy)_enemyUnits.Where(u => u.name == eName).First().UnitPrefab;
     }
     
-    public BaseHero GetHeroByName(string hName)
-    {
-        return (BaseHero)_heroUnits.Where(u => u.name == hName).First().UnitPrefab;
-    }
-    
-    public BaseUnit GetUnitByName(string uName)
-    {
-        return (BaseUnit)_allUnits.Where(u => u.name == uName).First().UnitPrefab;
-    }
-
     public void SetSelectedHero(BaseHero hero)
     {
         selectedHero = hero;
@@ -373,6 +363,7 @@ public class UnitManager : MonoBehaviour
         unit.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
         tile.tileUnit = unit;
         unit.OccupiedTile = tile;
+        MenuManager.Instance.UpdateHealthBar(unit);
     }
 
     public IEnumerator MoveUnit(BaseUnit unit, List<Tile> path, Tile tile)
@@ -433,7 +424,7 @@ public class UnitManager : MonoBehaviour
                 GameManager.Instance.combatResReward -= 10;
             }
             Destroy(aUnit.gameObject);
-            MenuManager.Instance.updateInitiative();
+            MenuManager.Instance.updateTurnOrderDisplay();
             checkCombatOver();
         }
     }
@@ -471,9 +462,7 @@ public class UnitManager : MonoBehaviour
     {
         if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Enemy).Count == 0)
         {
-            Debug.Log("Heroes: " + _availableHeroes.Count);
-            GameManager.Instance.heroesAlive = _availableHeroes;
-            
+            GameManager.Instance.startingHeroes = _availableHeroes;
             GameManager.Instance.addCombatRewards();
             CombatManager.Instance.ChangeCombatState(CombatState.CombatEnd);
             MenuManager.Instance.openVictoryScreen();

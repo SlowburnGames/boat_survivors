@@ -35,7 +35,7 @@ public class BaseUnit : MonoBehaviour
 
     private int _maxHealth = -1;
     private int _health = -1;
-    private int _block = -1;
+    private int _block = 0;
     private int _attackDamage = -1;
     private int _moveDistance = -1;
     private int _maxAttacks = -1;
@@ -55,7 +55,7 @@ public class BaseUnit : MonoBehaviour
 
     public void initUnit()
     {
-        _maxHealth = unitClass.health;
+        _maxHealth = unitClass.maxHealth;
         _health = unitClass.health;
         _attackDamage = unitClass.damage;
         _moveDistance = unitClass.movementRange;
@@ -78,9 +78,13 @@ public class BaseUnit : MonoBehaviour
             _block = _block - temp;
         }
         _health -= dmg;
+        if (_faction == Faction.Hero)
+            unitClass.health -= dmg;    // Applied also to unit class (so next fight is started with health from last fight)
+        
+        
         // BUG: often is null -> crash
-        this.GetComponent<HitEffect>().StartCoroutine(this.GetComponent<HitEffect>().hitFlash());
-        DamagePopup.Create(transform.position, dmg, 0);
+        // this.GetComponent<HitEffect>().StartCoroutine(this.GetComponent<HitEffect>().hitFlash());
+        // DamagePopup.Create(transform.position, dmg, 0);
         MenuManager.Instance.UpdateHealthBar(this);
     }
 

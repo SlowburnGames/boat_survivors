@@ -18,8 +18,8 @@ public class ScriptableUnit : ScriptableObject
     public int damage;
     public int movementRange;
     public int attackRange;
+    public int maxHealth;
     public int health;
-    public Sprite sprite;
     public Ability ability;
 
 }

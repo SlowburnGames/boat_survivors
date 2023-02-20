@@ -36,17 +36,17 @@ public class CombatManager : MonoBehaviour
         {
             case CombatState.SetHeroesAndEnemies:
                 
-                // DEBUG ONLY START
-                var DEBUG = true;
-                if (DEBUG)
+                // COMBAT SCREEN ONLY START
+                var START_IN_COMBAT_SCREEN = false;
+                if (START_IN_COMBAT_SCREEN)
                 {
-                    GameManager.Instance.heroesAlive = _defaultHeroes;
+                    GameManager.Instance.startingHeroes = _defaultHeroes;
                     GameManager.Instance.enemiesInCombat = _defaultEnemies;
                 }
                 
-                UnitManager.Instance.SetUnitIDs(GameManager.Instance.heroesAlive, GameManager.Instance.enemiesInCombat);
+                UnitManager.Instance.SetUnitIDs(GameManager.Instance.startingHeroes, GameManager.Instance.enemiesInCombat);
                 
-                UnitManager.Instance.SetSpawnableHeroes(GameManager.Instance.heroesAlive);
+                UnitManager.Instance.SetSpawnableHeroes(GameManager.Instance.startingHeroes);
                 UnitManager.Instance.SetSpawnableEnemies(GameManager.Instance.enemiesInCombat);
                 
                 ChangeCombatState(CombatState.GenerateGrid);
@@ -60,7 +60,7 @@ public class CombatManager : MonoBehaviour
             case CombatState.SpawnHeroes:
                 // Logic in Tile.OnMouseDown and UnitManager.SpawnSelectedHero
                 Debug.Log("Spawn Heroes by clicking on tile!");
-                MenuManager.Instance.ShowAvailableHeroes(GameManager.Instance.heroesAlive);
+                MenuManager.Instance.ShowAvailableHeroes(GameManager.Instance.startingHeroes);
                 break;
             case CombatState.SetTurnOrder:
                 SetTurnOrder();
@@ -80,7 +80,7 @@ public class CombatManager : MonoBehaviour
                 if (nextUnit.Faction == Faction.Hero)
                 {
                     var hero = (BaseHero) nextUnit;
-                    Debug.Log("Hero " + hero.name + " turn!");
+                    Debug.Log("Hero " + hero.UnitName + " turn!");
                     
                     //select the hero and range indicator
                     UnitManager.Instance.SetSelectedHero(hero);
@@ -91,7 +91,7 @@ public class CombatManager : MonoBehaviour
                 else if (nextUnit.Faction == Faction.Enemy)
                 {
                     var enemy = (BaseEnemy) nextUnit;
-                    Debug.Log("Enemy " + enemy.name + " turn!");
+                    Debug.Log("Enemy " + enemy.UnitName + " turn!");
                     
                     UnitManager.Instance.EnemiesTurn(enemy);
                 }

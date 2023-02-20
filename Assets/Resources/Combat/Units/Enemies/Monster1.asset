@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
-  m_Name: Rouge
+  m_Name: Monster1
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: 5070908024623995816, guid: c7bad3be7eab3f34fbe1927d67037c96, type: 3}
-  faction: 0
-  unitName: Rouge
-  unitDescription: You are dead before you see him
+  UnitPrefab: {fileID: -3353402785419243975, guid: fed9ed9fd4946f34284ff70e5e3269c2, type: 3}
+  faction: 1
+  unitName: Monster1
+  unitDescription: Just a monster
   isRanged: 0
-  attacks: 2
+  attacks: 1
   damage: 1
-  movementRange: 5
+  movementRange: 3
   attackRange: 1
-  maxHealth: 12
-  health: 12
-  ability: {fileID: 11400000, guid: 9fc92dcffcaa29141819c294020d8ec0, type: 2}
+  maxHealth: 8
+  health: 8
+  ability: {fileID: 11400000, guid: a68ac3882e817f54886b220254d02358, type: 2}
