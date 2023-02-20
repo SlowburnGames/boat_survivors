@@ -19,7 +19,6 @@ public class Fighter : BaseHero
         if (pushPos.x < 0 || pushPos.x >= WFCGenerator.Instance._tiles[0].Length || pushPos.y < 0 ||
             pushPos.y >= WFCGenerator.Instance._tiles.Length)
         {
-            
             target.TakeDamage(int.MaxValue);
         }
         // Nomal push

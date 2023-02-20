@@ -83,8 +83,8 @@ public class BaseUnit : MonoBehaviour
         
         
         // BUG: often is null -> crash
-        this.GetComponent<HitEffect>().StartCoroutine(this.GetComponent<HitEffect>().hitFlash());
-        DamagePopup.Create(transform.position, dmg, 0);
+        // this.GetComponent<HitEffect>().StartCoroutine(this.GetComponent<HitEffect>().hitFlash());
+        // DamagePopup.Create(transform.position, dmg, 0);
         MenuManager.Instance.UpdateHealthBar(this);
     }
 

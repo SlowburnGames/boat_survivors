@@ -19,9 +19,9 @@ MonoBehaviour:
     or off the map kills them.
   isRanged: 0
   attacks: 1
-  damage: 2
+  damage: 0
   movementRange: 2
   attackRange: 1
-  maxHealth: 12
-  health: 8
+  maxHealth: 666
+  health: 658
   ability: {fileID: 11400000, guid: 22b6ea0cc36cafa449f8aae358c7a810, type: 2}
