@@ -449,9 +449,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813c2b404d310424597f0c5c4e045505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitID: -1
+  unitID: 2
   OccupiedTile: {fileID: 0}
-  unitClass: {fileID: 11400000, guid: 1ff936d1bd0e5704083e2fa69e61d71e, type: 2}
+  unitClass: {fileID: 11400000, guid: a236ee765474d8d44a46df1fe6a023c9, type: 2}
   effects: []
   cooldown: 0
   invisible: 0

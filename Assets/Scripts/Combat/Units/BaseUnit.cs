@@ -83,8 +83,8 @@ public class BaseUnit : MonoBehaviour
         
         
         // BUG: often is null -> crash
-        // this.GetComponent<HitEffect>().StartCoroutine(this.GetComponent<HitEffect>().hitFlash());
-        // DamagePopup.Create(transform.position, dmg, 0);
+        this.GetComponent<HitEffect>().StartCoroutine(this.GetComponent<HitEffect>().hitFlash());
+        DamagePopup.Create(transform.position, dmg, 0);
         MenuManager.Instance.UpdateHealthBar(this);
     }
 
@@ -117,7 +117,12 @@ public class BaseUnit : MonoBehaviour
 
     public virtual void AttackTarget(BaseUnit target)
     {
+        AttacksMade--;
         target.TakeDamage(_attackDamage);
+        if (_faction == Faction.Hero)
+            MenuManager.Instance.updateAttacks(this);
+        
+        UnitManager.Instance.CheckAttackedUnit(target);
     }
 
     public void SpecialMove(Tile target)

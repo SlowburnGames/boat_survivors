@@ -15,22 +15,14 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _tileObject;
     [SerializeField] private GameObject _tileUnitObject;
     [SerializeField] private GameObject _avaliableHeroes;
-    [SerializeField] private GameObject _avaliableHeroesImg;
-
     [SerializeField] private GameObject _endTurnButton;
-
     [SerializeField] private GameObject _combatEndScreen;
 
-    [SerializeField] private GameObject _fighterImage;
-    
-    
-    
     private void Awake()
     {
         Instance = this;
     }
-
-
+    
     public void toggleButtons(bool active)
     {
         _endTurnButton.gameObject.SetActive(active);
@@ -86,7 +78,8 @@ public class MenuManager : MonoBehaviour
             if (initList.Count >= 4)
                 break;
         }
-
+        
+        clearTurnOrderDisplay(turnOrderDisplay);
         // Update the 4 (or less) portraits 
         int i = 1;
         foreach (var unit in initList)
@@ -105,6 +98,15 @@ public class MenuManager : MonoBehaviour
             unitDisplay.color = portraitObject.color;
             unitDisplay.gameObject.SetActive(true);
             i++;
+        }
+    }
+
+    private void clearTurnOrderDisplay(Transform turnOrderDisplay)
+    {
+        for (int i = 1; i <= 4; i++)
+        {
+            var unitDisplay = turnOrderDisplay.Find("unit" + i).gameObject.GetComponent<Image>();
+            unitDisplay.gameObject.SetActive(false);
         }
     }
 

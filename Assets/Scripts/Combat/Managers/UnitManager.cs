@@ -95,7 +95,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void HeroesTurn(Tile tile, BaseUnit tileUnit, bool isWalkable)
-    {   
+    {
         if (tileUnit == selectedHero && /*!selectedHero.usedAction &&*/ selectedHero.standAction)
         {
             if(selectedHero.AttacksMade - selectedHero.MaxAttacks > 0)
@@ -131,13 +131,8 @@ public class UnitManager : MonoBehaviour
                         if (canAttack)
                         {
                             selectedHero.AttackTarget(enemy);
-                            selectedHero.AttacksMade--;
-                            MenuManager.Instance.updateAttacks(selectedHero);
-
                             // Debug.Log("Damaged " + enemy.name + " by " + selectedHero.AttackDamage);
 
-                            // Check if attacked unit dies
-                            CheckAttackedUnit(enemy);
                             //selectedHero.usedAction = true;
 
                             // End turn
@@ -183,10 +178,6 @@ public class UnitManager : MonoBehaviour
             }
         }
 
-        //if(selectedHero.usedAction && selectedHero.tilesWalked == selectedHero.MoveDistance)
-        //{
-        //    //CombatManager.Instance.endPlayerTurn();
-        //}
     }
 
 
@@ -210,7 +201,6 @@ public class UnitManager : MonoBehaviour
                 //StartCoroutine(MoveUnit(enemy, path, path[path.Count - 2]));
             }
             enemy.AttackTarget(targetedHero);
-            CheckAttackedUnit(targetedHero);
         }
         else //hero is not reachable
         {
@@ -407,7 +397,7 @@ public class UnitManager : MonoBehaviour
         }
     }
     
-    private void CheckAttackedUnit(BaseUnit aUnit)
+    public void CheckAttackedUnit(BaseUnit aUnit)
     {
         if (aUnit.Health <= 0)
         {
@@ -415,8 +405,6 @@ public class UnitManager : MonoBehaviour
                 new Queue<BaseUnit>(CombatManager.Instance._turnQueue.Where(x => x != aUnit));
             if(aUnit.Faction == Faction.Hero)
             {
-                
-                // int index = _availableHeroes.Find((BaseHero)aUnit);
                 int index = _availableHeroes.FindIndex(a => a.unitID == aUnit.unitID);
                 _availableHeroes.RemoveAt(index);
                 
