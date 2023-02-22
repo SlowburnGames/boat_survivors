@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 7387047528964035445}
   - component: {fileID: 6247459118844957450}
   - component: {fileID: 1279560835558018874}
+  - component: {fileID: 1964641825768367113}
   m_Layer: 5
   m_Name: Button_04
   m_TagString: Untagged
@@ -426,7 +427,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6247459118844957450}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1964641825768367113}
+        m_TargetAssemblyTypeName: DialogueButton, Assembly-CSharp
+        m_MethodName: buttonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1964641825768367113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2952443309241812948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9270265d8f28c45978003bbf280c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 3
 --- !u!1 &3541697471287007115
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,6 +752,7 @@ GameObject:
   - component: {fileID: 7033215244515665720}
   - component: {fileID: 3345400892777643684}
   - component: {fileID: 2083936333906873231}
+  - component: {fileID: 1710816283900552375}
   m_Layer: 5
   m_Name: Button_02
   m_TagString: Untagged
@@ -835,7 +862,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3345400892777643684}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1710816283900552375}
+        m_TargetAssemblyTypeName: DialogueButton, Assembly-CSharp
+        m_MethodName: buttonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1710816283900552375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4852779396183668971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9270265d8f28c45978003bbf280c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 1
 --- !u!1 &5555872992940330130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,6 +1115,7 @@ GameObject:
   - component: {fileID: 3170299463778279155}
   - component: {fileID: 2814375162771241209}
   - component: {fileID: 8309262218611695465}
+  - component: {fileID: 167834124624314943}
   m_Layer: 5
   m_Name: Button_03
   m_TagString: Untagged
@@ -1172,7 +1225,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2814375162771241209}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 167834124624314943}
+        m_TargetAssemblyTypeName: DialogueButton, Assembly-CSharp
+        m_MethodName: buttonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &167834124624314943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6974177555043656270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9270265d8f28c45978003bbf280c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 2
 --- !u!1 &7305555358182635745
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,6 +1533,7 @@ GameObject:
   - component: {fileID: 6419168101294151619}
   - component: {fileID: 3861842736862099175}
   - component: {fileID: 8055440354119465063}
+  - component: {fileID: 4575747620148625391}
   m_Layer: 5
   m_Name: Button_01
   m_TagString: Untagged
@@ -1564,7 +1643,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3861842736862099175}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4575747620148625391}
+        m_TargetAssemblyTypeName: DialogueButton, Assembly-CSharp
+        m_MethodName: buttonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4575747620148625391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942840718533994657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9270265d8f28c45978003bbf280c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
 --- !u!1 &9060656354165734157
 GameObject:
   m_ObjectHideFlags: 0

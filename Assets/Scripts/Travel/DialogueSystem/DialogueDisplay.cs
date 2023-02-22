@@ -13,6 +13,7 @@ public class DialogueDisplay : MonoBehaviour
     public TMP_Text description;
     public Image image;
     [SerializeField]private List<Button> buttons;
+    [SerializeField]public List<List<NodeLinkData>> button_choices;
     private DialogueNodeData currentNode;
     [SerializeField]private List<NodeLinkData> currentChoices = new List<NodeLinkData>();
 
@@ -42,7 +43,7 @@ public class DialogueDisplay : MonoBehaviour
         updateButtons();
     }
 
-    void closeEvent()
+    public void closeEvent()
     {
         travelManager.setButtonsInteractable(true);
         transform.GetChild(0).gameObject.SetActive(false);
@@ -54,28 +55,55 @@ public class DialogueDisplay : MonoBehaviour
         {
             button.gameObject.SetActive(false);
             button.onClick.RemoveAllListeners();
+            button.GetComponentInChildren<TMP_Text>().SetText("");
         }
+
+        button_choices = new List<List<NodeLinkData>>();
+
+        for (int i = 0; i < 4; i++)
+        {
+            button_choices.Add(new List<NodeLinkData>());
+        }
+
 
         if(currentChoices.Count == 0)
         {
             var first_button = buttons[0];
             first_button.GetComponentInChildren<TMP_Text>().SetText("Okay.");
-            first_button.onClick.AddListener(closeEvent);
+            first_button.GetComponent<DialogueButton>().ends_dialogue = true;
             first_button.gameObject.SetActive(true);
             if(currentNode.combat)
             {
-                first_button.onClick.AddListener(startCombat);
+                first_button.GetComponent<DialogueButton>().starts_combat = true;
+                first_button.GetComponent<DialogueButton>().ends_dialogue = false;
                 first_button.GetComponentInChildren<TMP_Text>().SetText("Fight.");
             }
+            return;
         }
 
-        for (int i = 0; i < currentChoices.Count; i++)
+        int button_index = 0;
+
+        foreach(NodeLinkData choice in currentChoices)
         {
-            var textmesh = buttons[i].GetComponentInChildren<TMP_Text>();
-            var choice = currentChoices[i];
-            textmesh.SetText(choice.PortName);
-            buttons[i].gameObject.SetActive(true);
-            buttons[i].onClick.AddListener(()=>traverse(choice));
+            bool button_needed = true;
+            for(int j=0; j < buttons.Count; j++)
+            {
+                var button_tmp = buttons[j].GetComponentInChildren<TMP_Text>();
+                if(button_tmp.text == choice.PortName)
+                {
+                    button_choices[j].Add(choice);
+                    button_needed = false;
+                }
+            }
+            if(button_needed)
+            {
+                var textmesh = buttons[button_index].GetComponentInChildren<TMP_Text>();
+                Debug.Log(button_index);
+                textmesh.SetText(choice.PortName);
+                buttons[button_index].gameObject.SetActive(true);
+                button_choices[button_index].Add(choice);
+                button_index++;
+            }
         }
     }
 
@@ -110,7 +138,21 @@ public class DialogueDisplay : MonoBehaviour
         TravelManager.instance.updateResUI();
     }
 
-    private void startCombat()
+    public void buttonPress(int index)
+    {
+        Debug.Log(index);
+        Debug.Log(button_choices.Count);
+        List<NodeLinkData> list = button_choices[index];
+
+        //get random outcome for button
+        int random = UnityEngine.Random.Range(0, list.Count);
+        Debug.Log(random);
+        NodeLinkData edge = list[random];
+
+        traverse(edge);
+    }
+
+    public void startCombat()
     {
         if(currentNode.combat)
         {
