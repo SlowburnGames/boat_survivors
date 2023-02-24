@@ -53,6 +53,7 @@ public class CombatManager : MonoBehaviour
                 break;
             case CombatState.GenerateGrid:
                 WFCGenerator.Instance.runWFC();
+                UnitManager.Instance.normalizeMoveArrowRatations();
                 break;
             case CombatState.SpawnEnemies:
                 UnitManager.Instance.SpawnEnemies();

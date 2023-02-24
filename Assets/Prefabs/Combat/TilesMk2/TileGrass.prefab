@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8869894848660815809}
   - component: {fileID: 2666452779529250082}
   m_Layer: 0
-  m_Name: DotRange
+  m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1035063591110045376}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.64, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.270753, y: 0.270753, z: 0.270753}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8060558344518149301}
   m_RootOrder: 1
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.058823522, g: 0.07887113, b: 0.59607846, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e91d4d1306ed26d46bd6018b6c2821b0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6183241440436218770}
   - component: {fileID: 5035156468402920084}
   m_Layer: 0
-  m_Name: Dot
+  m_Name: MoveRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,8 +110,8 @@ Transform:
   m_GameObject: {fileID: 1087476249731826195}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.641, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.443685, y: 0.443685, z: 0.443685}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8060558344518149301}
   m_RootOrder: 0
@@ -157,8 +157,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.5943396, g: 0.058873262, b: 0.058873262, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 02a7da48602aba94694a7e9dc9d4d886, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -277,6 +277,9 @@ MonoBehaviour:
   tilePosition: {x: 0, y: 0}
   position: {x: 0, y: 0}
   tilesToWalk: []
+  gCost: 0
+  hCost: 0
+  parent: {fileID: 0}
 --- !u!65 &-3349717406170541117
 BoxCollider:
   m_ObjectHideFlags: 0

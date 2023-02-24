@@ -1077,11 +1077,9 @@ MonoBehaviour:
   combatState: 0
   _spawnedUnitList: []
   _defaultHeroes:
-  - {fileID: 6331362298142244506, guid: 36e716596e15002488a757aaa01f08e5, type: 3}
   - {fileID: -5943581832193407654, guid: 2ce2b7fcf93f9514e90b53937cab2c05, type: 3}
   _defaultEnemies:
-  - {fileID: -3353402785419243975, guid: fed9ed9fd4946f34284ff70e5e3269c2, type: 3}
-  - {fileID: -3353402785419243975, guid: 6fe597fe4290b494e9f1926526622b5d, type: 3}
+  - {fileID: 3274354025294693758, guid: f8dcab9e7ee881f41b605031ac864516, type: 3}
 --- !u!4 &418657085
 Transform:
   m_ObjectHideFlags: 0
@@ -2013,7 +2011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -12,7 +12,7 @@ public class HitEffect : MonoBehaviour
 
     public void Start()
     {
-        normal = transform.GetComponent<SpriteRenderer>().material;
+        // normal = transform.GetComponent<SpriteRenderer>().material;
     }
     public IEnumerator hitFlash()
     {

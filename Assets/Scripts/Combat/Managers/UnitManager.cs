@@ -329,7 +329,8 @@ public class UnitManager : MonoBehaviour
     {
         foreach (var tilePos in tilePositions)
         {
-            tilePos.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
+            Color col = new Color((float)0.157, (float)0.2431, (float)0.8314);
+            tilePos.transform.GetChild(1).GetComponent<SpriteRenderer>().color = col;
             tilePos.transform.GetChild(1).gameObject.gameObject.SetActive(true);
             tilePos.transform.GetChild(1).localPosition = new Vector3(0, 0.6f, 0);
             // Instantiate(_attackRangeIndicator, tilePos.transform);
@@ -481,6 +482,21 @@ public class UnitManager : MonoBehaviour
         {
             SceneManager.LoadScene("GameOver");
         }
+    }
+    
+    public void normalizeMoveArrowRatations()
+    {
+        // Debug only START
+        // foreach (var tileRow in WFCGenerator.Instance._tiles)
+        //     foreach (var tile in tileRow)
+        //         tile.transform.GetChild(0).gameObject.SetActive(true);
+        // Debug only END
+        
+        foreach (var tileRow in WFCGenerator.Instance._tiles)
+            foreach (var tile in tileRow)
+                tile.transform.GetChild(0).rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+        
+        // Needed because all tiles (and therefore also arrows) have random rotations at start
     }
     
     
