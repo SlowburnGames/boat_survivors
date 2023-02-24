@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rouge : BaseHero
+public class Rogue : BaseHero
 {
   // Unit Stats are copied from scriptable Unit
     private void Start() {
@@ -12,6 +12,7 @@ public class Rouge : BaseHero
 
   public override void AttackTarget(BaseUnit target)
   {
+    AttacksMade--;
     if(invisible)
     {
         target.TakeDamage(AttackDamage * 3);
@@ -19,6 +20,7 @@ public class Rouge : BaseHero
         return;
     }
     target.TakeDamage(AttackDamage);
-
+    MenuManager.Instance.updateAttacks(this);
+    UnitManager.Instance.CheckAttackedUnit(target);
   }
 }

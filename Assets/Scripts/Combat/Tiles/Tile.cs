@@ -89,11 +89,15 @@ public class Tile : MonoBehaviour
             Debug.LogError("No Heroes alive! (or set in the game manager)");
 
         var heroPreviewPrefab = UnitManager.Instance.getNextHero();
+        
         _tileHeroPreview = Instantiate(heroPreviewPrefab);
-        _tileHeroPreview.GetComponent<SpriteRenderer>().color -= new Color (0, 0, 0, 0.6f);
         _tileHeroPreview.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
-        _tileHeroPreview.transform.position = transform.position + Vector3.up;
-        _tileHeroPreview.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+        
+        UnitManager.Instance.SetUnitPositionRotation(_tileHeroPreview, this, true);
+        // var unitTransform = _tileHeroPreview.transform;
+        // Vector3 unitYOffset = new Vector3(0, unitTransform.position.y, 0);
+        // unitTransform.position = transform.position + Vector3.up/2;  // Vector.up/2 for the tile block
+        // unitTransform.rotation = Quaternion.LookRotation(unitTransform.position + Vector3.up - cameraPos);
     }
 
 

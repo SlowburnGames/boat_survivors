@@ -36,7 +36,7 @@ public class MenuManager : MonoBehaviour
             return;
         }
         var hero_image = _selectedHeroObject.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero_image.sprite = hero.GetComponent<SpriteRenderer>().sprite;
+        // hero_image.sprite = hero.GetComponent<SpriteRenderer>().sprite;
         _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName + "\n" + hero.UnitDescription;
         _selectedHeroObject.SetActive(true);
         updateAttacks(hero);
@@ -155,7 +155,8 @@ public class MenuManager : MonoBehaviour
 
     public void UpdateHealthBar(BaseUnit unit)
     {
-        var slider = unit.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
+        // var slider = unit.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
+        var slider = unit.gameObject.transform.Find("Canvas").Find("HealthBar").Find("Health").GetComponent<Image>();
         slider.fillAmount = (float)unit.Health / unit.MaxHealth;
     }
 

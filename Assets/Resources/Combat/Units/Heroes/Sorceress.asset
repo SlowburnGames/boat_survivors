@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
-  m_Name: Rouge
+  m_Name: Sorceress
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: 5070908024623995816, guid: c7bad3be7eab3f34fbe1927d67037c96, type: 3}
+  UnitPrefab: {fileID: 0}
   faction: 0
-  unitName: Rouge
-  unitDescription: You are dead before you see him
-  isRanged: 0
-  attacks: 2
-  damage: 1
-  movementRange: 5
-  attackRange: 1
-  maxHealth: 12
-  health: 12
-  ability: {fileID: 11400000, guid: 9fc92dcffcaa29141819c294020d8ec0, type: 2}
+  unitName: Sorceress
+  unitDescription: todo
+  isRanged: 1
+  attacks: 1
+  damage: 3
+  movementRange: 1
+  attackRange: 4
+  maxHealth: 10
+  health: 10
+  ability: {fileID: 11400000, guid: 18e705f165685bd40b6e647155903930, type: 2}

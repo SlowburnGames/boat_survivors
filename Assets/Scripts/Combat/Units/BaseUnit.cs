@@ -171,7 +171,9 @@ public class BaseUnit : MonoBehaviour
     }
 
     private void Update() {
-        checkInvisible();
+        // checkInvisible();   
+        // I guess for rogue? commented out because "new" heros have no sprite renderere
+        // Will adapt this when doing the rogue
     }
 
     void checkInvisible()

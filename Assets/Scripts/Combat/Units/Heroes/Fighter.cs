@@ -25,7 +25,7 @@ public class Fighter : BaseHero
         else if (WFCGenerator.Instance._tiles[targetPos.x][targetPos.y].walkable)
         {
             target.TakeDamage(AttackDamage);
-            UnitManager.Instance.SetUnit(target, WFCGenerator.Instance._tiles[targetPos.x][targetPos.y]);
+            UnitManager.Instance.SetUnit(target, WFCGenerator.Instance._tiles[targetPos.x][targetPos.y], false);
         }
         // Water check (kill pushed unit)
         else if (WFCGenerator.Instance._tiles[targetPos.x][targetPos.y].tileName == "Water")

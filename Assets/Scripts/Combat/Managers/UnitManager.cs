@@ -43,7 +43,7 @@ public class UnitManager : MonoBehaviour
         {
             var heroPrefab = getNextHero();
             var spawnedHero = Instantiate(heroPrefab);
-            SetUnit(spawnedHero, spawnTile);
+            SetUnit(spawnedHero, spawnTile, true);
             _previewHeroCount++;
             CombatManager.Instance._spawnedUnitList.Add(spawnedHero);
             
@@ -74,7 +74,7 @@ public class UnitManager : MonoBehaviour
             var spawnedEnemy = Instantiate(enemy);
             var randomSpawnTile = WFCGenerator.Instance.GetEnemySpawnTile();
         
-            SetUnit(spawnedEnemy, randomSpawnTile);
+            SetUnit(spawnedEnemy, randomSpawnTile, true);
             CombatManager.Instance._spawnedUnitList.Add(spawnedEnemy);
         }
         CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
@@ -155,7 +155,7 @@ public class UnitManager : MonoBehaviour
                 if (path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalked)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
-                    SetUnit(selectedHero, tile);
+                    SetUnit(selectedHero, tile, false);
                     // StartCoroutine(MoveUnit(selectedHero, path, tile));
                     selectedHero.tilesWalked += path.Count;
                     //if(!selectedHero.usedAction)
@@ -197,7 +197,7 @@ public class UnitManager : MonoBehaviour
         {
             if(distance > 1)
             {
-                SetUnit(enemy, path[path.Count - 2]);
+                SetUnit(enemy, path[path.Count - 2], false);
                 //StartCoroutine(MoveUnit(enemy, path, path[path.Count - 2]));
             }
             enemy.AttackTarget(targetedHero);
@@ -206,7 +206,7 @@ public class UnitManager : MonoBehaviour
         {
             if (!heroesAlive()) // When all heroes are dead -> Game over
                 return;
-            SetUnit(enemy, path[enemy.MoveDistance - 1]);
+            SetUnit(enemy, path[enemy.MoveDistance - 1], false);
             //StartCoroutine(MoveUnit(enemy, path, path[enemy.MoveDistance - 1]));
         }
 
@@ -345,16 +345,38 @@ public class UnitManager : MonoBehaviour
             }
     }
     
-    public void SetUnit(BaseUnit unit, Tile tile)
+    public void SetUnit(BaseUnit unit, Tile tile, bool isUnitSpawning)
     {
         if (unit.OccupiedTile != null)
             unit.OccupiedTile.tileUnit = null;
-        unit.transform.position = tile.transform.position + Vector3.up;
-        unit.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+        
+        SetUnitPositionRotation(unit, tile, isUnitSpawning);
+
         tile.tileUnit = unit;
         unit.OccupiedTile = tile;
         MenuManager.Instance.UpdateHealthBar(unit);
     }
+
+    public void SetUnitPositionRotation(BaseUnit unit, Tile tile, bool isUnitSpawning)
+    {
+        var unitTransform = unit.transform;
+
+        Vector3 spawnOffset = isUnitSpawning ? Vector3.up / 2 : Vector3.zero;
+        
+        
+        // Get unit y position because not every drawn hero sprite had same y position, and I noticed it too late.
+        // -> change the unit prefab y-position, in a way that it "stands" on the 0-y-coord like intended. (see sorceress, rogue, skeleton, ...)
+        Vector3 unitYOffset = new Vector3(0, unitTransform.position.y, 0);
+        unitTransform.position = tile.transform.position + unitYOffset + spawnOffset;  // Vector.up/2 for the tile block
+        
+        // var cameraPos = FindObjectOfType<Camera>().transform.position;
+        // unitTransform.rotation = Quaternion.LookRotation(unitTransform.position + Vector3.up - cameraPos);
+
+        unitTransform.rotation = Quaternion.Euler(new Vector3(10, -45, 0));
+
+    }
+    
+    // TODO ROGUE attack counter not updated
 
     public IEnumerator MoveUnit(BaseUnit unit, List<Tile> path, Tile tile)
     {
