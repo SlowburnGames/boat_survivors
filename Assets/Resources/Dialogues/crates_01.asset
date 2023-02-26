@@ -80,7 +80,7 @@ MonoBehaviour:
   - NodeGUID: ba293276-8510-45f4-8034-5024e6332a90
     DialogueText: You come across some floating crates.
     image: 
-    Position: {x: 99.2, y: 100}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0

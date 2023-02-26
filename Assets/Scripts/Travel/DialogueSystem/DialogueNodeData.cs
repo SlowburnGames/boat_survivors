@@ -6,8 +6,8 @@ using System.Collections.Generic;
 [Serializable]
 public class DialogueNodeData
 {
-    public string NodeGUID;
     public string DialogueText;
+    public string NodeGUID;
     public string image;
     public Vector2 Position;
     public bool entryPoint;
