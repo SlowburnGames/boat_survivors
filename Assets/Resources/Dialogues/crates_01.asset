@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c7a37dfdc0719419c7a4ecfa73bac6, type: 3}
+  m_Name: crates_01
+  m_EditorClassIdentifier: 
+  nodeLinks:
+  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
+    PortName: Pull them aboard.
+    TargetNodeGuid: ee21cc0b-3d48-41d9-ae57-946cba6da2b3
+  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
+    PortName: Pull them aboard.
+    TargetNodeGuid: 50ebdd75-8f74-4c44-9d75-579475c205f3
+  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
+    PortName: Pull them aboard.
+    TargetNodeGuid: c05ab129-7351-4dee-b666-7186e0ea69f5
+  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
+    PortName: Pull them aboard.
+    TargetNodeGuid: 1812f07e-958c-4b3e-adff-638e13820cca
+  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
+    PortName: Pull them aboard.
+    TargetNodeGuid: 93bbb050-76ce-49e3-8e96-beffd23191fd
+  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
+    PortName: Leave them be.
+    TargetNodeGuid: d4489239-52d7-495f-8ba1-1a1bcd01b94c
+  dialogueNodeData:
+  - NodeGUID: ee21cc0b-3d48-41d9-ae57-946cba6da2b3
+    DialogueText: The crates contain some food.
+    image: 
+    Position: {x: 829.6, y: -164.8}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 10
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 50ebdd75-8f74-4c44-9d75-579475c205f3
+    DialogueText: The crates contain nothing useful.
+    image: 
+    Position: {x: 829.6, y: 100}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: c05ab129-7351-4dee-b666-7186e0ea69f5
+    DialogueText: The crates are filled with beer and wine!
+    image: 
+    Position: {x: 829.6, y: 307.2}
+    entryPoint: 0
+    moraleChange: 10
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: ba293276-8510-45f4-8034-5024e6332a90
+    DialogueText: You come across some floating crates.
+    image: 
+    Position: {x: 99.2, y: 100}
+    entryPoint: 1
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 1812f07e-958c-4b3e-adff-638e13820cca
+    DialogueText: The crates are filled with dead bodies. The crew is disgusted.
+    image: 
+    Position: {x: 829.6, y: 572}
+    entryPoint: 0
+    moraleChange: -10
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 93bbb050-76ce-49e3-8e96-beffd23191fd
+    DialogueText: You investigate the crates and hear a cry from somewhere. Zombies
+      were waiting near the crates to attack you!
+    image: 
+    Position: {x: 829.6, y: 836.8}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 1
+    enemies:
+    - Zombie
+    - Zombie
+    - Zombie
+    - Zombie
+    combatMoraleChange: 0
+    combatResourceChange: 10
+  - NodeGUID: d4489239-52d7-495f-8ba1-1a1bcd01b94c
+    DialogueText: You let the crates float along...
+    image: 
+    Position: {x: 261.6, y: 496}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  alreadyEncountered: 0

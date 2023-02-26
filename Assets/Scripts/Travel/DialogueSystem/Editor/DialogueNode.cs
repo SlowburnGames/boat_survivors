@@ -60,6 +60,7 @@ public class DialogueNode : Node
             combat = combat,
             combatMoraleChange = combatMoraleChange,
             combatResourceChange = combatResourceChange,
+            enemies = enemies
         };
     }
 }

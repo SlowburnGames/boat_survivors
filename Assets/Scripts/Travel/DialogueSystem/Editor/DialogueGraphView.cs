@@ -214,12 +214,7 @@ public class DialogueGraphView : GraphView
         combatFoldout.contentContainer.Add(startsCombatField);
 
 
-        var enemiesView = new ListView(dialogue_node.enemies);
-        enemiesView.headerTitle = "Enemies";
-        enemiesView.showAddRemoveFooter = true;
-        enemiesView.showBoundCollectionSize = true;
-        enemiesView.showFoldoutHeader = true;
-        enemiesView.showBorder = true;
+        var enemiesView = new ListViewWithEditableItems(dialogue_node.enemies, "Enemies");
 
         combatFoldout.contentContainer.Add(enemiesView);
 
@@ -245,6 +240,7 @@ public class DialogueGraphView : GraphView
         
         return dialogue_node;
     }
+
     public void CreateNode(string nodeName)
     {
         AddElement(CreateDialogueNode(nodeName));
