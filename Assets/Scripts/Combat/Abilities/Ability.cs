@@ -14,6 +14,6 @@ public class Ability : ScriptableObject
 
     public virtual void Activate(BaseUnit self)
     {
-
+        Debug.Log("Used ability");
     }
 }

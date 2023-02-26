@@ -133,7 +133,7 @@ public class Tile : MonoBehaviour
         int rotation;
         Tile lastTile = start;
         
-        Debug.Log("Last TILE: " + tilesToWalk.Last().position);
+        //Debug.Log("Last TILE: " + tilesToWalk.Last().position);
         for (int i=0; i<tilesToWalk.Count; i++)
         {
             if (i != 0)

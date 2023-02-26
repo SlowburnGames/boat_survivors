@@ -54,7 +54,7 @@ public class MenuManager : MonoBehaviour
         string heroSpeedText = hero.MoveDistance - hero.tilesWalked + "/" + hero.MoveDistance;
         heroSpeedDisplay.transform.Find("HeroSpeed").gameObject.GetComponent<TMP_Text>().SetText(heroSpeedText);
 
-        updataAbility(hero);
+        updateAbility(hero);
 
         updateTurnOrderDisplay();
     }
@@ -110,7 +110,7 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void updataAbility(BaseHero hero)
+    public void updateAbility(BaseHero hero)
     {
         var ability_button = _selectedHeroObject.transform.Find("HeroAbility").gameObject;
 

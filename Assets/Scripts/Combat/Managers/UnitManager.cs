@@ -155,8 +155,8 @@ public class UnitManager : MonoBehaviour
                 if (path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalked)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
-                    SetUnit(selectedHero, tile, false);
-                    // StartCoroutine(MoveUnit(selectedHero, path, tile));
+                    //SetUnit(selectedHero, tile, false);
+                    StartCoroutine(MoveUnit(selectedHero, path, tile));
                     selectedHero.tilesWalked += path.Count;
                     //if(!selectedHero.usedAction)
                     //{
@@ -383,14 +383,15 @@ public class UnitManager : MonoBehaviour
     {
         float time = 0.5f;
         Vector3[] waypoints = new Vector3[path.Count];
+        Vector3 unitYOffset = new Vector3(0, unit.transform.position.y, 0);
         for (int i = 0; i < path.Count; i++)
         {
-            waypoints[i] = path[i].transform.position + Vector3.up;
+            //waypoints[i] = path[i].transform.position + Vector3.up;
+            waypoints[i] = path[i].transform.position + unitYOffset + Vector3.zero;
         }
-        unit.transform.GetComponent<MovementManager>().moveUnit(waypoints, time);
+        unit.GetComponent<MovementManager>().moveUnit(waypoints, time);
         yield return new WaitForSeconds(time);
-        tile.tileUnit = unit;
-        unit.OccupiedTile = tile;
+        SetUnit(unit, tile, false);
     }
 
     private bool CheckAttackPossible(BaseUnit attackUnit, BaseUnit defendUnit)

@@ -80,11 +80,12 @@ public class BaseUnit : MonoBehaviour
         _health -= dmg;
         if (_faction == Faction.Hero)
             unitClass.health -= dmg;    // Applied also to unit class (so next fight is started with health from last fight)
-        
-        
+
+
         // BUG: often is null -> crash
         // this.GetComponent<HitEffect>().StartCoroutine(this.GetComponent<HitEffect>().hitFlash());
-        // DamagePopup.Create(transform.position, dmg, 0);
+        Vector3 pos = new Vector3(0, 4, 0) + transform.position;
+        DamagePopup.Create(pos, dmg, 0);
         MenuManager.Instance.UpdateHealthBar(this);
     }
 
@@ -129,7 +130,7 @@ public class BaseUnit : MonoBehaviour
     {
         unitClass.ability.Activate(this);
         cooldown = unitClass.ability.cooldown;
-        MenuManager.Instance.updataAbility((BaseHero)this);
+        MenuManager.Instance.updateAbility((BaseHero)this);
     }
     
     public void updateCooldowns()
