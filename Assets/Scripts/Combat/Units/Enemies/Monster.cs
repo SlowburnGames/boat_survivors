@@ -5,10 +5,5 @@ using UnityEngine;
 
 public class Monster : BaseEnemy
 {
-    public void Reset()
-    {
-        Faction = Faction.Enemy;
-        UnitName = "Monster";
-        _maxHealth = 4;
-    }
+    // Unit Stats are copied from scriptable Unit
 }

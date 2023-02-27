@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,25 +15,31 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _tileObject;
     [SerializeField] private GameObject _tileUnitObject;
     [SerializeField] private GameObject _avaliableHeroes;
-    [SerializeField] private GameObject _avaliableHeroesImg;
-
     [SerializeField] private GameObject _endTurnButton;
-
     [SerializeField] private GameObject _combatEndScreen;
 
-    [SerializeField] private GameObject _fighterImage;
-    
-    
-    
     private void Awake()
     {
         Instance = this;
     }
-
-
+    
     public void toggleButtons(bool active)
     {
         _endTurnButton.gameObject.SetActive(active);
+    }
+    
+    public void useHeroAbility()
+    {
+        //if(!selectedHero.usedAction)
+        {
+            UnitManager.Instance.selectedHero.SpecialMove(null);
+            //selectedHero.usedAction = true;
+            // ToggleAttackRangeIndicator(selectedHero, false);
+            //if(selectedHero.usedAction && selectedHero.tilesWalked == selectedHero.MoveDistance)
+            //{
+            //    //CombatManager.Instance.endPlayerTurn();
+            //}
+        }
     }
     
     public void ShowSelectedHero(BaseHero hero)
@@ -42,40 +49,101 @@ public class MenuManager : MonoBehaviour
             _selectedHeroObject.SetActive(false);
             return;
         }
-        var hero_image = _selectedHeroObject.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        hero_image.sprite = hero.GetComponent<SpriteRenderer>().sprite;
-        _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName + "\n" + hero.unitDescription;
+        var hero_image = hero.gameObject.transform.Find("portrait").gameObject.GetComponent<SpriteRenderer>();
+        _selectedHeroObject.transform.Find("HeroImage").gameObject.GetComponent<Image>().sprite = hero_image.sprite;
+        _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName + "\n" + hero.UnitDescription;
         _selectedHeroObject.SetActive(true);
+        updateAttacks(hero);
         var ability_button = _selectedHeroObject.transform.Find("HeroAbility").gameObject;
         ability_button.gameObject.SetActive(false);
-        if(hero.standAction)
+        if(true/*hero.standAction*/)
         {
-            ability_button.transform.Find("HeroAbilityText").GetComponent<TMP_Text>().SetText(hero.standActionName);
+            ability_button.transform.Find("HeroAbilityText").GetComponent<TMP_Text>().SetText(hero.StandActionName);
             ability_button.gameObject.SetActive(true);
         }
         var heroHPDisplay = _selectedHeroObject.transform.Find("HP");
         string heroHPText = hero.Health + "/" + hero.MaxHealth;
         heroHPDisplay.transform.Find("HeroHP").gameObject.GetComponent<TMP_Text>().SetText(heroHPText);
         var heroSpeedDisplay = _selectedHeroObject.transform.Find("Speed");
-        string heroSpeedText = hero.tilesWalkedThisTurn + "/" + hero.MoveDistance;
+        string heroSpeedText = hero.MoveDistance - hero.tilesWalked + "/" + hero.MoveDistance;
         heroSpeedDisplay.transform.Find("HeroSpeed").gameObject.GetComponent<TMP_Text>().SetText(heroSpeedText);
 
-        updateInitiative(hero);
+        updateAbility(hero);
+
+        updateTurnOrderDisplay();
     }
 
-    void updateInitiative(BaseUnit unit)
+    public void updateTurnOrderDisplay()
     {
-        var initiativeDisplay = _selectedHeroObject.transform.Find("Initiative");
+        var turnOrderDisplay = _selectedHeroObject.transform.Find("TurnOrder");
 
-        List<string> initList = new List<string>();
-        initList.Add(unit.UnitName);
+        // Get the next 4 turning units
+        List<BaseUnit> initList = new List<BaseUnit>();
+        BaseUnit last = CombatManager.Instance._turnQueue.ToArray().Last();
+        initList.Add(last);
+        
         foreach (var currentUnit in CombatManager.Instance._turnQueue)
         {
-            initList.Add(currentUnit.UnitName);
+            // Break if current unit is in the next 4 moves again (only 3 or less units remaining)
+            // if (currentUnit.name.Remove(currentUnit.name.Length - 7) == last.name)
+            if (currentUnit == last)
+                break;
+            initList.Add(currentUnit);
+            if (initList.Count >= 4)
+                break;
         }
+        
+        clearTurnOrderDisplay(turnOrderDisplay);
+        // Update the 4 (or less) portraits 
+        int i = 1;
+        foreach (var unit in initList)
+        {
+            var portrait = unit.gameObject.transform.Find("portrait");
 
-        string initiativeText = "Turn order:" + String.Join(", ", initList);
-        initiativeDisplay.transform.Find("Text").gameObject.GetComponent<TMP_Text>().SetText(initiativeText);
+            if (portrait == null)
+                Debug.LogError("Unit: " + unit.name + " has no child object named portrait!");
+            
+            var portraitObject = portrait.gameObject.GetComponent<SpriteRenderer>();
+            var unitDisplay = turnOrderDisplay.Find("unit" + i).gameObject.GetComponent<Image>();
+            
+            unitDisplay.sprite = portraitObject.sprite;
+            unitDisplay.color = portraitObject.color;
+            unitDisplay.gameObject.SetActive(true);
+            i++;
+        }
+    }
+
+    private void clearTurnOrderDisplay(Transform turnOrderDisplay)
+    {
+        for (int i = 1; i <= 4; i++)
+        {
+            var unitDisplay = turnOrderDisplay.Find("unit" + i).gameObject.GetComponent<Image>();
+            unitDisplay.gameObject.SetActive(false);
+        }
+    }
+
+    public void updateAbility(BaseHero hero)
+    {
+        var ability_button = _selectedHeroObject.transform.Find("HeroAbility").gameObject;
+
+        if(hero.cooldown != 0)
+        {
+            ability_button.GetComponent<Button>().enabled = false;
+            ability_button.transform.Find("HeroAbilityText").gameObject.SetActive(false);
+            ability_button.transform.Find("AbilityCooldown").gameObject.SetActive(true);
+            ability_button.transform.Find("AbilityCooldown").GetComponent<TMP_Text>().SetText(hero.cooldown.ToString());
+        }
+        else
+        {
+            ability_button.GetComponent<Button>().enabled = true;
+            ability_button.transform.Find("HeroAbilityText").gameObject.SetActive(true);
+            ability_button.transform.Find("AbilityCooldown").gameObject.SetActive(false);
+        }  
+    }
+
+    public void updateAttacks(BaseUnit unit)
+    {
+        _selectedHeroObject.transform.Find("Attack").Find("HeroAttacks").GetComponent<TMP_Text>().SetText(unit.AttacksMade.ToString() + "/" + unit.MaxAttacks.ToString());
     }
 
     public void ShowTileInfo(Tile tile)
@@ -99,13 +167,25 @@ public class MenuManager : MonoBehaviour
 
     public void UpdateHealthBar(BaseUnit unit)
     {
-        var slider = unit.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
+        // var slider = unit.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
+        var slider = unit.gameObject.transform.Find("Canvas").Find("HealthBar").Find("Health").GetComponent<Image>();
         slider.fillAmount = (float)unit.Health / unit.MaxHealth;
     }
 
-    public void ShowAvailableHeroes(List<string> myHeroes)
+    public List<String> heroListToStringList(List<BaseHero> heroes)
     {
-        _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
+        List<String> heroNames = new List<string>();
+        foreach (var hero in heroes)
+            heroNames.Add(hero.name);
+
+        return heroNames;
+    }
+
+    public void ShowAvailableHeroes(List<BaseHero> myHeroes)
+    {
+        List<String> myHeroNames = heroListToStringList(myHeroes);
+        
+        _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroNames.ToArray());
         _avaliableHeroes.SetActive(true);
 
         _placeHeroes.SetActive(true);
@@ -113,9 +193,11 @@ public class MenuManager : MonoBehaviour
 
     }
 
-    public void UpdateAvailableHeroes(List<string> myHeroes)
+    public void UpdateAvailableHeroes(List<BaseHero> myHeroes)
     {
-        _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroes.ToArray());
+        // TODO: Fix, and use portraits
+        List<String> myHeroNames = heroListToStringList(myHeroes);
+        _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroNames.ToArray());
         _placeHeroes.SetActive(true);
     }
 

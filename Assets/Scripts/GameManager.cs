@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,9 +8,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public int population = 3;
-    public List<string> currentHeroes;
-    public List<string> heroesInCombat;
-    public List<string> enemiesInCombat;
+    public List<BaseHero> startingHeroes;
+    public List<BaseEnemy> enemiesInCombat;
+
     private int morale = 50;
     public int Morale
     {
@@ -51,19 +52,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        currentHeroes = new List<string>();
-        currentHeroes.Add("Rouge");
-        currentHeroes.Add("Fighter");
-        currentHeroes.Add("Wizard");
     }
 
     private void Start()
     {
-        currentHeroes = new List<string>();
-        currentHeroes.Add("Rouge");
-        currentHeroes.Add("Fighter");
-        currentHeroes.Add("Wizard");
-
         loadRandomEvents();
         morale = 50;
         resource = 50;
@@ -72,24 +64,18 @@ public class GameManager : MonoBehaviour
         travel_distance = 0;
         population = 3;
 
-
+        // Reset Health
+        foreach (var hero in startingHeroes)
+            hero.unitClass.health = hero.unitClass.maxHealth;
     }
 
-
-
-    List<string> makeHeroList()
+    public void startCombat(List<string> enemyNames)
     {
-        List<string> stringList = new List<string>();
-        foreach (var hero in currentHeroes)
-        {
-        }
-        return stringList;
-    }
+        enemiesInCombat.Clear();
 
-    public void startCombat(List<string> enemies)
-    {
-        heroesInCombat = currentHeroes;
-        enemiesInCombat = enemies;
+        foreach (var enemyName in enemyNames)
+            enemiesInCombat.Add(UnitManager.Instance.GetEnemyByName(enemyName));
+        
         SceneManager.LoadScene("Combat");
     }
 
@@ -102,7 +88,7 @@ public class GameManager : MonoBehaviour
         isDay = true;
         travel_distance = 0;
         population = 3;
-        Debug.Log(morale);
+        Debug.Log("Morale " + morale);
         SceneManager.LoadScene("Travel");
     }
 
@@ -179,6 +165,16 @@ public class GameManager : MonoBehaviour
 
     public void startRandomEvent()
     {
+        // Example for healing all heroes (for now before EVERY event)
+        // healAllHeroes(2);
+        // healHero(startingHeroes.First(), 666);
+        
+        
+        // DEBUG ONLY START
+        Debug.Log("TODO: NEXT LINE ONLY FOR DEBUG REASONS");
+        startCombat(new List<string>{"Monster1"});
+        // DEBUG ONLY END
+        
         Debug.Log("Random Event!");
         if(currentEventIndex >= events.Count)
         {
@@ -188,6 +184,17 @@ public class GameManager : MonoBehaviour
         DialogueDisplay.instance.dialogueContainer = events[currentEventIndex];
         currentEventIndex++;
         DialogueDisplay.instance.init();
+    }
+
+    public void healAllHeroes(int amount)
+    {
+        foreach (var hero in startingHeroes)
+            hero.unitClass.Heal(amount);
+    }
+
+    public void healHero(BaseHero hero, int amount)
+    {
+        hero.unitClass.Heal(amount);
     }
 
     public void addCombatRewards()

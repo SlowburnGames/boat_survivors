@@ -16,79 +16,91 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> _allUnits;
 
     public BaseHero selectedHero;
-    private static List<string> _availableHeroes;
-    private static List<string> _availableEnemies;
+    private List<BaseHero> _availableHeroes;
+    private int _previewHeroCount = 0;
+    // private List<BaseHero> _spawnableHeroes;
+    private static List<BaseEnemy> _availableEnemies;
+    
+    private static int unitIDCount = 0;
 
     [SerializeField] private GameObject _attackRangeIndicator;
 
     private void Awake()
     {
-        Instance = this;
+        DontDestroyOnLoad(this);
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         _enemyUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units/Enemies").ToList();
         _heroUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units/Heroes").ToList();
         _allUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units").ToList();
-        Debug.Log("Nr of different Enemies: " + _enemyUnits.Count);
-        Debug.Log("Nr of different Heroes : " + _heroUnits.Count);
+        Debug.Log("Nr of different Enemy Types: " + _enemyUnits.Count);
+        Debug.Log("Nr of different Hero Types : " + _heroUnits.Count);
     }
 
     public void SpawnSelectedHero(Tile spawnTile)
     {
-        if (_availableHeroes.Count > 0)
-        {
-            var heroPrefab = GetHeroByName(_availableHeroes.First());
-            var spawnedHero = Instantiate(heroPrefab);
-            
-            SetUnit(spawnedHero, spawnTile);
-            CombatManager.Instance._spawnedUnitList.Add(spawnedHero);
-            _availableHeroes.RemoveAt(0);
-            MenuManager.Instance.UpdateAvailableHeroes(_availableHeroes);
-        }
 
-        if (_availableHeroes.Count <= 0)
+        if (_previewHeroCount < _availableHeroes.Count)
+        {
+            var heroPrefab = getNextHero();
+            var spawnedHero = Instantiate(heroPrefab);
+            SetUnit(spawnedHero, spawnTile, true);
+            _previewHeroCount++;
+            CombatManager.Instance._spawnedUnitList.Add(spawnedHero);
+            
+            // TODO -> look UpdateAvailableHeroes method
+            MenuManager.Instance.UpdateAvailableHeroes(
+                _availableHeroes.GetRange(_previewHeroCount, _availableHeroes.Count-_previewHeroCount));
+        }
+        
+        
+        if (_previewHeroCount >= _availableHeroes.Count)
         {
             CombatManager.Instance.ChangeCombatState(CombatState.SetTurnOrder);
             MenuManager.Instance.DisableAvailableHeroes();
+            _previewHeroCount = 0;
         }
-        
+    }
+
+    public BaseHero getNextHero()
+    {
+        return _availableHeroes[_previewHeroCount];
     }
     
     public void SpawnEnemies()
     {
-        foreach (var enemyName in _availableEnemies)
+        
+        foreach (var enemy in _availableEnemies)
         {
-            var enemyPrefab = GetEnemyByName(enemyName);
-            var spawnedEnemy = Instantiate(enemyPrefab);
+            var spawnedEnemy = Instantiate(enemy);
             var randomSpawnTile = WFCGenerator.Instance.GetEnemySpawnTile();
-
-            SetUnit(spawnedEnemy, randomSpawnTile);
+        
+            SetUnit(spawnedEnemy, randomSpawnTile, true);
             CombatManager.Instance._spawnedUnitList.Add(spawnedEnemy);
         }
-        
         CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
     }
 
-    public void useHeroAbility()
-    {
-        if(!selectedHero.usedAction)
-        {
-            selectedHero.SpecialMove(null);
-            selectedHero.usedAction = true;
-            ToggleAttackRangeIndicator(selectedHero, false);
-            if(selectedHero.usedAction && selectedHero.tilesWalkedThisTurn == selectedHero.MoveDistance)
-            {
-                CombatManager.Instance.endPlayerTurn();
-            }
-        }
-    }
 
     public void HeroesTurn(Tile tile, BaseUnit tileUnit, bool isWalkable)
-    {   
-        if (tileUnit == selectedHero && !selectedHero.usedAction && selectedHero.standAction)
+    {
+        if (tileUnit == selectedHero && /*!selectedHero.usedAction &&*/ selectedHero.standAction)
         {
-            selectedHero.SpecialMove(null);
-            selectedHero.usedAction = true;
-            ToggleAttackRangeIndicator(selectedHero, false);
+            if(selectedHero.AttacksMade - selectedHero.MaxAttacks > 0)
+            {
+                selectedHero.SpecialMove(null);
+                //selectedHero.usedAction = true;
+                ToggleAttackRangeIndicator(selectedHero, false);
+            }
+            
         }
         // Attacking enemy branch
         else if (tileUnit != null)
@@ -101,30 +113,30 @@ public class UnitManager : MonoBehaviour
             // Click on an enemy -> Attack it (if possible, else nothing should happen)
             else
             {
-                if (selectedHero != null && tileUnit.Faction == Faction.Enemy && !selectedHero.usedAction)
+                if (selectedHero != null && tileUnit.Faction == Faction.Enemy /*&& !selectedHero.usedAction*/)
                 {
-                    var enemy = (BaseEnemy) tileUnit;
-                    
-                    // Check if attack possible
-                    bool canAttack = CheckAttackPossible(selectedHero, enemy);
-                    
-                    // Do the attack (dmg + unselecting unit)
-                    if (canAttack)
+                    // check how many attacks left
+                    if (selectedHero.AttacksMade > 0)
                     {
-                        selectedHero.AttackTarget(enemy);
+                        var enemy = (BaseEnemy)tileUnit;
 
-                        // Debug.Log("Damaged " + enemy.name + " by " + selectedHero.AttackDamage);
-                        
-                        // Check if attacked unit dies
-                        CheckAttackedUnit(enemy);
-                        selectedHero.usedAction = true;
-                        
-                        // End turn
-                        ToggleAttackRangeIndicator(selectedHero, false);
-                        //SetSelectedHero(null);
-                        //CombatManager.Instance.ChangeCombatState(CombatState.HeroTurn);
-                    }
-                    
+                        // Check if attack possible
+                        bool canAttack = CheckAttackPossible(selectedHero, enemy);
+
+                        // Do the attack (dmg + unselecting unit)
+                        if (canAttack)
+                        {
+                            selectedHero.AttackTarget(enemy);
+                            // Debug.Log("Damaged " + enemy.name + " by " + selectedHero.AttackDamage);
+
+                            //selectedHero.usedAction = true;
+
+                            // End turn
+                            // ToggleAttackRangeIndicator(selectedHero, false);
+                            //SetSelectedHero(null);
+                            //CombatManager.Instance.ChangeCombatState(CombatState.HeroTurn);
+                        }
+                    }     
                 }
             }
         }
@@ -135,15 +147,17 @@ public class UnitManager : MonoBehaviour
             if (selectedHero != null && isWalkable && tile.tileUnit == null)
             {
                 var path = Pathfinding.Instance.FindPath(selectedHero.OccupiedTile, tile);
-                if(path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalkedThisTurn)
+                //print("[Unit] start: " + selectedHero.OccupiedTile + ", end: " + tile);
+                if (path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalked)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
-                    SetUnit(selectedHero, tile);
-                    selectedHero.tilesWalkedThisTurn += path.Count;
-                    if(!selectedHero.usedAction)
-                    {
-                        ToggleAttackRangeIndicator(selectedHero,true);
-                    }
+                    StartCoroutine(MoveUnit(selectedHero, path, tile));
+                    selectedHero.tilesWalked += path.Count;
+                    
+                    //if(!selectedHero.usedAction)
+                    //{
+                    //    ToggleAttackRangeIndicator(selectedHero,true);
+                    //}
                     MenuManager.Instance.ShowSelectedHero(selectedHero);
                     //selectedHero.tilesWalkedThisTurn = 0;
                     //SetSelectedHero(null);
@@ -160,10 +174,6 @@ public class UnitManager : MonoBehaviour
             }
         }
 
-        if(selectedHero.usedAction && selectedHero.tilesWalkedThisTurn == selectedHero.MoveDistance)
-        {
-            CombatManager.Instance.endPlayerTurn();
-        }
     }
 
 
@@ -183,19 +193,49 @@ public class UnitManager : MonoBehaviour
         {
             if(distance > 1)
             {
-                SetUnit(enemy, path[path.Count - 2]);
+                var newTile = findTileToWalk(enemy, path.GetRange(0, path.Count-1));
+                if (newTile == null)
+                {
+                    // todo find alternative tile (left/right from hero)
+                    Debug.LogError("NO VALID TILE FOUND!!!!");
+                }
+                
+                SetUnit(enemy, newTile, false);
+                // StartCoroutine(MoveUnit(enemy, path, path[path.Count - 2]));
             }
             enemy.AttackTarget(targetedHero);
-            CheckAttackedUnit(targetedHero);
         }
         else //hero is not reachable
         {
-            SetUnit(enemy, path[enemy.MoveDistance - 1]);
+            if (!heroesAlive()) // When all heroes are dead -> Game over
+                return;
+            
+            var newTile = findTileToWalk(enemy, path.GetRange(0, enemy.MoveDistance-1));
+            if (newTile == null)
+            {
+                // todo find alternative tile (left/right from hero)
+                Debug.LogError("NO VALID TILE FOUND!!!!");
+            }
+            SetUnit(enemy, newTile, false);
+            // SetUnit(enemy, path[enemy.MoveDistance - 1], false);
+            // StartCoroutine(MoveUnit(enemy, path, path[enemy.MoveDistance - 1]));
         }
 
         findInvisible(enemy.OccupiedTile);
-        
+        checkCombatOver();
         CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
+    }
+
+    private Tile findTileToWalk(BaseEnemy enemy, List<Tile> path)
+    {
+        var pathCopy = new List<Tile>(path);
+        pathCopy.Reverse();
+        
+        foreach (var tile in pathCopy)
+            if (checkTile(enemy, tile))
+                return tile;
+
+        return null;
     }
 
     void findInvisible(Tile middleTile)
@@ -225,7 +265,7 @@ public class UnitManager : MonoBehaviour
             if(hero.invisible)
                 continue;
 
-            List<Tile> path = Pathfinding.Instance.FindPath(enemy.OccupiedTile, hero.OccupiedTile);
+            List<Tile> path = Pathfinding.Instance.FindPath(enemy.OccupiedTile, hero.OccupiedTile, true);
             if(minDistance > path.Count)
             {
                 minDistance = path.Count;
@@ -237,21 +277,11 @@ public class UnitManager : MonoBehaviour
         return Tuple.Create(nearestHero, minDistance, best_path);
 
     }
-    private BaseEnemy GetEnemyByName(string eName)
+    public BaseEnemy GetEnemyByName(string eName)
     {
         return (BaseEnemy)_enemyUnits.Where(u => u.name == eName).First().UnitPrefab;
     }
     
-    public BaseHero GetHeroByName(string hName)
-    {
-        return (BaseHero)_heroUnits.Where(u => u.name == hName).First().UnitPrefab;
-    }
-    
-    public BaseUnit GetUnitByName(string uName)
-    {
-        return (BaseUnit)_allUnits.Where(u => u.name == uName).First().UnitPrefab;
-    }
-
     public void SetSelectedHero(BaseHero hero)
     {
         selectedHero = hero;
@@ -322,7 +352,8 @@ public class UnitManager : MonoBehaviour
     {
         foreach (var tilePos in tilePositions)
         {
-            tilePos.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
+            Color col = new Color((float)0.157, (float)0.2431, (float)0.8314);
+            tilePos.transform.GetChild(1).GetComponent<SpriteRenderer>().color = col;
             tilePos.transform.GetChild(1).gameObject.gameObject.SetActive(true);
             tilePos.transform.GetChild(1).localPosition = new Vector3(0, 0.6f, 0);
             // Instantiate(_attackRangeIndicator, tilePos.transform);
@@ -335,19 +366,69 @@ public class UnitManager : MonoBehaviour
             if (tilePos.transform.childCount != 0)
             {
                 tilePos.transform.GetChild(1).gameObject.SetActive(false);
-                // Destroy(tilePos.transform.GetChild(0).gameObject);
             }
+    }
 
+    public bool checkTile(BaseUnit unit, Tile tile)
+    {
+        if (tile.tileUnit != null)
+        {
+            Debug.Log("Tile " + tile.position + " already occupied!");
+            return false;
+        }
+
+        return true;
     }
     
-    public void SetUnit(BaseUnit unit, Tile tile)
+    public void SetUnit(BaseUnit unit, Tile tile, bool isUnitSpawning)
     {
         if (unit.OccupiedTile != null)
             unit.OccupiedTile.tileUnit = null;
-        unit.transform.position = tile.transform.position + Vector3.up;
-        unit.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+        
+        SetUnitPositionRotation(unit, tile, isUnitSpawning);
+
         tile.tileUnit = unit;
         unit.OccupiedTile = tile;
+        MenuManager.Instance.UpdateHealthBar(unit);
+    }
+
+    public void SetUnitPositionRotation(BaseUnit unit, Tile tile, bool isUnitSpawning)
+    {
+        var unitTransform = unit.transform;
+
+        Vector3 spawnOffset = isUnitSpawning ? Vector3.up / 2 : Vector3.zero;
+        
+        
+        // Get unit y position because not every drawn hero sprite had same y position, and I noticed it too late.
+        // -> change the unit prefab y-position, in a way that it "stands" on the 0-y-coord like intended. (see sorceress, rogue, skeleton, ...)
+        Vector3 unitYOffset = new Vector3(0, unitTransform.position.y, 0);
+        unitTransform.position = tile.transform.position + unitYOffset + spawnOffset;  // Vector.up/2 for the tile block
+        
+        // var cameraPos = FindObjectOfType<Camera>().transform.position;
+        // unitTransform.rotation = Quaternion.LookRotation(unitTransform.position + Vector3.up - cameraPos);
+
+        unitTransform.rotation = Quaternion.Euler(new Vector3(10, -45, 0));
+
+    }
+    
+    // TODO ROGUE attack counter not updated
+
+    public IEnumerator MoveUnit(BaseUnit unit, List<Tile> path, Tile tile)
+    {
+        float time = 0.5f;
+        Vector3[] waypoints = new Vector3[path.Count];
+        Vector3 unitYOffset = new Vector3(0, unit.transform.position.y, 0);
+        for (int i = 0; i < path.Count; i++)
+        {
+            //waypoints[i] = path[i].transform.position + Vector3.up;
+            waypoints[i] = path[i].transform.position + unitYOffset + Vector3.zero;
+        }
+        unit.GetComponent<MovementManager>().moveUnit(waypoints, time);
+        yield return new WaitForSeconds(time);
+        SetUnit(unit, tile, false);
+
+        if (unit.Faction == Faction.Hero)
+            ToggleAttackRangeIndicator((BaseHero)unit, true);
     }
 
     private bool CheckAttackPossible(BaseUnit attackUnit, BaseUnit defendUnit)
@@ -377,40 +458,60 @@ public class UnitManager : MonoBehaviour
         }
     }
     
-    private void CheckAttackedUnit(BaseUnit aUnit)
+    public void CheckAttackedUnit(BaseUnit aUnit)
     {
         if (aUnit.Health <= 0)
         {
             CombatManager.Instance._turnQueue =
                 new Queue<BaseUnit>(CombatManager.Instance._turnQueue.Where(x => x != aUnit));
-            Destroy(aUnit.gameObject);
             if(aUnit.Faction == Faction.Hero)
             {
+                int index = _availableHeroes.FindIndex(a => a.unitID == aUnit.unitID);
+                _availableHeroes.RemoveAt(index);
+                
                 GameManager.Instance.combatMoraleReward -= 10;
                 GameManager.Instance.combatResReward -= 10;
             }
+            Destroy(aUnit.gameObject);
+            MenuManager.Instance.updateTurnOrderDisplay();
             checkCombatOver();
         }
     }
 
-    public BaseHero GetNextHero()
+    public void SetUnitIDs(List<BaseHero> heroes, List<BaseEnemy> enemies)
     {
-        return GetHeroByName(_availableHeroes[0]);
-    }
-    
-    public void SetSpawnableHeroes(List<string> heroes)
-    {
-        _availableHeroes = new List<string>(heroes);
-    }
-    public void SetSpawnableEnemies(List<string> enemies)
-    {
-        _availableEnemies = new List<string>(enemies);
+        foreach (var hero in heroes)
+        {
+            hero.unitID = unitIDCount;
+            unitIDCount++;
+        }
+        foreach (var enemy in enemies)
+        {
+            enemy.unitID = unitIDCount;
+            unitIDCount++;
+        }
     }
 
+    public void SetSpawnableHeroes(List<BaseHero> heroes)
+    {
+        _availableHeroes = new List<BaseHero>(heroes);
+        // _spawnableHeroes = new List<BaseHero>(heroes);
+    }
+    
+    public void SetSpawnableEnemies(List<BaseEnemy> enemies)
+    {
+        _availableEnemies = new List<BaseEnemy>(enemies);
+    }
+
+    public bool heroesAlive()
+    {
+        return CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Hero).Count != 0;
+    }
     public void checkCombatOver()
     {
         if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Enemy).Count == 0)
         {
+            GameManager.Instance.startingHeroes = _availableHeroes;
             GameManager.Instance.addCombatRewards();
             CombatManager.Instance.ChangeCombatState(CombatState.CombatEnd);
             MenuManager.Instance.openVictoryScreen();
@@ -419,6 +520,21 @@ public class UnitManager : MonoBehaviour
         {
             SceneManager.LoadScene("GameOver");
         }
+    }
+    
+    public void normalizeMoveArrowRatations()
+    {
+        // Debug only START
+        // foreach (var tileRow in WFCGenerator.Instance._tiles)
+        //     foreach (var tile in tileRow)
+        //         tile.transform.GetChild(0).gameObject.SetActive(true);
+        // Debug only END
+        
+        foreach (var tileRow in WFCGenerator.Instance._tiles)
+            foreach (var tile in tileRow)
+                tile.transform.GetChild(0).rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+        
+        // Needed because all tiles (and therefore also arrows) have random rotations at start
     }
     
     

@@ -4,10 +4,5 @@ using UnityEngine;
 
 public class Zombie : BaseEnemy
 {
-    public void Reset()
-    {
-        Faction = Faction.Enemy;
-        UnitName = "Zombie";
-        _maxHealth = 2;
-    }
+    // Unit Stats are copied from scriptable Unit
 }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
+  m_Name: Monster2
+  m_EditorClassIdentifier: 
+  UnitPrefab: {fileID: -3353402785419243975, guid: 6fe597fe4290b494e9f1926526622b5d, type: 3}
+  faction: 1
+  unitName: Monster2
+  unitDescription: Just a monster
+  isRanged: 0
+  attacks: 1
+  damage: 1
+  movementRange: 3
+  attackRange: 1
+  maxHealth: 8
+  health: 8
+  ability: {fileID: 11400000, guid: a68ac3882e817f54886b220254d02358, type: 2}

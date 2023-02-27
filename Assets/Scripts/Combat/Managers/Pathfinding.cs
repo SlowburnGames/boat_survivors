@@ -12,9 +12,9 @@ public class Pathfinding : MonoBehaviour
     {
         Instance = this;
     }
-    public List<Tile> FindPath(Tile start, Tile target)
+    public List<Tile> FindPath(Tile start, Tile target, bool enemyPath = false)
     {   
-        Debug.Log("Pathfinding");
+        //Debug.Log("Pathfinding");
         Tile[][] grid = WFCGenerator.Instance._tiles;
 
         List<Tile> openSet = new List<Tile>();
@@ -45,8 +45,17 @@ public class Pathfinding : MonoBehaviour
 
             foreach (var neighbour in neighbours)
             {
-                if(!neighbour.isWalkable || closedSet.Contains(neighbour))
-                    continue;
+                if (enemyPath)
+                {
+                    if ((!neighbour.isWalkable && neighbour != target) || closedSet.Contains(neighbour))
+                        continue;
+                }
+                else
+                {
+                    if(!neighbour.isWalkable || closedSet.Contains(neighbour))
+                        continue;
+                }
+                
                 
                 int newMovementCostToNeighbour = currentTile.gCost + getDistance(currentTile, neighbour);
                 if(newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
@@ -77,9 +86,11 @@ public class Pathfinding : MonoBehaviour
             path.Add(currentTile);
             currentTile = currentTile.parent;
         }
+        path.Add(currentTile);
 
         path.Reverse();
-        
+        path.RemoveAt(0);
+
         return path;
     }
 

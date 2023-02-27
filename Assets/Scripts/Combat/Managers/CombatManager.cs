@@ -11,6 +11,14 @@ public class CombatManager : MonoBehaviour
     public Queue<BaseUnit> _turnQueue = new Queue<BaseUnit>();
     public List<BaseUnit> _spawnedUnitList = new List<BaseUnit>();
     
+    // DEBUG ONLY
+    public List<BaseHero> _defaultHeroes = new List<BaseHero>();
+    public List<BaseEnemy> _defaultEnemies = new List<BaseEnemy>();
+    // DEBUG ONLY
+
+    private int turnCounter = 0;
+    private int currentTurn = 0;
+    
     public void Awake()
     {
         Instance = this;
@@ -27,12 +35,25 @@ public class CombatManager : MonoBehaviour
         switch (newState)
         {
             case CombatState.SetHeroesAndEnemies:
-                UnitManager.Instance.SetSpawnableHeroes(GameManager.Instance.currentHeroes);
+                
+                // COMBAT SCREEN ONLY START
+                var START_IN_COMBAT_SCREEN = false;
+                if (START_IN_COMBAT_SCREEN)
+                {
+                    GameManager.Instance.startingHeroes = _defaultHeroes;
+                    GameManager.Instance.enemiesInCombat = _defaultEnemies;
+                }
+                
+                UnitManager.Instance.SetUnitIDs(GameManager.Instance.startingHeroes, GameManager.Instance.enemiesInCombat);
+                
+                UnitManager.Instance.SetSpawnableHeroes(GameManager.Instance.startingHeroes);
                 UnitManager.Instance.SetSpawnableEnemies(GameManager.Instance.enemiesInCombat);
+                
                 ChangeCombatState(CombatState.GenerateGrid);
                 break;
             case CombatState.GenerateGrid:
                 WFCGenerator.Instance.runWFC();
+                UnitManager.Instance.normalizeMoveArrowRatations();
                 break;
             case CombatState.SpawnEnemies:
                 UnitManager.Instance.SpawnEnemies();
@@ -40,21 +61,29 @@ public class CombatManager : MonoBehaviour
             case CombatState.SpawnHeroes:
                 // Logic in Tile.OnMouseDown and UnitManager.SpawnSelectedHero
                 Debug.Log("Spawn Heroes by clicking on tile!");
-                MenuManager.Instance.ShowAvailableHeroes(GameManager.Instance.currentHeroes);
+                MenuManager.Instance.ShowAvailableHeroes(GameManager.Instance.startingHeroes);
                 break;
             case CombatState.SetTurnOrder:
+                UpdateTilesWalkability();
                 SetTurnOrder();
                 break;
             case CombatState.UnitTurn:
-
+                UpdateTilesWalkability();
                 UnitManager.Instance.checkCombatOver();
                 BaseUnit nextUnit = _turnQueue.Dequeue();
                 _turnQueue.Enqueue(nextUnit);
 
+                currentTurn++;
+                if(currentTurn == turnCounter)
+                {
+                    currentTurn = 0;
+                    updateTimers();
+                }
+
                 if (nextUnit.Faction == Faction.Hero)
                 {
                     var hero = (BaseHero) nextUnit;
-                    Debug.Log("Hero " + hero.name + " turn!");
+                    Debug.Log("Hero " + hero.UnitName + " turn!");
                     
                     //select the hero and range indicator
                     UnitManager.Instance.SetSelectedHero(hero);
@@ -65,9 +94,8 @@ public class CombatManager : MonoBehaviour
                 else if (nextUnit.Faction == Faction.Enemy)
                 {
                     var enemy = (BaseEnemy) nextUnit;
-                    Debug.Log("Enemy " + enemy.name + " turn!");
+                    Debug.Log("Enemy " + enemy.UnitName + " turn!");
                     
-                    // TODO implement enemy turn
                     UnitManager.Instance.EnemiesTurn(enemy);
                 }
                 break;
@@ -79,23 +107,49 @@ public class CombatManager : MonoBehaviour
         
     }
 
+    private void UpdateTilesWalkability()
+    {
+        foreach (var tileRow in WFCGenerator.Instance._tiles)
+        foreach (var tile in tileRow)
+        {
+            if (tile.tileName != "Water")
+            {
+                if (tile.tileUnit == null)
+                    tile.isWalkable = true;
+                else
+                    tile.isWalkable = false;
+            }
+        }
+    }
+
     private void SetTurnOrder()
     {
         _spawnedUnitList.Shuffle();
 
         foreach (var unit in _spawnedUnitList)
             _turnQueue.Enqueue(unit);
+
+        turnCounter = _turnQueue.Count;
         
         ChangeCombatState(CombatState.UnitTurn);
     }
     
     public void endPlayerTurn()
     {
-        UnitManager.Instance.selectedHero.tilesWalkedThisTurn = 0;
-        UnitManager.Instance.selectedHero.usedAction = false;
+        UnitManager.Instance.selectedHero.tilesWalked = 0;
+        //UnitManager.Instance.selectedHero.usedAction = false;
         UnitManager.Instance.ToggleAttackRangeIndicator(UnitManager.Instance.selectedHero, false);
         UnitManager.Instance.SetSelectedHero(null);
         ChangeCombatState(CombatState.UnitTurn);
+    }
+
+    public void updateTimers()
+    {
+        foreach (var unit in _turnQueue)
+        {
+            unit.updateCooldowns();
+        }
+        
     }
     
     

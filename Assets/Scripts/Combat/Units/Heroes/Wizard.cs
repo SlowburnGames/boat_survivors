@@ -4,12 +4,5 @@ using UnityEngine;
 
 public class Wizard : BaseHero
 {
-    public void Reset()
-    {
-        Faction = Faction.Hero;
-        UnitName = "Wizard";
-        _maxHealth = 2;
-        _attackRange = 4;
-        _isRanged = true;
-    }
+    // Unit Stats are copied from scriptable Unit
 }

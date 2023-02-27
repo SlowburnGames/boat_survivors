@@ -5,6 +5,5 @@ using UnityEngine;
 
 public class BaseHero : BaseUnit
 {
-    public int tilesWalkedThisTurn = 0;
-
+    public int tilesWalked = 0;
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -21,9 +22,8 @@ public class Tile : MonoBehaviour
     public List<Tile> tilesToWalk = new List<Tile>();
 
     public bool walkable {
-        get {
-            return isWalkable && tileUnit == null;
-        }
+        get { return isWalkable && tileUnit == null;}
+        set { walkable = value; }
     }
 
     //Pathfinding Variables
@@ -85,12 +85,19 @@ public class Tile : MonoBehaviour
     
     private void SpawnHeroPreview()
     {
-        var heroPreviewPrefab = UnitManager.Instance.GetNextHero();
+        if (GameManager.Instance.startingHeroes.Count == 0)
+            Debug.LogError("No Heroes alive! (or set in the game manager)");
+
+        var heroPreviewPrefab = UnitManager.Instance.getNextHero();
+        
         _tileHeroPreview = Instantiate(heroPreviewPrefab);
-        _tileHeroPreview.GetComponent<SpriteRenderer>().color -= new Color (0, 0, 0, 0.6f);
         _tileHeroPreview.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
-        _tileHeroPreview.transform.position = transform.position + Vector3.up;
-        _tileHeroPreview.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+        
+        UnitManager.Instance.SetUnitPositionRotation(_tileHeroPreview, this, true);
+        // var unitTransform = _tileHeroPreview.transform;
+        // Vector3 unitYOffset = new Vector3(0, unitTransform.position.y, 0);
+        // unitTransform.position = transform.position + Vector3.up/2;  // Vector.up/2 for the tile block
+        // unitTransform.rotation = Quaternion.LookRotation(unitTransform.position + Vector3.up - cameraPos);
     }
 
 
@@ -105,44 +112,15 @@ public class Tile : MonoBehaviour
         return distance;
     }
 
-    public void showPath(Tile end)
+    public void showPath(Tile start)
     {
-        Tile start = this.GetComponent<Tile>();
-        
-        tilesToWalk = Pathfinding.Instance.FindPath(start, end);
+        Tile end = this.GetComponent<Tile>();
 
-        //if(start.position.x <= end.position.x)
-        //{
-            //for (int i = start.position.x; i <= end.position.x; i++)
-            //{
-                //tilesToWalk.Add(WFCGenerator.Instance._tiles[i][start.position.y].gameObject);
-            //}
-        //}
-        //else
-        //{
-            //for (int i = end.position.x; i <= start.position.x; i++)
-            //{
-                //tilesToWalk.Add(WFCGenerator.Instance._tiles[i][start.position.y].gameObject);
-            //}
-        //}
-        //if (start.position.y <= end.position.y)
-        //{
-            //for (int i = start.position.y; i <= end.position.y; i++)
-            //{
-                //tilesToWalk.Add(WFCGenerator.Instance._tiles[end.position.x][i].gameObject);
-            //}
-        //}
-        //else
-        //{
-            //for (int i = end.position.y; i <= start.position.y; i++)
-            //{
-                //tilesToWalk.Add(WFCGenerator.Instance._tiles[end.position.x][i].gameObject);
-            //}
-        //}
+        tilesToWalk = Pathfinding.Instance.FindPath(start, end);
 
         Color c = Color.green;
 
-        if(tilesToWalk.Count <= UnitManager.Instance.selectedHero.MoveDistance - UnitManager.Instance.selectedHero.tilesWalkedThisTurn)
+        if(tilesToWalk.Count <= UnitManager.Instance.selectedHero.MoveDistance - UnitManager.Instance.selectedHero.tilesWalked)
         {
             c = Color.green;
         }
@@ -151,15 +129,56 @@ public class Tile : MonoBehaviour
             c = Color.red;
         }
 
-        foreach (var t in tilesToWalk)
+        int rotation;
+        Tile lastTile = start;
+        
+        //Debug.Log("Last TILE: " + tilesToWalk.Last().position);
+        for (int i=0; i<tilesToWalk.Count; i++)
         {
-            //Debug.Log("Tile: " + t.name);
-            t.transform.GetChild(0).GetComponent<SpriteRenderer>().color = c;
-            t.transform.GetChild(0).gameObject.gameObject.SetActive(true);
-            t.transform.GetChild(0).localPosition = new Vector3(0, 0.6f, 0);
+            if (i != 0)
+                lastTile = tilesToWalk[i - 1];
+            
+            Tile t = tilesToWalk[i];
+            
+            var walkingDir = findWalkingDirection(lastTile, t); // TODO check no next tile there (size)
+
+            rotation = getRotation(walkingDir);
+            
+            var arrow = t.transform.GetChild(0);
+            
+            arrow.GetComponent<SpriteRenderer>().color = c;
+            arrow.gameObject.gameObject.SetActive(true);
+            arrow.localPosition = new Vector3(0, 0.6f, 0);
+            arrow.rotation = Quaternion.Euler(new Vector3(-90, 0, rotation));
         }
 
     }
+
+    private Vector2 findWalkingDirection(Tile start, Tile end)
+    {
+        return end.position - start.position;
+    }
+
+    private int getRotation(Vector2 walkingDir)
+    {
+        if (walkingDir.x < 0 && walkingDir.y < 0)
+            return 135;//
+        if (walkingDir.x < 0 && walkingDir.y > 0)
+            return -135;
+        if (walkingDir.x > 0 && walkingDir.y < 0)
+            return 45;
+        if (walkingDir.x > 0 && walkingDir.y > 0)
+            return -45;//
+        if (walkingDir.x < 0)
+            return 180;
+        if (walkingDir.y < 0)
+            return 90;
+        if (walkingDir.y > 0)
+            return -90;
+
+        return 0;   // default rotation (or walkingDir.x > 0)
+    }
+    
 
     public void hidePath()
     {
@@ -174,5 +193,7 @@ public class Tile : MonoBehaviour
     {
         Destroy(_tileHeroPreview.gameObject);
     }
+
+    
 
 }
