@@ -27,7 +27,16 @@ public class UnitManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        DontDestroyOnLoad(this);
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         _enemyUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units/Enemies").ToList();
         _heroUnits = Resources.LoadAll<ScriptableUnit>("Combat/Units/Heroes").ToList();
@@ -80,19 +89,6 @@ public class UnitManager : MonoBehaviour
         CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
     }
 
-    public void useHeroAbility()
-    {
-        //if(!selectedHero.usedAction)
-        {
-            selectedHero.SpecialMove(null);
-            //selectedHero.usedAction = true;
-            ToggleAttackRangeIndicator(selectedHero, false);
-            //if(selectedHero.usedAction && selectedHero.tilesWalked == selectedHero.MoveDistance)
-            //{
-            //    //CombatManager.Instance.endPlayerTurn();
-            //}
-        }
-    }
 
     public void HeroesTurn(Tile tile, BaseUnit tileUnit, bool isWalkable)
     {
@@ -136,7 +132,7 @@ public class UnitManager : MonoBehaviour
                             //selectedHero.usedAction = true;
 
                             // End turn
-                            ToggleAttackRangeIndicator(selectedHero, false);
+                            // ToggleAttackRangeIndicator(selectedHero, false);
                             //SetSelectedHero(null);
                             //CombatManager.Instance.ChangeCombatState(CombatState.HeroTurn);
                         }
@@ -155,9 +151,9 @@ public class UnitManager : MonoBehaviour
                 if (path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalked)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
-                    //SetUnit(selectedHero, tile, false);
                     StartCoroutine(MoveUnit(selectedHero, path, tile));
                     selectedHero.tilesWalked += path.Count;
+                    
                     //if(!selectedHero.usedAction)
                     //{
                     //    ToggleAttackRangeIndicator(selectedHero,true);
@@ -197,8 +193,15 @@ public class UnitManager : MonoBehaviour
         {
             if(distance > 1)
             {
-                SetUnit(enemy, path[path.Count - 2], false);
-                //StartCoroutine(MoveUnit(enemy, path, path[path.Count - 2]));
+                var newTile = findTileToWalk(enemy, path.GetRange(0, path.Count-1));
+                if (newTile == null)
+                {
+                    // todo find alternative tile (left/right from hero)
+                    Debug.LogError("NO VALID TILE FOUND!!!!");
+                }
+                
+                SetUnit(enemy, newTile, false);
+                // StartCoroutine(MoveUnit(enemy, path, path[path.Count - 2]));
             }
             enemy.AttackTarget(targetedHero);
         }
@@ -206,13 +209,33 @@ public class UnitManager : MonoBehaviour
         {
             if (!heroesAlive()) // When all heroes are dead -> Game over
                 return;
-            SetUnit(enemy, path[enemy.MoveDistance - 1], false);
-            //StartCoroutine(MoveUnit(enemy, path, path[enemy.MoveDistance - 1]));
+            
+            var newTile = findTileToWalk(enemy, path.GetRange(0, enemy.MoveDistance-1));
+            if (newTile == null)
+            {
+                // todo find alternative tile (left/right from hero)
+                Debug.LogError("NO VALID TILE FOUND!!!!");
+            }
+            SetUnit(enemy, newTile, false);
+            // SetUnit(enemy, path[enemy.MoveDistance - 1], false);
+            // StartCoroutine(MoveUnit(enemy, path, path[enemy.MoveDistance - 1]));
         }
 
         findInvisible(enemy.OccupiedTile);
         checkCombatOver();
         CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
+    }
+
+    private Tile findTileToWalk(BaseEnemy enemy, List<Tile> path)
+    {
+        var pathCopy = new List<Tile>(path);
+        pathCopy.Reverse();
+        
+        foreach (var tile in pathCopy)
+            if (checkTile(enemy, tile))
+                return tile;
+
+        return null;
     }
 
     void findInvisible(Tile middleTile)
@@ -242,7 +265,7 @@ public class UnitManager : MonoBehaviour
             if(hero.invisible)
                 continue;
 
-            List<Tile> path = Pathfinding.Instance.FindPath(enemy.OccupiedTile, hero.OccupiedTile);
+            List<Tile> path = Pathfinding.Instance.FindPath(enemy.OccupiedTile, hero.OccupiedTile, true);
             if(minDistance > path.Count)
             {
                 minDistance = path.Count;
@@ -345,6 +368,17 @@ public class UnitManager : MonoBehaviour
                 tilePos.transform.GetChild(1).gameObject.SetActive(false);
             }
     }
+
+    public bool checkTile(BaseUnit unit, Tile tile)
+    {
+        if (tile.tileUnit != null)
+        {
+            Debug.Log("Tile " + tile.position + " already occupied!");
+            return false;
+        }
+
+        return true;
+    }
     
     public void SetUnit(BaseUnit unit, Tile tile, bool isUnitSpawning)
     {
@@ -392,6 +426,9 @@ public class UnitManager : MonoBehaviour
         unit.GetComponent<MovementManager>().moveUnit(waypoints, time);
         yield return new WaitForSeconds(time);
         SetUnit(unit, tile, false);
+
+        if (unit.Faction == Faction.Hero)
+            ToggleAttackRangeIndicator((BaseHero)unit, true);
     }
 
     private bool CheckAttackPossible(BaseUnit attackUnit, BaseUnit defendUnit)

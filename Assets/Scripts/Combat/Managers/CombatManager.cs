@@ -37,7 +37,7 @@ public class CombatManager : MonoBehaviour
             case CombatState.SetHeroesAndEnemies:
                 
                 // COMBAT SCREEN ONLY START
-                var START_IN_COMBAT_SCREEN = true;
+                var START_IN_COMBAT_SCREEN = false;
                 if (START_IN_COMBAT_SCREEN)
                 {
                     GameManager.Instance.startingHeroes = _defaultHeroes;
@@ -64,9 +64,11 @@ public class CombatManager : MonoBehaviour
                 MenuManager.Instance.ShowAvailableHeroes(GameManager.Instance.startingHeroes);
                 break;
             case CombatState.SetTurnOrder:
+                UpdateTilesWalkability();
                 SetTurnOrder();
                 break;
             case CombatState.UnitTurn:
+                UpdateTilesWalkability();
                 UnitManager.Instance.checkCombatOver();
                 BaseUnit nextUnit = _turnQueue.Dequeue();
                 _turnQueue.Enqueue(nextUnit);
@@ -103,6 +105,21 @@ public class CombatManager : MonoBehaviour
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
         
+    }
+
+    private void UpdateTilesWalkability()
+    {
+        foreach (var tileRow in WFCGenerator.Instance._tiles)
+        foreach (var tile in tileRow)
+        {
+            if (tile.tileName != "Water")
+            {
+                if (tile.tileUnit == null)
+                    tile.isWalkable = true;
+                else
+                    tile.isWalkable = false;
+            }
+        }
     }
 
     private void SetTurnOrder()

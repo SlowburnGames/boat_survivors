@@ -22,9 +22,8 @@ public class Tile : MonoBehaviour
     public List<Tile> tilesToWalk = new List<Tile>();
 
     public bool walkable {
-        get {
-            return isWalkable && tileUnit == null;
-        }
+        get { return isWalkable && tileUnit == null;}
+        set { walkable = value; }
     }
 
     //Pathfinding Variables

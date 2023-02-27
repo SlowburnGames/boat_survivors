@@ -1172,6 +1172,19 @@ MonoBehaviour:
   abilityReady: 1
   standAction: 0
   tilesWalked: 0
+--- !u!114 &-415337534186861225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8828223547903806660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfaa14f6d0c8043429aea5402446a5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: 0
 --- !u!114 &7214923345301275556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1196,16 +1209,3 @@ MonoBehaviour:
     showGizmo: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
---- !u!114 &-415337534186861225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8828223547903806660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfaa14f6d0c8043429aea5402446a5ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  move: 0

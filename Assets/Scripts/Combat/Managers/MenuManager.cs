@@ -28,6 +28,20 @@ public class MenuManager : MonoBehaviour
         _endTurnButton.gameObject.SetActive(active);
     }
     
+    public void useHeroAbility()
+    {
+        //if(!selectedHero.usedAction)
+        {
+            UnitManager.Instance.selectedHero.SpecialMove(null);
+            //selectedHero.usedAction = true;
+            // ToggleAttackRangeIndicator(selectedHero, false);
+            //if(selectedHero.usedAction && selectedHero.tilesWalked == selectedHero.MoveDistance)
+            //{
+            //    //CombatManager.Instance.endPlayerTurn();
+            //}
+        }
+    }
+    
     public void ShowSelectedHero(BaseHero hero)
     {
         if (hero == null)
@@ -35,8 +49,8 @@ public class MenuManager : MonoBehaviour
             _selectedHeroObject.SetActive(false);
             return;
         }
-        var hero_image = _selectedHeroObject.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-        // hero_image.sprite = hero.GetComponent<SpriteRenderer>().sprite;
+        var hero_image = hero.gameObject.transform.Find("portrait").gameObject.GetComponent<SpriteRenderer>();
+        _selectedHeroObject.transform.Find("HeroImage").gameObject.GetComponent<Image>().sprite = hero_image.sprite;
         _selectedHeroObject.GetComponentInChildren<TextMeshProUGUI>().text = hero.UnitName + "\n" + hero.UnitDescription;
         _selectedHeroObject.SetActive(true);
         updateAttacks(hero);
@@ -84,8 +98,6 @@ public class MenuManager : MonoBehaviour
         int i = 1;
         foreach (var unit in initList)
         {
-            // var hero_image = _selectedHeroObject.transform.Find("HeroImage").gameObject.GetComponent<Image>();
-            // hero_image.sprite = hero.GetComponent<SpriteRenderer>().sprite;
             var portrait = unit.gameObject.transform.Find("portrait");
 
             if (portrait == null)

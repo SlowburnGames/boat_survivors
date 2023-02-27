@@ -166,13 +166,13 @@ public class GameManager : MonoBehaviour
     public void startRandomEvent()
     {
         // Example for healing all heroes (for now before EVERY event)
-        healAllHeroes(2);
+        // healAllHeroes(2);
         // healHero(startingHeroes.First(), 666);
         
         
         // DEBUG ONLY START
         Debug.Log("TODO: NEXT LINE ONLY FOR DEBUG REASONS");
-        startCombat(new List<string>{"Zombie1", "Zombie2"});
+        startCombat(new List<string>{"Monster1"});
         // DEBUG ONLY END
         
         Debug.Log("Random Event!");

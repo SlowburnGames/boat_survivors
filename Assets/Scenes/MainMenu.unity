@@ -843,15 +843,15 @@ PrefabInstance:
     - target: {fileID: 1229264523, guid: 6f4193ad47e24ad41a7f4dcb920a5a1c, type: 3}
       propertyPath: startingHeroes.Array.data[0]
       value: 
-      objectReference: {fileID: 3599614547267196368, guid: a41127da50fe02841856068c6b331436, type: 3}
+      objectReference: {fileID: -5943581832193407654, guid: 2ce2b7fcf93f9514e90b53937cab2c05, type: 3}
     - target: {fileID: 1229264523, guid: 6f4193ad47e24ad41a7f4dcb920a5a1c, type: 3}
       propertyPath: startingHeroes.Array.data[1]
       value: 
-      objectReference: {fileID: -2134232415845045823, guid: 1f11e23ec4a8f2d4b9e29aaf2996c197, type: 3}
+      objectReference: {fileID: 6331362298142244506, guid: 36e716596e15002488a757aaa01f08e5, type: 3}
     - target: {fileID: 1229264523, guid: 6f4193ad47e24ad41a7f4dcb920a5a1c, type: 3}
       propertyPath: startingHeroes.Array.data[2]
       value: 
-      objectReference: {fileID: -7962685250005770754, guid: 8e588aaa20aa3ed4088c50f0d28e26bd, type: 3}
+      objectReference: {fileID: -2134232415845045823, guid: 1f11e23ec4a8f2d4b9e29aaf2996c197, type: 3}
     - target: {fileID: 1229264523, guid: 6f4193ad47e24ad41a7f4dcb920a5a1c, type: 3}
       propertyPath: enemiesInCombat.Array.data[0]
       value: 
