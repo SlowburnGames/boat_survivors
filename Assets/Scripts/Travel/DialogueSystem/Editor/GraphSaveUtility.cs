@@ -120,7 +120,19 @@ public class GraphSaveUtility
             {
                 var targetNodeGuid = connections[j].TargetNodeGuid;
                 var targetNode = _nodes.First(x => x.GUID == targetNodeGuid);
-                LinkNodes(_nodes[i].outputContainer[j].Q<Port>(), (Port) targetNode.inputContainer[0]);
+
+                List<VisualElement> ve = _nodes[i].outputContainer.Children().ToList();
+
+                foreach (VisualElement element in ve)
+                {
+                    if(element is Port port)
+                    {
+                        if(port.portName == connections[j].PortName)
+                        {
+                            LinkNodes(port, (Port) targetNode.inputContainer[0]);
+                        }
+                    }
+                }
 
                 targetNode.SetPosition(new Rect(_containerCache.dialogueNodeData.First(x=> x.NodeGUID == targetNodeGuid).Position, _targetGraphView.defaultNodeSize));
             }

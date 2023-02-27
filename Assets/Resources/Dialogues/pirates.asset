@@ -20,28 +20,15 @@ MonoBehaviour:
     PortName: 'Avoid them. '
     TargetNodeGuid: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
   - BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
-    PortName: Fight.
+    PortName: Threaten them.
     TargetNodeGuid: 21596e6f-7d6d-4742-a047-25ccb9d48180
   - BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
     PortName: Trade.
     TargetNodeGuid: 2f93ad71-3c98-470a-aa3d-54da5f4f5645
+  - BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
+    PortName: Threaten them.
+    TargetNodeGuid: 2c7d2f0f-6311-4c96-8e23-2709d4ab5d34
   dialogueNodeData:
-  - NodeGUID: cd38a5de-7510-4eb5-bd66-0167fe51f192
-    DialogueText: The man in the shouts:"Pirates!" You take a look with your binoculars
-      and you see the clichee black flag with skull and bones.
-    image: 
-    Position: {x: 100, y: 100}
-    entryPoint: 1
-    moraleChange: 0
-    resourceChange: 0
-    customImmediate: 
-    applies_status: 0
-    customStatus: 
-    duration: 0
-    combat: 0
-    enemies: []
-    combatMoraleChange: 0
-    combatResourceChange: 0
   - NodeGUID: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
     DialogueText: You take a big turn to avoid the pirates.
     image: 
@@ -89,11 +76,42 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 21596e6f-7d6d-4742-a047-25ccb9d48180
-    DialogueText: You attack the pirates out of spite. "Maybe they just like skulls
-      and bones..." you think to yourself...
+  - NodeGUID: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    DialogueText: The man in the crow's nest shouts:"Pirates!" You take a look with
+      your binoculars and you see the clichee black flag with skull and bones.
     image: 
-    Position: {x: 1682, y: -393}
+    Position: {x: -84, y: -48}
+    entryPoint: 1
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 2c7d2f0f-6311-4c96-8e23-2709d4ab5d34
+    DialogueText: The pirates are intimidated and give you their loot.
+    image: 
+    Position: {x: 1682, y: -323}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 10
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - NodeGUID: 21596e6f-7d6d-4742-a047-25ccb9d48180
+    DialogueText: You shout some bad threats across the waves and the pirates are
+      not amused. They think you are easy pickings and attack.
+    image: 
+    Position: {x: 1682, y: -630}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0

@@ -27,7 +27,7 @@ public class DialogueGraphView : GraphView
         AddElement(entry_node);
     }
 
-    private Port GeneratePort(DialogueNode node, Direction portDirection, Port.Capacity capacity = Port.Capacity.Single)
+    private Port GeneratePort(DialogueNode node, Direction portDirection, Port.Capacity capacity = Port.Capacity.Multi)
     {
         return node.InstantiatePort(Orientation.Horizontal, portDirection, capacity, typeof(float)); //type of graph does not matter
     }
@@ -214,12 +214,7 @@ public class DialogueGraphView : GraphView
         combatFoldout.contentContainer.Add(startsCombatField);
 
 
-        var enemiesView = new ListView(dialogue_node.enemies);
-        enemiesView.headerTitle = "Enemies";
-        enemiesView.showAddRemoveFooter = true;
-        enemiesView.showBoundCollectionSize = true;
-        enemiesView.showFoldoutHeader = true;
-        enemiesView.showBorder = true;
+        var enemiesView = new ListViewWithEditableItems(dialogue_node.enemies, "Enemies");
 
         combatFoldout.contentContainer.Add(enemiesView);
 
@@ -245,6 +240,7 @@ public class DialogueGraphView : GraphView
         
         return dialogue_node;
     }
+
     public void CreateNode(string nodeName)
     {
         AddElement(CreateDialogueNode(nodeName));
@@ -252,6 +248,18 @@ public class DialogueGraphView : GraphView
 
     public void AddChoicePort(DialogueNode node, string overriddenPortName = "")
     {
+        //check if a port with this name already exists, if it does, do not create a port.
+        foreach(VisualElement e in node.outputContainer.Children())
+        {
+            if(e is Port port)
+            {
+                if(port.portName == overriddenPortName)
+                {
+                    return;
+                }
+            }
+        }
+
         var generated_port = GeneratePort(node, Direction.Output);
 
         var oldLabel = generated_port.contentContainer.Q<Label>("type");
