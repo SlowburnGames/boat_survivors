@@ -37,7 +37,7 @@ public class CombatManager : MonoBehaviour
             case CombatState.SetHeroesAndEnemies:
                 
                 // COMBAT SCREEN ONLY START
-                var START_IN_COMBAT_SCREEN = false;
+                var START_IN_COMBAT_SCREEN = true;
                 if (START_IN_COMBAT_SCREEN)
                 {
                     GameManager.Instance.startingHeroes = _defaultHeroes;

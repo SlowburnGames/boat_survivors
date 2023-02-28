@@ -35,7 +35,8 @@ public class MovementManager : MonoBehaviour
             t += Time.deltaTime / (time/points.Length);
             transform.position = Vector3.Lerp(startPosition, points[currentWaypoint], t);
             //Quaternion.LookRotation(FindObjectOfType<Camera>().transform.position - transform.position);
-            this.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+            //this.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+            this.transform.rotation = Quaternion.Euler(new Vector3(10, -45, 0));
             if (Vector3.Distance(transform.position, points[currentWaypoint]) < 0.01f)
             {   if(currentWaypoint >= points.Length - 1)
                 {
