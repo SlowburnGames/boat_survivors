@@ -1118,8 +1118,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 219.379, y: 25.370003}
       boneWeight:
-        weight0: 0
-        weight1: 1
+        weight0: 1
+        weight1: 0
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -1128,8 +1128,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 243.672, y: 43.133}
       boneWeight:
-        weight0: 0
-        weight1: 1
+        weight0: 1
+        weight1: 0
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -1188,8 +1188,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 197.548, y: 119.288}
       boneWeight:
-        weight0: 0
-        weight1: 1
+        weight0: 1
+        weight1: 0
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -1218,7 +1218,7 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 127.587, y: 163.09601}
       boneWeight:
-        weight0: 0.99999994
+        weight0: 1
         weight1: 0
         weight2: 0
         weight3: 0
@@ -1348,7 +1348,7 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 55.517, y: 42.485}
       boneWeight:
-        weight0: 0.99999994
+        weight0: 1
         weight1: 0
         weight2: 0
         weight3: 0
@@ -1868,14 +1868,14 @@ ScriptedImporter:
     spriteID: e8fe51b7980c34f44a84b799be97be70
     spriteBone:
     - name: tail_bone
-      guid: 51a5f4493ade58e4b83a387732784cbc
-      position: {x: 145.31827, y: 25.249756, z: 0}
-      rotation: {x: 0, y: 0, z: 0.6913484, w: 0.72252166}
-      length: 245.29733
+      guid: 69aea5f93d7c04945aaacbd20e4f5f17
+      position: {x: 185.05182, y: 75.193665, z: 0}
+      rotation: {x: 0, y: 0, z: 0.7581164, w: 0.6521193}
+      length: 201.25055
       parentId: -1
       color:
         serializedVersion: 2
-        rgba: 4294901760
+        rgba: 4294901764
     spriteOutline: []
     vertices:
     - position: {x: 152.055, y: 2.876999}
@@ -2615,15 +2615,6 @@ ScriptedImporter:
       color:
         serializedVersion: 2
         rgba: 4294967040
-    - name: tail_bone
-      guid: 51a5f4493ade58e4b83a387732784cbc
-      position: {x: -10.729838, y: -72.38306, z: 0}
-      rotation: {x: 0, y: 0, z: -0.39558592, w: 0.918429}
-      length: 245.29732
-      parentId: 3
-      color:
-        serializedVersion: 2
-        rgba: 4294901760
     - name: head_bone
       guid: b03b1cce0c277694697a09fcaf4daee5
       position: {x: 273.45782, y: -20.66489, z: 0}
@@ -2633,6 +2624,15 @@ ScriptedImporter:
       color:
         serializedVersion: 2
         rgba: 4294902015
+    - name: tail_bone
+      guid: 69aea5f93d7c04945aaacbd20e4f5f17
+      position: {x: 261.85455, y: -105.86482, z: 0}
+      rotation: {x: 0, y: 0, z: 0.06571602, w: 0.9978384}
+      length: 201.25052
+      parentId: 0
+      color:
+        serializedVersion: 2
+        rgba: 4294901764
     parts:
     - spritePosition:
         x: 173
@@ -2640,7 +2640,7 @@ ScriptedImporter:
         width: 150
         height: 213
       spriteId: e65b9f6997d00334aa0c6db4808cb438
-      bones: 05000000
+      bones: 04000000
       parentGroup: 0
       order: 0
     - spritePosition:
@@ -2676,7 +2676,7 @@ ScriptedImporter:
         width: 228
         height: 376
       spriteId: e8fe51b7980c34f44a84b799be97be70
-      bones: 04000000
+      bones: 05000000
       parentGroup: 0
       order: 0
     dimension: {x: 0, y: 0}

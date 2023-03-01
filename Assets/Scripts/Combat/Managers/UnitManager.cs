@@ -197,12 +197,11 @@ public class UnitManager : MonoBehaviour
                 var newTile = findTileToWalk(enemy, path.GetRange(0, path.Count-1));
                 if (newTile == null)
                 {
-                    // todo find alternative tile (left/right from hero)
-                    Debug.LogError("NO VALID TILE FOUND!!!!");
+                    // Stand still
+                    newTile = enemy.OccupiedTile;
                 }
                 
                 SetUnit(enemy, newTile, false);
-                // StartCoroutine(MoveUnit(enemy, path, path[path.Count - 2]));
             }
             enemy.AttackTarget(targetedHero);
         }
@@ -211,15 +210,13 @@ public class UnitManager : MonoBehaviour
             if (!heroesAlive()) // When all heroes are dead -> Game over
                 return;
             
-            var newTile = findTileToWalk(enemy, path.GetRange(0, enemy.MoveDistance-1));
+            var newTile = findTileToWalk(enemy, path.GetRange(0, enemy.MoveDistance));
             if (newTile == null)
             {
-                // todo find alternative tile (left/right from hero)
-                Debug.LogError("NO VALID TILE FOUND!!!!");
+                // Stand still
+                newTile = enemy.OccupiedTile;
             }
             SetUnit(enemy, newTile, false);
-            // SetUnit(enemy, path[enemy.MoveDistance - 1], false);
-            // StartCoroutine(MoveUnit(enemy, path, path[enemy.MoveDistance - 1]));
         }
 
         findInvisible(enemy.OccupiedTile);
@@ -398,8 +395,6 @@ public class UnitManager : MonoBehaviour
         var unitTransform = unit.transform;
 
         Vector3 spawnOffset = isUnitSpawning ? Vector3.up / 2 : Vector3.zero;
-        
-        // TODO tile unit wird nicht gesetzt
         
         // Get unit y position because not every drawn hero sprite had same y position, and I noticed it too late.
         // -> change the unit prefab y-position, in a way that it "stands" on the 0-y-coord like intended. (see sorceress, rogue, skeleton, ...)
