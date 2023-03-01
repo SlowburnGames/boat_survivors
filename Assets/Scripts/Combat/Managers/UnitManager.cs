@@ -151,6 +151,7 @@ public class UnitManager : MonoBehaviour
                 if (path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalked)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
+                    selectedHero.OccupiedTile.isWalkable = true;
                     StartCoroutine(MoveUnit(selectedHero, path, tile));
                     selectedHero.tilesWalked += path.Count;
                     
@@ -398,6 +399,7 @@ public class UnitManager : MonoBehaviour
 
         Vector3 spawnOffset = isUnitSpawning ? Vector3.up / 2 : Vector3.zero;
         
+        // TODO tile unit wird nicht gesetzt
         
         // Get unit y position because not every drawn hero sprite had same y position, and I noticed it too late.
         // -> change the unit prefab y-position, in a way that it "stands" on the 0-y-coord like intended. (see sorceress, rogue, skeleton, ...)
@@ -472,6 +474,8 @@ public class UnitManager : MonoBehaviour
                 GameManager.Instance.combatMoraleReward -= 10;
                 GameManager.Instance.combatResReward -= 10;
             }
+
+            aUnit.OccupiedTile.isWalkable = true;
             Destroy(aUnit.gameObject);
             MenuManager.Instance.updateTurnOrderDisplay();
             checkCombatOver();

@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: 0}
+  UnitPrefab: {fileID: 465653632622519032, guid: fe05712bf4aa6c74180d60145618d963, type: 3}
   faction: 0
   unitName: Warrior
-  unitDescription: 
+  unitDescription: Pushes enemies 1 tile when attacked. Pushing enemies into water
+    or off the map kills them.
   isRanged: 0
   attacks: 1
-  damage: 3
+  damage: 2
   movementRange: 2
   attackRange: 1
   maxHealth: 15
-  health: 13
+  health: 15
   ability: {fileID: 11400000, guid: a68ac3882e817f54886b220254d02358, type: 2}

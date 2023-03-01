@@ -11,6 +11,8 @@ public class Tile : MonoBehaviour
     [SerializeField] public bool isWalkable;
     [SerializeField] private Material[] normal = new Material[2];
     [SerializeField] private Material[] highlight = new Material[2];
+    [SerializeField] private Color color = Color.white;
+    private List<Material> materials;
 
     public string tileName;
     public BaseUnit tileUnit;
@@ -37,12 +39,23 @@ public class Tile : MonoBehaviour
 
     public Tile parent;
 
+    private void Awake()
+    {
+        materials = new List<Material>();
+        materials.AddRange(new List<Material>(this.GetComponent<MeshRenderer>().materials));
+    }
+    
     public void OnMouseEnter()
     {
-        if (highlight.Length > 1)
-            gameObject.GetComponent<MeshRenderer>().materials = highlight;
-        else
-            gameObject.GetComponent<MeshRenderer>().material = highlight[0];
+        foreach (var material in materials)
+        {
+            material.EnableKeyword("_EMISSION");
+            material.SetColor("_EmissionColor", color);
+        }
+        // if (highlight.Length > 1)
+        //     gameObject.GetComponent<MeshRenderer>().materials = highlight;
+        // else
+        //     gameObject.GetComponent<MeshRenderer>().material = highlight[0];
         
         if (CombatManager.Instance.combatState == CombatState.SpawnHeroes &&isWalkable && tileUnit == null)
             SpawnHeroPreview();
@@ -54,12 +67,17 @@ public class Tile : MonoBehaviour
         MenuManager.Instance.ShowTileInfo(this);
     }
     
+    
     public void OnMouseExit()
     {
-        if (normal.Length > 1)
-            gameObject.GetComponent<MeshRenderer>().materials = normal;
-        else
-            gameObject.GetComponent<MeshRenderer>().material = normal[0];
+        foreach (var material in materials)
+        {
+            material.DisableKeyword("_EMISSION");
+        }
+        // if (normal.Length > 1)
+        //     gameObject.GetComponent<MeshRenderer>().materials = normal;
+        // else
+        //     gameObject.GetComponent<MeshRenderer>().material = normal[0];
         
         if (CombatManager.Instance.combatState == CombatState.SpawnHeroes &&isWalkable && tileUnit == null)
             DestroyHeroPreview();

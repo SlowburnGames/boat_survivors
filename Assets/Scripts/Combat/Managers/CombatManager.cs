@@ -107,19 +107,19 @@ public class CombatManager : MonoBehaviour
         
     }
 
-    private void UpdateTilesWalkability()
+    public void UpdateTilesWalkability()
     {
         foreach (var tileRow in WFCGenerator.Instance._tiles)
-        foreach (var tile in tileRow)
-        {
-            if (tile.tileName != "Water")
+            foreach (var tile in tileRow)
             {
-                if (tile.tileUnit == null)
-                    tile.isWalkable = true;
-                else
-                    tile.isWalkable = false;
+                if (tile.tileName != "Water")
+                {
+                    if (tile.tileUnit == null)
+                        tile.isWalkable = true;
+                    else
+                        tile.isWalkable = false;
+                }
             }
-        }
     }
 
     private void SetTurnOrder()
