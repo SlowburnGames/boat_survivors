@@ -14,18 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeLinks: []
   dialogueNodeData:
-  - NodeGUID: 09ced5d3-d7a2-466f-897d-796f90de3c26
-    DialogueText: 'Your food is rotten and you need to throw it away.
+  - DialogueText: 'Your food is rotten and you need to throw it away.
 
       The
       fish are happy.
 
       Your People are not.'
-    image: rotten_food
+    NodeGUID: 09ced5d3-d7a2-466f-897d-796f90de3c26
+    image: 
     Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: -10
     resourceChange: -10
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
     duration: 0
     combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
   alreadyEncountered: 0

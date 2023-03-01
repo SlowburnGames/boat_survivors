@@ -22,6 +22,7 @@ public class DialogueButton : MonoBehaviour
         {
             starts_combat = false;
             DialogueDisplay.instance.startCombat();
+            return;
         }
 
         DialogueDisplay.instance.buttonPress(index);

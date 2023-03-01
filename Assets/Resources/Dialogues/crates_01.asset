@@ -13,29 +13,29 @@ MonoBehaviour:
   m_Name: crates_01
   m_EditorClassIdentifier: 
   nodeLinks:
-  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
-    PortName: Pull them aboard.
+  - PortName: Pull them aboard.
+    BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
     TargetNodeGuid: ee21cc0b-3d48-41d9-ae57-946cba6da2b3
-  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
-    PortName: Pull them aboard.
+  - PortName: Pull them aboard.
+    BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
     TargetNodeGuid: 50ebdd75-8f74-4c44-9d75-579475c205f3
-  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
-    PortName: Pull them aboard.
+  - PortName: Pull them aboard.
+    BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
     TargetNodeGuid: c05ab129-7351-4dee-b666-7186e0ea69f5
-  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
-    PortName: Pull them aboard.
+  - PortName: Pull them aboard.
+    BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
     TargetNodeGuid: 1812f07e-958c-4b3e-adff-638e13820cca
-  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
-    PortName: Pull them aboard.
+  - PortName: Pull them aboard.
+    BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
     TargetNodeGuid: 93bbb050-76ce-49e3-8e96-beffd23191fd
-  - BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
-    PortName: Leave them be.
+  - PortName: Leave them be.
+    BaseNodeGuid: ba293276-8510-45f4-8034-5024e6332a90
     TargetNodeGuid: d4489239-52d7-495f-8ba1-1a1bcd01b94c
   dialogueNodeData:
-  - NodeGUID: ee21cc0b-3d48-41d9-ae57-946cba6da2b3
-    DialogueText: The crates contain some food.
+  - DialogueText: The crates contain some food.
+    NodeGUID: ee21cc0b-3d48-41d9-ae57-946cba6da2b3
     image: 
-    Position: {x: 829.6, y: -164.8}
+    Position: {x: 830, y: -165}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 10
@@ -47,10 +47,10 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 50ebdd75-8f74-4c44-9d75-579475c205f3
-    DialogueText: The crates contain nothing useful.
+  - DialogueText: The crates contain nothing useful.
+    NodeGUID: 50ebdd75-8f74-4c44-9d75-579475c205f3
     image: 
-    Position: {x: 829.6, y: 100}
+    Position: {x: 830, y: 100}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -62,10 +62,10 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: c05ab129-7351-4dee-b666-7186e0ea69f5
-    DialogueText: The crates are filled with beer and wine!
+  - DialogueText: The crates are filled with beer and wine!
+    NodeGUID: c05ab129-7351-4dee-b666-7186e0ea69f5
     image: 
-    Position: {x: 829.6, y: 307.2}
+    Position: {x: 830, y: 307}
     entryPoint: 0
     moraleChange: 10
     resourceChange: 0
@@ -77,8 +77,8 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: ba293276-8510-45f4-8034-5024e6332a90
-    DialogueText: You come across some floating crates.
+  - DialogueText: You come across some floating crates.
+    NodeGUID: ba293276-8510-45f4-8034-5024e6332a90
     image: 
     Position: {x: 100, y: 100}
     entryPoint: 1
@@ -92,10 +92,10 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 1812f07e-958c-4b3e-adff-638e13820cca
-    DialogueText: The crates are filled with dead bodies. The crew is disgusted.
+  - DialogueText: The crates are filled with dead bodies. The crew is disgusted.
+    NodeGUID: 1812f07e-958c-4b3e-adff-638e13820cca
     image: 
-    Position: {x: 829.6, y: 572}
+    Position: {x: 830, y: 572}
     entryPoint: 0
     moraleChange: -10
     resourceChange: 0
@@ -107,11 +107,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 93bbb050-76ce-49e3-8e96-beffd23191fd
-    DialogueText: You investigate the crates and hear a cry from somewhere. Zombies
+  - DialogueText: You investigate the crates and hear a cry from somewhere. Zombies
       were waiting near the crates to attack you!
+    NodeGUID: 93bbb050-76ce-49e3-8e96-beffd23191fd
     image: 
-    Position: {x: 829.6, y: 836.8}
+    Position: {x: 830, y: 837}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -121,16 +121,16 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie
-    - Zombie
-    - Zombie
-    - Zombie
+    - Zombie1
+    - Zombie1
+    - Zombie2
+    - Zombie2
     combatMoraleChange: 0
     combatResourceChange: 10
-  - NodeGUID: d4489239-52d7-495f-8ba1-1a1bcd01b94c
-    DialogueText: You let the crates float along...
+  - DialogueText: You let the crates float along...
+    NodeGUID: d4489239-52d7-495f-8ba1-1a1bcd01b94c
     image: 
-    Position: {x: 261.6, y: 496}
+    Position: {x: 262, y: 496}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0

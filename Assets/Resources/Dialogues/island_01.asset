@@ -19,30 +19,30 @@ MonoBehaviour:
   - PortName: Sail on.
     BaseNodeGuid: 52f40932-c785-41f3-a960-da6e6ece83a1
     TargetNodeGuid: 7951f05a-2df8-4c15-8da8-7db5c97d2876
+  - PortName: Approach.
+    BaseNodeGuid: 52f40932-c785-41f3-a960-da6e6ece83a1
+    TargetNodeGuid: f1930f89-8fb7-44a1-a97c-176f25f400e8
   - PortName: Approach the figure.
     BaseNodeGuid: 7ff72a0f-89e3-4ba1-b12d-f2b4a6590f8a
     TargetNodeGuid: 0ea1dbbd-928c-4c59-9631-1453804af3f5
-  - PortName: Continue.
-    BaseNodeGuid: 0ea1dbbd-928c-4c59-9631-1453804af3f5
-    TargetNodeGuid: 13aff68c-14f0-4b4f-8e51-d41646e49a10
   - PortName: Approach the figure.
     BaseNodeGuid: 7ff72a0f-89e3-4ba1-b12d-f2b4a6590f8a
     TargetNodeGuid: ae7d12ab-821f-4b43-916f-26a5b5057033
   - PortName: Approach the figure.
     BaseNodeGuid: 7ff72a0f-89e3-4ba1-b12d-f2b4a6590f8a
     TargetNodeGuid: 710246ab-7a96-4389-98b3-4c2fe17c7d83
-  - PortName: Approach.
-    BaseNodeGuid: 52f40932-c785-41f3-a960-da6e6ece83a1
-    TargetNodeGuid: f1930f89-8fb7-44a1-a97c-176f25f400e8
-  - PortName: Enter the hut.
-    BaseNodeGuid: f1930f89-8fb7-44a1-a97c-176f25f400e8
-    TargetNodeGuid: 3d2c08d9-ea68-4e05-8d68-91c73571f359
+  - PortName: Continue.
+    BaseNodeGuid: 0ea1dbbd-928c-4c59-9631-1453804af3f5
+    TargetNodeGuid: 13aff68c-14f0-4b4f-8e51-d41646e49a10
   - PortName: Okay.
     BaseNodeGuid: 3d2c08d9-ea68-4e05-8d68-91c73571f359
     TargetNodeGuid: b90a147a-4c89-4cd5-9e9a-8abb5d0f4231
   - PortName: Okay.
     BaseNodeGuid: 3d2c08d9-ea68-4e05-8d68-91c73571f359
     TargetNodeGuid: 1d70ba97-cc3a-49f2-8f2e-98167caa57af
+  - PortName: Enter the hut.
+    BaseNodeGuid: f1930f89-8fb7-44a1-a97c-176f25f400e8
+    TargetNodeGuid: 3d2c08d9-ea68-4e05-8d68-91c73571f359
   dialogueNodeData:
   - DialogueText: You see a small island on the horizon.
     NodeGUID: 52f40932-c785-41f3-a960-da6e6ece83a1
@@ -62,7 +62,7 @@ MonoBehaviour:
   - DialogueText: You sail away.
     NodeGUID: 7951f05a-2df8-4c15-8da8-7db5c97d2876
     image: 
-    Position: {x: 256.8, y: 379.2}
+    Position: {x: 257, y: 379}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
       towards you.
     NodeGUID: 7ff72a0f-89e3-4ba1-b12d-f2b4a6590f8a
     image: 
-    Position: {x: 627.2, y: -116}
+    Position: {x: 627, y: -116}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
       station on this island.
     NodeGUID: 0ea1dbbd-928c-4c59-9631-1453804af3f5
     image: 
-    Position: {x: 1477.6, y: -116}
+    Position: {x: 1478, y: -116}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
       with you and wishes you safe travels.'
     NodeGUID: 13aff68c-14f0-4b4f-8e51-d41646e49a10
     image: 
-    Position: {x: 2742.4, y: -116}
+    Position: {x: 2742, y: -116}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 5
@@ -129,7 +129,7 @@ MonoBehaviour:
   - DialogueText: The figure turns into dust as you approach it.
     NodeGUID: ae7d12ab-821f-4b43-916f-26a5b5057033
     image: 
-    Position: {x: 1477.6, y: 124}
+    Position: {x: 1478, y: 124}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
       you.
     NodeGUID: 710246ab-7a96-4389-98b3-4c2fe17c7d83
     image: 
-    Position: {x: 1477.6, y: 362.40002}
+    Position: {x: 1478, y: 362}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -155,15 +155,15 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie
-    - Zombie
-    - Monster
+    - Zombie1
+    - Zombie2
+    - Monster2
     combatMoraleChange: 5
     combatResourceChange: 5
   - DialogueText: You open the scrappy door of the hut...
     NodeGUID: 3d2c08d9-ea68-4e05-8d68-91c73571f359
     image: 
-    Position: {x: 1477.6, y: 920}
+    Position: {x: 1478, y: 920}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -179,29 +179,10 @@ MonoBehaviour:
       a wooden hut.
     NodeGUID: f1930f89-8fb7-44a1-a97c-176f25f400e8
     image: 
-    Position: {x: 759.2, y: 919.2}
+    Position: {x: 759, y: 919}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
-    customImmediate: 
-    applies_status: 0
-    customStatus: 
-    duration: 0
-    combat: 0
-    enemies: []
-    combatMoraleChange: 0
-    combatResourceChange: 0
-  - DialogueText: '...and find a corpse.
-
-
-      You search the hut for valuables
-      and manage to get together some useful items.'
-    NodeGUID: b90a147a-4c89-4cd5-9e9a-8abb5d0f4231
-    image: 
-    Position: {x: 1933.6, y: 920}
-    entryPoint: 0
-    moraleChange: 0
-    resourceChange: 5
     customImmediate: 
     applies_status: 0
     customStatus: 
@@ -213,7 +194,7 @@ MonoBehaviour:
   - DialogueText: ...and are ambushed by rabid monsters!
     NodeGUID: 1d70ba97-cc3a-49f2-8f2e-98167caa57af
     image: 
-    Position: {x: 1933.6, y: 1271.2}
+    Position: {x: 1934, y: 1271}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -223,9 +204,28 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Monster
-    - Monster
-    - Monster
+    - Monster1
+    - Monster2
+    - Monster1
     combatMoraleChange: 0
     combatResourceChange: 0
+  - DialogueText: '...and find a corpse.
+
+
+      You search the hut for valuables
+      and manage to get together some useful items.'
+    NodeGUID: b90a147a-4c89-4cd5-9e9a-8abb5d0f4231
+    image: 
+    Position: {x: 1934, y: 920}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 5
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 10
   alreadyEncountered: 0

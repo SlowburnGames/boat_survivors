@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
         get{ return morale; }
         set{
             morale = value;
-            TravelManager.instance.updateResUI();
+            TravelManager.instance.updateUI();
         }
     }
     private int resource = 50;
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         get{ return resource; }
         set{
             resource = value;
-            TravelManager.instance.updateResUI();
+            TravelManager.instance.updateUI();
         }
     }
     public List<DialogueContainer> events;
@@ -72,9 +72,11 @@ public class GameManager : MonoBehaviour
     public void startCombat(List<string> enemyNames)
     {
         enemiesInCombat.Clear();
-
         foreach (var enemyName in enemyNames)
+        {
+            Debug.Log(enemyName);
             enemiesInCombat.Add(UnitManager.Instance.GetEnemyByName(enemyName));
+        }
         
         SceneManager.LoadScene("Combat");
     }
@@ -208,13 +210,13 @@ public class GameManager : MonoBehaviour
     public void addRes(int value)
     {
         resource += value;
-        TravelManager.instance.updateResUI();
+        TravelManager.instance.updateUI();
     }
 
     public void addMorale(int value)
     {
         morale += value;
-        TravelManager.instance.updateResUI();
+        TravelManager.instance.updateUI();
     }
 
 }

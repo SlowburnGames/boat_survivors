@@ -13,29 +13,29 @@ MonoBehaviour:
   m_Name: oil_rig
   m_EditorClassIdentifier: 
   nodeLinks:
-  - BaseNodeGuid: b34348b4-216a-40dd-b96d-7bdf23e527d6
-    PortName: Investigate.
+  - PortName: Investigate.
+    BaseNodeGuid: b34348b4-216a-40dd-b96d-7bdf23e527d6
     TargetNodeGuid: 5b218b5a-bd76-44c2-9dff-4325324e70b5
-  - BaseNodeGuid: b34348b4-216a-40dd-b96d-7bdf23e527d6
-    PortName: Ignore it.
+  - PortName: Ignore it.
+    BaseNodeGuid: b34348b4-216a-40dd-b96d-7bdf23e527d6
     TargetNodeGuid: 337667da-dab2-4597-87db-bd007ff354b8
-  - BaseNodeGuid: 5b218b5a-bd76-44c2-9dff-4325324e70b5
-    PortName: Go further.
+  - PortName: Go further.
+    BaseNodeGuid: 5b218b5a-bd76-44c2-9dff-4325324e70b5
     TargetNodeGuid: 52b9de56-6fa2-4ff8-a9f3-6432a0532ea7
-  - BaseNodeGuid: 5b218b5a-bd76-44c2-9dff-4325324e70b5
-    PortName: Go further.
+  - PortName: Go further.
+    BaseNodeGuid: 5b218b5a-bd76-44c2-9dff-4325324e70b5
     TargetNodeGuid: 787e19fe-4d5b-4d1e-a993-7149b69b8ec6
-  - BaseNodeGuid: 52b9de56-6fa2-4ff8-a9f3-6432a0532ea7
-    PortName: Ok.
-    TargetNodeGuid: c12557c0-8210-474e-af70-a42f75b59a8b
-  - BaseNodeGuid: 5b218b5a-bd76-44c2-9dff-4325324e70b5
-    PortName: Go further.
+  - PortName: Go further.
+    BaseNodeGuid: 5b218b5a-bd76-44c2-9dff-4325324e70b5
     TargetNodeGuid: cfe9a0dd-5af3-4095-89b0-e7b80d58bb33
+  - PortName: Ok.
+    BaseNodeGuid: 52b9de56-6fa2-4ff8-a9f3-6432a0532ea7
+    TargetNodeGuid: c12557c0-8210-474e-af70-a42f75b59a8b
   dialogueNodeData:
-  - NodeGUID: b34348b4-216a-40dd-b96d-7bdf23e527d6
-    DialogueText: A huge abandoned oil rig is visible on the horizon.
+  - DialogueText: A huge abandoned oil rig is visible on the horizon.
+    NodeGUID: b34348b4-216a-40dd-b96d-7bdf23e527d6
     image: 
-    Position: {x: 111.2, y: 125.59999}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -47,11 +47,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 5b218b5a-bd76-44c2-9dff-4325324e70b5
-    DialogueText: You enter this hulk of a ship and wander through countless dark
+  - DialogueText: You enter this hulk of a ship and wander through countless dark
       corridors.
+    NodeGUID: 5b218b5a-bd76-44c2-9dff-4325324e70b5
     image: 
-    Position: {x: 807.2, y: 125.59999}
+    Position: {x: 807, y: 126}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -63,10 +63,10 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 337667da-dab2-4597-87db-bd007ff354b8
-    DialogueText: You sail onwards.
+  - DialogueText: You sail onwards.
+    NodeGUID: 337667da-dab2-4597-87db-bd007ff354b8
     image: 
-    Position: {x: 487.2, y: 379.2}
+    Position: {x: 487, y: 379}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -78,10 +78,10 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 52b9de56-6fa2-4ff8-a9f3-6432a0532ea7
-    DialogueText: You hear loud stomping reverberating through the wrecked tanker.
+  - DialogueText: You hear loud stomping reverberating through the wrecked tanker.
+    NodeGUID: 52b9de56-6fa2-4ff8-a9f3-6432a0532ea7
     image: 
-    Position: {x: 1739.2, y: 48.000004}
+    Position: {x: 1739, y: 48}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -93,11 +93,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 787e19fe-4d5b-4d1e-a993-7149b69b8ec6
-    DialogueText: After many traversed vents and looted rooms, you return your ship
+  - DialogueText: After many traversed vents and looted rooms, you return your ship
       with your hands full of food and scrap.
+    NodeGUID: 787e19fe-4d5b-4d1e-a993-7149b69b8ec6
     image: 
-    Position: {x: 1739.2, y: 276}
+    Position: {x: 1739, y: 276}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 10
@@ -109,11 +109,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: cfe9a0dd-5af3-4095-89b0-e7b80d58bb33
-    DialogueText: After countless twists and turns you get lost in the tanker. Some
+  - DialogueText: After countless twists and turns you get lost in the tanker. Some
       hours later you return empty handed.
+    NodeGUID: cfe9a0dd-5af3-4095-89b0-e7b80d58bb33
     image: 
-    Position: {x: 1739.2, y: 540}
+    Position: {x: 1739, y: 540}
     entryPoint: 0
     moraleChange: -10
     resourceChange: -10
@@ -125,11 +125,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: c12557c0-8210-474e-af70-a42f75b59a8b
-    DialogueText: A gorilla appears jumps from a ceiling vent right infront of your
+  - DialogueText: A gorilla appears jumps from a ceiling vent right infront of your
       toes. He looks at you with angry eyes.
+    NodeGUID: c12557c0-8210-474e-af70-a42f75b59a8b
     image: 
-    Position: {x: 2513.6, y: 48.000004}
+    Position: {x: 2514, y: 48}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
     duration: 0
     combat: 0
     enemies:
-    - Monster
+    - Monster2
     combatMoraleChange: 5
     combatResourceChange: 5
   alreadyEncountered: 0

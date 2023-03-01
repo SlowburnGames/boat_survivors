@@ -11,7 +11,6 @@ public class DialogueDisplay : MonoBehaviour
     // Start is called before the first frame update
     public DialogueContainer dialogueContainer;
     public TMP_Text description;
-    public Image image;
     [SerializeField]private List<Button> buttons;
     [SerializeField]public List<List<NodeLinkData>> button_choices;
     private DialogueNodeData currentNode;
@@ -35,10 +34,6 @@ public class DialogueDisplay : MonoBehaviour
 
     void updateText()
     {
-        if(!string.IsNullOrEmpty(currentNode.image))
-        {
-            image.sprite = Resources.Load<Sprite>($"Dialogues/Images/{currentNode.image}");
-        }
         description.SetText(currentNode.DialogueText);
         updateButtons();
     }
@@ -135,7 +130,7 @@ public class DialogueDisplay : MonoBehaviour
         currentChoices = getChoices();
         applyEffects();
         updateText();
-        TravelManager.instance.updateResUI();
+        TravelManager.instance.updateUI();
     }
 
     public void buttonPress(int index)
@@ -163,7 +158,6 @@ public class DialogueDisplay : MonoBehaviour
 
   public void init()
     {
-        image.sprite = null;
         currentNode = dialogueContainer.dialogueNodeData.Find((node)=>node.entryPoint);
         currentChoices = getChoices();
         applyEffects();

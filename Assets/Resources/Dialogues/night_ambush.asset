@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeLinks: []
   dialogueNodeData:
-  - NodeGUID: 0bae3986-150e-459b-8ff9-ba14c30c597c
-    DialogueText: 'You sleep well this night. Dreaming of pufferfish and other spiky
+  - DialogueText: 'You sleep well this night. Dreaming of pufferfish and other spiky
       creates. That''s when you are awakened by a smashing noise.
 
       Those darned
       Drowned have made their way onto your ship again.'
+    NodeGUID: 0bae3986-150e-459b-8ff9-ba14c30c597c
     image: 
-    Position: {x: 109, y: 91}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -31,9 +31,9 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie
-    - Zombie
-    - Zombie
+    - Zombie1
+    - Zombie1
+    - Zombie2
     combatMoraleChange: 5
     combatResourceChange: 5
   alreadyEncountered: 0

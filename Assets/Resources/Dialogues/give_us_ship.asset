@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: give_us_ship
   m_EditorClassIdentifier: 
   nodeLinks:
-  - BaseNodeGuid: e9d1fe1d-f633-4317-9857-c6e4c7b5facb
-    PortName: Give up ship.
+  - PortName: Give up ship.
+    BaseNodeGuid: e9d1fe1d-f633-4317-9857-c6e4c7b5facb
     TargetNodeGuid: 523b8db5-b12b-4e90-a346-161572b9787a
-  - BaseNodeGuid: e9d1fe1d-f633-4317-9857-c6e4c7b5facb
-    PortName: Decline.
+  - PortName: Decline.
+    BaseNodeGuid: e9d1fe1d-f633-4317-9857-c6e4c7b5facb
     TargetNodeGuid: f665619a-a428-48df-a958-0949444323ec
   dialogueNodeData:
-  - NodeGUID: e9d1fe1d-f633-4317-9857-c6e4c7b5facb
-    DialogueText: You hear a loud voice through a megaphone:"Greetings fellow sailors.
+  - DialogueText: You hear a loud voice through a megaphone:"Greetings fellow sailors.
       We command you to offer your vessel to us. If you do not comply with our request,
       we see ourselves forced to do you grave violence. The choice is yours." A ship
       made of red metal plates with green sails is approaching you with great speed.
+    NodeGUID: e9d1fe1d-f633-4317-9857-c6e4c7b5facb
     image: 
-    Position: {x: -1434.4, y: 215.2}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -38,11 +38,34 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 523b8db5-b12b-4e90-a346-161572b9787a
-    DialogueText: '"We are to see that you are honorable sailors on these treacherous
-      seas. May your future travels be more fruitful."'
+  - DialogueText: '"Never have I ever seen a bunch of sailors more untrustworthy
+      than your lot. I believe we must cross swords and settle this the old fashioned
+      way."'
+    NodeGUID: f665619a-a428-48df-a958-0949444323ec
     image: 
-    Position: {x: 830.4, y: -1.5999985}
+    Position: {x: 2077, y: 279}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 1
+    enemies:
+    - Zombie1
+    - Zombie1
+    - Zombie1
+    - Zombie2
+    - Zombie2
+    - Monster2
+    combatMoraleChange: 20
+    combatResourceChange: 20
+  - DialogueText: '"We are to see that you are honorable sailors on these treacherous
+      seas. May your future travels be more fruitful."'
+    NodeGUID: 523b8db5-b12b-4e90-a346-161572b9787a
+    image: 
+    Position: {x: 2114, y: -152}
     entryPoint: 0
     moraleChange: -9999
     resourceChange: 0
@@ -54,27 +77,4 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: f665619a-a428-48df-a958-0949444323ec
-    DialogueText: '"Never have I ever seen a bunch of sailors more untrustworthy
-      than your lot. I believe we must cross swords and settle this the old fashioned
-      way."'
-    image: 
-    Position: {x: 830.4, y: 301.6}
-    entryPoint: 0
-    moraleChange: 0
-    resourceChange: 0
-    customImmediate: 
-    applies_status: 0
-    customStatus: 
-    duration: 0
-    combat: 1
-    enemies:
-    - Zombie
-    - Zombie
-    - Zombie
-    - Zombie
-    - Zombie
-    - Monster
-    combatMoraleChange: 20
-    combatResourceChange: 20
   alreadyEncountered: 0

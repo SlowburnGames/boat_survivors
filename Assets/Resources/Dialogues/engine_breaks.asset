@@ -13,29 +13,35 @@ MonoBehaviour:
   m_Name: engine_breaks
   m_EditorClassIdentifier: 
   nodeLinks:
-  - BaseNodeGuid: e3ed7fb4-18af-4b77-ac42-8589c7b8fa1f
-    PortName: You are having a great day sailing the seas.
+  - PortName: Cool.
+    BaseNodeGuid: e3ed7fb4-18af-4b77-ac42-8589c7b8fa1f
     TargetNodeGuid: b7025712-3422-4759-83ec-b4bebc8f74e7
-  - BaseNodeGuid: b7025712-3422-4759-83ec-b4bebc8f74e7
-    PortName: Ignore.
+  - PortName: Ignore.
+    BaseNodeGuid: b7025712-3422-4759-83ec-b4bebc8f74e7
     TargetNodeGuid: d6d8a5ea-b1e3-4917-b6fd-41fcd12d36ba
-  - BaseNodeGuid: b7025712-3422-4759-83ec-b4bebc8f74e7
-    PortName: Investigate.
+  - PortName: Investigate.
+    BaseNodeGuid: b7025712-3422-4759-83ec-b4bebc8f74e7
     TargetNodeGuid: 2d52efed-0219-46ec-bfe0-e96c2456b0ee
-  - BaseNodeGuid: b7025712-3422-4759-83ec-b4bebc8f74e7
-    PortName: Investigate.
+  - PortName: Investigate.
+    BaseNodeGuid: b7025712-3422-4759-83ec-b4bebc8f74e7
     TargetNodeGuid: d2e002f0-92c3-4534-bda8-47d8b77644bb
-  - BaseNodeGuid: d2e002f0-92c3-4534-bda8-47d8b77644bb
-    PortName: Ok.
+  - PortName: Investigate.
+    BaseNodeGuid: b7025712-3422-4759-83ec-b4bebc8f74e7
+    TargetNodeGuid: 472049f2-1910-40ce-9d24-400677cd3b6c
+  - PortName: Investigate.
+    BaseNodeGuid: b7025712-3422-4759-83ec-b4bebc8f74e7
+    TargetNodeGuid: c230845e-ec7e-4373-b503-895e87af1208
+  - PortName: Ok.
+    BaseNodeGuid: d2e002f0-92c3-4534-bda8-47d8b77644bb
     TargetNodeGuid: 0d465572-0b94-4419-b0e9-8319e4d452a6
-  - BaseNodeGuid: 0d465572-0b94-4419-b0e9-8319e4d452a6
-    PortName: What?
+  - PortName: What?
+    BaseNodeGuid: 0d465572-0b94-4419-b0e9-8319e4d452a6
     TargetNodeGuid: 2d52efed-0219-46ec-bfe0-e96c2456b0ee
   dialogueNodeData:
-  - NodeGUID: e3ed7fb4-18af-4b77-ac42-8589c7b8fa1f
-    DialogueText: Start
+  - DialogueText: You are having a great day sailing the seas.
+    NodeGUID: e3ed7fb4-18af-4b77-ac42-8589c7b8fa1f
     image: 
-    Position: {x: 112.8, y: 232}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -47,11 +53,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: b7025712-3422-4759-83ec-b4bebc8f74e7
-    DialogueText: Suddenly you hear a knocking noise coming from your ships engine
+  - DialogueText: Suddenly you hear a knocking noise coming from your ships engine
       room.
+    NodeGUID: b7025712-3422-4759-83ec-b4bebc8f74e7
     image: 
-    Position: {x: 728.8, y: 128.8}
+    Position: {x: 729, y: 129}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -63,26 +69,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: d6d8a5ea-b1e3-4917-b6fd-41fcd12d36ba
-    DialogueText: '"It was probably the wind." You think to yourself.'
-    image: 
-    Position: {x: 1417.6, y: 360}
-    entryPoint: 0
-    moraleChange: 0
-    resourceChange: -5
-    customImmediate: 
-    applies_status: 1
-    customStatus: 
-    duration: 0
-    combat: 0
-    enemies: []
-    combatMoraleChange: 0
-    combatResourceChange: 0
-  - NodeGUID: d2e002f0-92c3-4534-bda8-47d8b77644bb
-    DialogueText: You see one of your crewmembers banging on the engine with a big
+  - DialogueText: You see one of your crewmembers banging on the engine with a big
       hammer.
+    NodeGUID: d2e002f0-92c3-4534-bda8-47d8b77644bb
     image: 
-    Position: {x: 1626.4, y: 44.000004}
+    Position: {x: 1626, y: 44}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -94,11 +85,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 0d465572-0b94-4419-b0e9-8319e4d452a6
-    DialogueText: The man runs away and jumps into the seas. Your friends are wondering
+  - DialogueText: The man runs away and jumps into the seas. Your friends are wondering
       why you didn't catch the intruder.
+    NodeGUID: 0d465572-0b94-4419-b0e9-8319e4d452a6
     image: 
-    Position: {x: 2360.8, y: 44.000004}
+    Position: {x: 2361, y: 44}
     entryPoint: 0
     moraleChange: -10
     resourceChange: 0
@@ -110,11 +101,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 2d52efed-0219-46ec-bfe0-e96c2456b0ee
-    DialogueText: The engine powering your ship has broken down. You have to spend
+  - DialogueText: The engine powering your ship has broken down. You have to spend
       some time fixing it.
+    NodeGUID: 2d52efed-0219-46ec-bfe0-e96c2456b0ee
     image: 
-    Position: {x: 2838.4, y: -338.4}
+    Position: {x: 2838, y: -338}
     entryPoint: 0
     moraleChange: -5
     resourceChange: -20
@@ -126,4 +117,52 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
+  - DialogueText: You check the engine room, but everything seems fine...
+    NodeGUID: 472049f2-1910-40ce-9d24-400677cd3b6c
+    image: 
+    Position: {x: 1758, y: 396}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: '"It was probably the wind." You think to yourself.'
+    NodeGUID: d6d8a5ea-b1e3-4917-b6fd-41fcd12d36ba
+    image: 
+    Position: {x: 1337, y: -296}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: -5
+    customImmediate: 
+    applies_status: 1
+    customStatus: Sabotage
+    duration: -1
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: Monsters have found a way into the engine room and are hacking
+      away at the machinery!
+    NodeGUID: c230845e-ec7e-4373-b503-895e87af1208
+    image: 
+    Position: {x: 1758, y: 661}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 1
+    enemies:
+    - Monster2
+    - Monster2
+    combatMoraleChange: 0
+    combatResourceChange: -10
   alreadyEncountered: 0

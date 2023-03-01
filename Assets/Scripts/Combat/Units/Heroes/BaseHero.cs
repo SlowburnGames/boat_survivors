@@ -6,4 +6,5 @@ using UnityEngine;
 public class BaseHero : BaseUnit
 {
     public int tilesWalked = 0;
+    public Sprite portrait;
 }

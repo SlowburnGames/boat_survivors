@@ -13,26 +13,26 @@ MonoBehaviour:
   m_Name: pirates
   m_EditorClassIdentifier: 
   nodeLinks:
-  - BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
-    PortName: Approach them.
-    TargetNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
-  - BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
-    PortName: 'Avoid them. '
-    TargetNodeGuid: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
-  - BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
-    PortName: Threaten them.
+  - PortName: Threaten them.
+    BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
     TargetNodeGuid: 21596e6f-7d6d-4742-a047-25ccb9d48180
-  - BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
-    PortName: Trade.
+  - PortName: Trade.
+    BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
     TargetNodeGuid: 2f93ad71-3c98-470a-aa3d-54da5f4f5645
-  - BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
-    PortName: Threaten them.
+  - PortName: Threaten them.
+    BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
     TargetNodeGuid: 2c7d2f0f-6311-4c96-8e23-2709d4ab5d34
+  - PortName: Approach them.
+    BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    TargetNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
+  - PortName: 'Avoid them. '
+    BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    TargetNodeGuid: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
   dialogueNodeData:
-  - NodeGUID: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
-    DialogueText: You take a big turn to avoid the pirates.
+  - DialogueText: You take a big turn to avoid the pirates.
+    NodeGUID: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
     image: 
-    Position: {x: 972, y: 159}
+    Position: {x: 1116, y: 165}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -44,43 +44,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 4d99230d-156d-4d7e-a908-63d178f1c08e
-    DialogueText: The captain of their ship asks:"What do you want? We dont have
-      any space for you!"
-    image: 
-    Position: {x: 972, y: -182}
-    entryPoint: 0
-    moraleChange: 0
-    resourceChange: 0
-    customImmediate: 
-    applies_status: 0
-    customStatus: 
-    duration: 0
-    combat: 0
-    enemies: []
-    combatMoraleChange: 0
-    combatResourceChange: 0
-  - NodeGUID: 2f93ad71-3c98-470a-aa3d-54da5f4f5645
-    DialogueText: '"Here''s some bread and some nails, now get the hell away from
-      us."'
-    image: 
-    Position: {x: 1682, y: 112}
-    entryPoint: 0
-    moraleChange: 5
-    resourceChange: 5
-    customImmediate: 
-    applies_status: 0
-    customStatus: 
-    duration: 0
-    combat: 0
-    enemies: []
-    combatMoraleChange: 0
-    combatResourceChange: 0
-  - NodeGUID: cd38a5de-7510-4eb5-bd66-0167fe51f192
-    DialogueText: The man in the crow's nest shouts:"Pirates!" You take a look with
+  - DialogueText: The man in the crow's nest shouts:"Pirates!" You take a look with
       your binoculars and you see the clichee black flag with skull and bones.
+    NodeGUID: cd38a5de-7510-4eb5-bd66-0167fe51f192
     image: 
-    Position: {x: -84, y: -48}
+    Position: {x: 96, y: 112}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -92,10 +60,10 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 2c7d2f0f-6311-4c96-8e23-2709d4ab5d34
-    DialogueText: The pirates are intimidated and give you their loot.
+  - DialogueText: The pirates are intimidated and give you their loot.
+    NodeGUID: 2c7d2f0f-6311-4c96-8e23-2709d4ab5d34
     image: 
-    Position: {x: 1682, y: -323}
+    Position: {x: 1925, y: -316}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 10
@@ -106,12 +74,44 @@ MonoBehaviour:
     combat: 0
     enemies: []
     combatMoraleChange: 0
-    combatResourceChange: 0
-  - NodeGUID: 21596e6f-7d6d-4742-a047-25ccb9d48180
-    DialogueText: You shout some bad threats across the waves and the pirates are
-      not amused. They think you are easy pickings and attack.
+    combatResourceChange: 20
+  - DialogueText: '"Here''s some bread and some nails, now get the hell away from
+      us."'
+    NodeGUID: 2f93ad71-3c98-470a-aa3d-54da5f4f5645
     image: 
-    Position: {x: 1682, y: -630}
+    Position: {x: 1925, y: 31}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 5
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: The captain of their ship asks:"What do you want? We dont have
+      any space for you!"
+    NodeGUID: 4d99230d-156d-4d7e-a908-63d178f1c08e
+    image: 
+    Position: {x: 1116, y: -204}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: You shout some bad threats across the waves and the pirates are
+      not amused. They think you are easy pickings and attack.
+    NodeGUID: 21596e6f-7d6d-4742-a047-25ccb9d48180
+    image: 
+    Position: {x: 1925, y: -668}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -120,7 +120,11 @@ MonoBehaviour:
     customStatus: 
     duration: 0
     combat: 1
-    enemies: []
+    enemies:
+    - Zombie1
+    - Zombie1
+    - Zombie2
+    - Zombie2
     combatMoraleChange: 0
-    combatResourceChange: 15
+    combatResourceChange: 20
   alreadyEncountered: 0

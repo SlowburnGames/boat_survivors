@@ -13,26 +13,26 @@ MonoBehaviour:
   m_Name: crates_02
   m_EditorClassIdentifier: 
   nodeLinks:
-  - BaseNodeGuid: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
-    PortName: Keep on sailing.
+  - PortName: Keep on sailing.
+    BaseNodeGuid: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
     TargetNodeGuid: 3a511635-d566-42cc-b8be-60ca46a73326
-  - BaseNodeGuid: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
-    PortName: Get it onto the ship.
+  - PortName: Get it onto the ship.
+    BaseNodeGuid: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
     TargetNodeGuid: eec61432-b592-475a-90b3-f9b0729c81ee
-  - BaseNodeGuid: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
-    PortName: Get it onto the ship.
+  - PortName: Get it onto the ship.
+    BaseNodeGuid: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
     TargetNodeGuid: 3d39034c-866c-402a-a0c4-73ca21bb8e0d
-  - BaseNodeGuid: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
-    PortName: Get it onto the ship.
+  - PortName: Get it onto the ship.
+    BaseNodeGuid: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
     TargetNodeGuid: 932cd287-c6a3-4a23-8680-e0c44eaaafdc
-  - BaseNodeGuid: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
-    PortName: Get it onto the ship.
+  - PortName: Get it onto the ship.
+    BaseNodeGuid: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
     TargetNodeGuid: ca7dfa27-aaae-40ea-a646-83fc133413d5
   dialogueNodeData:
-  - NodeGUID: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
-    DialogueText: You come across some floating debris.
+  - DialogueText: You come across some floating debris.
+    NodeGUID: acb5b8be-d6ea-4ee7-9e2f-f0c17caad6ec
     image: 
-    Position: {x: 100, y: 101.600006}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -44,11 +44,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: eec61432-b592-475a-90b3-f9b0729c81ee
-    DialogueText: The debris is full of hazardous materials. You quickly dispose
+  - DialogueText: The debris is full of hazardous materials. You quickly dispose
       of the materials hoping nobody is harmed.
+    NodeGUID: eec61432-b592-475a-90b3-f9b0729c81ee
     image: 
-    Position: {x: 769.6, y: -172.8}
+    Position: {x: 770, y: -173}
     entryPoint: 0
     moraleChange: -20
     resourceChange: 0
@@ -60,10 +60,10 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 3a511635-d566-42cc-b8be-60ca46a73326
-    DialogueText: You ignore the debris and sail on.
+  - DialogueText: You ignore the debris and sail on.
+    NodeGUID: 3a511635-d566-42cc-b8be-60ca46a73326
     image: 
-    Position: {x: 172, y: 433.6}
+    Position: {x: 172, y: 434}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -75,12 +75,12 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 3d39034c-866c-402a-a0c4-73ca21bb8e0d
-    DialogueText: Searching the debris, you find a journal of a travelller. It contains
+  - DialogueText: Searching the debris, you find a journal of a travelller. It contains
       a letter inviting the author to come to the alps. So there must be safety on
       the alps.
+    NodeGUID: 3d39034c-866c-402a-a0c4-73ca21bb8e0d
     image: 
-    Position: {x: 769.6, y: 124.8}
+    Position: {x: 770, y: 125}
     entryPoint: 0
     moraleChange: 10
     resourceChange: 0
@@ -92,10 +92,10 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: 932cd287-c6a3-4a23-8680-e0c44eaaafdc
-    DialogueText: You find some medical supplies.
+  - DialogueText: You find some medical supplies.
+    NodeGUID: 932cd287-c6a3-4a23-8680-e0c44eaaafdc
     image: 
-    Position: {x: 769.6, y: 416.80002}
+    Position: {x: 770, y: 417}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 10
@@ -107,11 +107,11 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: ca7dfa27-aaae-40ea-a646-83fc133413d5
-    DialogueText: You only find some corpses on the debris. As you heave the debris
+  - DialogueText: You only find some corpses on the debris. As you heave the debris
       back into the sea, the corpses come back alive and attack!
+    NodeGUID: ca7dfa27-aaae-40ea-a646-83fc133413d5
     image: 
-    Position: {x: 769.6, y: 714.4}
+    Position: {x: 770, y: 714}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -121,9 +121,9 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie
-    - Zombie
-    - Monster
+    - Zombie2
+    - Zombie1
+    - Monster1
     combatMoraleChange: 10
     combatResourceChange: 15
   alreadyEncountered: 0

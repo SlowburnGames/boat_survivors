@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeLinks: []
   dialogueNodeData:
-  - NodeGUID: 951cc831-34fc-4c64-8710-bb9972975922
-    DialogueText: Big red Skulls float towards you. You have no choice but to draw
+  - DialogueText: Big red Skulls float towards you. You have no choice but to draw
       your weapon.
+    NodeGUID: 951cc831-34fc-4c64-8710-bb9972975922
     image: 
-    Position: {x: 243, y: 155}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -28,10 +28,10 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Monster
-    - Monster
-    - Monster
-    - Monster
+    - Monster1
+    - Monster1
+    - Monster1
+    - Monster2
     combatMoraleChange: 0
     combatResourceChange: 10
   alreadyEncountered: 0

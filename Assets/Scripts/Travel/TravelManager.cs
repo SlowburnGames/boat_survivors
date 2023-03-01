@@ -24,6 +24,8 @@ public class TravelManager : MonoBehaviour
 
     [SerializeField] DialogueContainer intro_sequence;
 
+    [SerializeField] public HeroDisplay[] heroDisplays;
+
 
     private void Awake() {
         instance = this;
@@ -33,7 +35,7 @@ public class TravelManager : MonoBehaviour
     void Start()
     {
         setupCamera();
-        updateResUI();
+        updateUI();
         Transform canvas = transform.Find("Canvas");
         Transform time_display_transform = canvas.Find("TimeDisplay");
         time_display = time_display_transform.gameObject;
@@ -71,7 +73,7 @@ public class TravelManager : MonoBehaviour
         //wait for some time 2 seconds or so
         setButtonsInteractable(false);
         boat_animator.Play("boat_travel");
-        Invoke("sail", 5);
+        Invoke("sail", 3);
     }
 
     private void sail()
@@ -108,10 +110,26 @@ public class TravelManager : MonoBehaviour
         }
     }
 
-    public void updateResUI()
+    public void updateUI()
     {
         resource_display.updateUI(GameManager.Instance.Morale, GameManager.Instance.Resource);
+        updateHeroUI();
     }
+
+    private void updateHeroUI()
+    {
+        foreach (HeroDisplay display in heroDisplays)
+        {
+            display.transform.gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < GameManager.Instance.startingHeroes.Count; i++)
+        {
+            heroDisplays[i].transform.gameObject.SetActive(true);
+            heroDisplays[i].updateDisplay(GameManager.Instance.startingHeroes[i]);
+        }
+    }
+
 }
 
 

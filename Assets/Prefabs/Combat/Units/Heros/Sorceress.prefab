@@ -1303,6 +1303,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-5829101994667829344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8374378116871972229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfaa14f6d0c8043429aea5402446a5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: 0
 --- !u!114 &1023626735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1357,16 +1370,4 @@ MonoBehaviour:
   abilityReady: 1
   standAction: 0
   tilesWalked: 0
---- !u!114 &-5829101994667829344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8374378116871972229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfaa14f6d0c8043429aea5402446a5ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  move: 0
+  portrait: {fileID: 21300000, guid: 4af0a7b6b4515f04e82d06b063475643, type: 3}

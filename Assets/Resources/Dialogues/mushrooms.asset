@@ -13,24 +13,24 @@ MonoBehaviour:
   m_Name: mushrooms
   m_EditorClassIdentifier: 
   nodeLinks:
-  - BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
-    PortName: Stomp.
+  - PortName: Stomp.
+    BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
     TargetNodeGuid: fa7f1d17-a2bd-43e5-9d27-0ba33807e57e
-  - BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
-    PortName: Eat.
+  - PortName: Eat.
+    BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
     TargetNodeGuid: 173e3a5d-b9ec-43fa-97f2-5d5251bc2bd2
-  - BaseNodeGuid: fa7f1d17-a2bd-43e5-9d27-0ba33807e57e
-    PortName: Okay.
-    TargetNodeGuid: 0173c4ad-c8d1-46a9-ae85-83e025047bea
+  - PortName: Stomp.
+    BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    TargetNodeGuid: 0a42ac08-83b8-4b48-952c-e112ffe378ca
   dialogueNodeData:
-  - NodeGUID: cd38a5de-7510-4eb5-bd66-0167fe51f192
-    DialogueText: 'You come across an island full of hypnotizing colored mushrooms.
+  - DialogueText: 'You come across an island full of hypnotizing colored mushrooms.
 
       Due
       to your lack of specialization you are unable to identify the specimens.
 
       You
       want to escape, but feel oddly compelled to eat a mushroom.'
+    NodeGUID: cd38a5de-7510-4eb5-bd66-0167fe51f192
     image: 
     Position: {x: 100, y: 100}
     entryPoint: 1
@@ -44,41 +44,10 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - NodeGUID: fa7f1d17-a2bd-43e5-9d27-0ba33807e57e
-    DialogueText: You make some noise and are ambushed by Zombies!
+  - DialogueText: You make some noise and are ambushed by Zombies!
+    NodeGUID: fa7f1d17-a2bd-43e5-9d27-0ba33807e57e
     image: 
-    Position: {x: 828, y: 11}
-    entryPoint: 0
-    moraleChange: 0
-    resourceChange: 0
-    customImmediate: 
-    applies_status: 0
-    customStatus: 
-    duration: 0
-    combat: 0
-    enemies: []
-    combatMoraleChange: 0
-    combatResourceChange: 0
-  - NodeGUID: 173e3a5d-b9ec-43fa-97f2-5d5251bc2bd2
-    DialogueText: You give in to the unnatural desire to eat. The mushrooms are delicious
-      and you take some onto the ship.
-    image: 
-    Position: {x: 828, y: 302}
-    entryPoint: 0
-    moraleChange: 10
-    resourceChange: 15
-    customImmediate: 
-    applies_status: 0
-    customStatus: 
-    duration: 0
-    combat: 0
-    enemies: []
-    combatMoraleChange: 0
-    combatResourceChange: 0
-  - NodeGUID: 0173c4ad-c8d1-46a9-ae85-83e025047bea
-    DialogueText: Ambush!!!
-    image: 
-    Position: {x: 1462, y: -143}
+    Position: {x: 841, y: -189}
     entryPoint: 0
     moraleChange: 0
     resourceChange: 0
@@ -88,9 +57,40 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie
-    - Monster
-    - Monster
+    - Zombie1
+    - Zombie1
+    - Monster1
+    combatMoraleChange: 0
+    combatResourceChange: 10
+  - DialogueText: You give in to the unnatural desire to eat. The mushrooms are delicious
+      and you take some onto the ship.
+    NodeGUID: 173e3a5d-b9ec-43fa-97f2-5d5251bc2bd2
+    image: 
+    Position: {x: 841, y: 404}
+    entryPoint: 0
+    moraleChange: 10
+    resourceChange: 15
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 5
+    combatResourceChange: 5
+  - DialogueText: You stomp the mushrooms and nothing happens...
+    NodeGUID: 0a42ac08-83b8-4b48-952c-e112ffe378ca
+    image: 
+    Position: {x: 841, y: 154}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
   alreadyEncountered: 0

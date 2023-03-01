@@ -13,62 +13,86 @@ MonoBehaviour:
   m_Name: Myterious_Man_1
   m_EditorClassIdentifier: 
   nodeLinks:
-  - BaseNodeGuid: 6d4c9491-0b10-4447-a3b3-e38e2063d2f8
-    PortName: What do you want from us?
+  - PortName: What do you want from us?
+    BaseNodeGuid: 6d4c9491-0b10-4447-a3b3-e38e2063d2f8
     TargetNodeGuid: e87cc877-88f2-4255-9086-ee7b315ef786
-  - BaseNodeGuid: e87cc877-88f2-4255-9086-ee7b315ef786
-    PortName: What do you want from us?
-    TargetNodeGuid: 8c1cc1e8-0b96-4e87-bb70-b639ba016351
-  - BaseNodeGuid: 6d4c9491-0b10-4447-a3b3-e38e2063d2f8
-    PortName: Leave us alone, we have no place for more passengers.
+  - PortName: Leave us alone, we have no place for more passengers.
+    BaseNodeGuid: 6d4c9491-0b10-4447-a3b3-e38e2063d2f8
     TargetNodeGuid: bff9e3d7-dce7-41b4-b925-733557d5a4be
+  - PortName: What do you want from us?
+    BaseNodeGuid: e87cc877-88f2-4255-9086-ee7b315ef786
+    TargetNodeGuid: 8c1cc1e8-0b96-4e87-bb70-b639ba016351
   dialogueNodeData:
-  - NodeGUID: 6d4c9491-0b10-4447-a3b3-e38e2063d2f8
-    DialogueText: 'Out of nowhere, a mysterious man appears infront of you boat.
+  - DialogueText: 'Out of nowhere, a mysterious man appears infront of you boat.
       His raft  seems to make no noise whatsoever and almost floats a bit above the
       dark waves. '
+    NodeGUID: 6d4c9491-0b10-4447-a3b3-e38e2063d2f8
     image: mysterious_man
     Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
     duration: 0
     combat: 0
-  - NodeGUID: e87cc877-88f2-4255-9086-ee7b315ef786
-    DialogueText: The myterious man gives you no awnser but he must have heard you,
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: The myterious man gives you no awnser but he must have heard you,
       because he slowly turns to face you directly. No words. The crew starts to
       get uneasy and many of them give you a questioning look.
+    NodeGUID: e87cc877-88f2-4255-9086-ee7b315ef786
     image: mysterious_man
-    Position: {x: 100, y: 312}
+    Position: {x: 1277, y: -245}
     entryPoint: 0
     moraleChange: 1
     resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
     duration: 0
     combat: 0
-  - NodeGUID: 8c1cc1e8-0b96-4e87-bb70-b639ba016351
-    DialogueText: 'Hearing the same question again, he turns around and without making
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: 'Hearing the same question again, he turns around and without making
       any sounds other boats usually makes when travelling this hopeless sea. You
       look at your crew, not knowing what just happened. When you look back at the
       sea, the man disappeared. '
+    NodeGUID: 8c1cc1e8-0b96-4e87-bb70-b639ba016351
     image: mysterious_man
-    Position: {x: 100, y: 527}
+    Position: {x: 2654, y: -245}
     entryPoint: 0
     moraleChange: -10
     resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
     duration: 0
     combat: 0
-  - NodeGUID: bff9e3d7-dce7-41b4-b925-733557d5a4be
-    DialogueText: The mysterious man sharply twists his head to look you directly
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: The mysterious man sharply twists his head to look you directly
       into the eyes. This moment seems to last forever. He throws a sack or something
       wrapped in cloth on board, which quickly garners the attention of most of the
       crew on board. You take a look at the package, it contains technical equipment
       . Surprised you raise your head and want to say something to the mysterious
       man, but he is gone.
+    NodeGUID: bff9e3d7-dce7-41b4-b925-733557d5a4be
     image: mysterious_man
-    Position: {x: 100, y: 734}
+    Position: {x: 1300, y: 124}
     entryPoint: 0
     moraleChange: -5
     resourceChange: 20
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
     duration: 0
     combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
   alreadyEncountered: 0
