@@ -1077,14 +1077,13 @@ MonoBehaviour:
   combatState: 0
   _spawnedUnitList: []
   _defaultHeroes:
-  - {fileID: 465653632622519032, guid: fe05712bf4aa6c74180d60145618d963, type: 3}
   - {fileID: -5943581832193407654, guid: 2ce2b7fcf93f9514e90b53937cab2c05, type: 3}
-  - {fileID: 6331362298142244506, guid: 36e716596e15002488a757aaa01f08e5, type: 3}
   _defaultEnemies:
-  - {fileID: 5852069876711273566, guid: f8dcab9e7ee881f41b605031ac864516, type: 3}
-  - {fileID: 6356713189866269222, guid: 86257122734633d4188956a6d1c2eb26, type: 3}
+  - {fileID: 7312145290179669117, guid: a3f3c76cfac47e34da32b5d642e4096c, type: 3}
   - {fileID: -8731743793629139259, guid: 375b4514c95a73a4b94f170b4591a442, type: 3}
   - {fileID: -8526985318557968822, guid: 143f56645a396a249b6bc0a36e2ff052, type: 3}
+  - {fileID: 5852069876711273566, guid: f8dcab9e7ee881f41b605031ac864516, type: 3}
+  - {fileID: 6356713189866269222, guid: 86257122734633d4188956a6d1c2eb26, type: 3}
 --- !u!4 &418657085
 Transform:
   m_ObjectHideFlags: 0

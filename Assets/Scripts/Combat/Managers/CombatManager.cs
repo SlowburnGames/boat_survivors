@@ -136,10 +136,10 @@ public class CombatManager : MonoBehaviour
     
     public void endPlayerTurn()
     {
-        UnitManager.Instance.selectedHero.tilesWalked = 0;
-        //UnitManager.Instance.selectedHero.usedAction = false;
-        UnitManager.Instance.ToggleAttackRangeIndicator(UnitManager.Instance.selectedHero, false);
-        UnitManager.Instance.SetSelectedHero(null);
+        // UnitManager.Instance.selectedHero.tilesWalked = 0;
+        // UnitManager.Instance.ToggleAttackRangeIndicator(UnitManager.Instance.selectedHero, false);
+        // UnitManager.Instance.SetSelectedHero(null);
+        UnitManager.Instance.resetUnit();
         ChangeCombatState(CombatState.UnitTurn);
     }
 

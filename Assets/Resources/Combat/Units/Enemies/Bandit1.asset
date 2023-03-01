@@ -19,7 +19,7 @@ MonoBehaviour:
   isRanged: 0
   attacks: 1
   damage: 4
-  movementRange: 5
+  movementRange: 4
   attackRange: 1
   maxHealth: 4
   health: 4

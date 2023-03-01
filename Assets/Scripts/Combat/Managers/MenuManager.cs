@@ -138,6 +138,8 @@ public class MenuManager : MonoBehaviour
             ability_button.GetComponent<Button>().enabled = true;
             ability_button.transform.Find("HeroAbilityText").gameObject.SetActive(true);
             ability_button.transform.Find("AbilityCooldown").gameObject.SetActive(false);
+            hero.SetInvisibilityEffect(false);
+            hero.Invisible = false;
         }  
     }
 
@@ -167,7 +169,6 @@ public class MenuManager : MonoBehaviour
 
     public void UpdateHealthBar(BaseUnit unit)
     {
-        // var slider = unit.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
         var slider = unit.gameObject.transform.Find("Canvas").Find("HealthBar").Find("Health").GetComponent<Image>();
         slider.fillAmount = (float)unit.Health / unit.MaxHealth;
     }
@@ -187,10 +188,7 @@ public class MenuManager : MonoBehaviour
         
         _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroNames.ToArray());
         _avaliableHeroes.SetActive(true);
-
         _placeHeroes.SetActive(true);
-        // Instantiate(_fighterImage, _avaliableHeroesImg.transform);
-
     }
 
     public void UpdateAvailableHeroes(List<BaseHero> myHeroes)

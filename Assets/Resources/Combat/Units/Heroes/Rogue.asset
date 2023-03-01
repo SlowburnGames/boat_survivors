@@ -18,9 +18,9 @@ MonoBehaviour:
   unitDescription: You are dead before you see him
   isRanged: 0
   attacks: 2
-  damage: 1
+  damage: 2
   movementRange: 5
   attackRange: 1
-  maxHealth: 12
-  health: 12
+  maxHealth: 1200
+  health: 1152
   ability: {fileID: 11400000, guid: 9fc92dcffcaa29141819c294020d8ec0, type: 2}

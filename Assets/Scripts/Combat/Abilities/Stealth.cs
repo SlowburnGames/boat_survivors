@@ -7,9 +7,10 @@ using UnityEngine;
 public class Stealth : Ability
 {
     public int duration = 1;
-    public override void Activate(BaseUnit self)
+    public override void Activate(BaseUnit unit)
     {
-        Debug.Log("You are now stealthed for " + duration);
-        self.invisible = true;
+        Debug.Log("You are now hidden for " + duration);
+        unit.invisible = true;
+        unit.SetInvisibilityEffect(true);
     }
 }
