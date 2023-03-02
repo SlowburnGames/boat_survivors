@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public List<BaseHero> startingHeroes;
     public List<BaseEnemy> enemiesInCombat;
 
+    public int healCost = 10;
+
     private int morale = 50;
     public int Morale
     {
@@ -148,11 +150,11 @@ public class GameManager : MonoBehaviour
         if(resource > 0)
         {
             //TODO: change depending on amount of people on the ship
-            addMorale(population * -2);
+            addRes(-7);
         }
         else //if resources are empty use up morale
         {
-            addMorale(20);
+            addMorale(-20);
         }
     }
 
@@ -167,12 +169,6 @@ public class GameManager : MonoBehaviour
 
     public void startRandomEvent()
     {
-        // Example for healing all heroes (for now before EVERY event)
-        // healAllHeroes(2);
-        // healHero(startingHeroes.First(), 666);
-        
-        
-        
         Debug.Log("Random Event!");
         if(currentEventIndex >= events.Count)
         {

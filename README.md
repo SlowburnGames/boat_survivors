@@ -9,7 +9,7 @@ game.
 ## Made by:
 Aumüller Thomas 11719147
 Kassil Alexander
-Liegl Daniel
+Liegl Daniel 11771948
 op’ t’ Landt Perry 
 Plangger Thomas
 
@@ -18,8 +18,8 @@ Plangger Thomas
 ## Credits
 Kassil Alexander - Programming
 Liegl Daniel - Programming, Musik
-Thomas Aumüller - Artwork
-op’ t’ Landt Perry - Artwork
+Thomas Aumüller - Programming, Artwork
+op’ t’ Landt Perry - Programming, Artwork
 Plangger Thomas - Programming
 
 (5) Link to build for feature on website (such as on https://gamelabgraz.com/games/)

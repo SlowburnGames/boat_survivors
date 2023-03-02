@@ -224,6 +224,7 @@ MonoBehaviour:
   population: 3
   startingHeroes: []
   enemiesInCombat: []
+  healCost: 10
   events: []
   currentEventIndex: 0
   isDay: 1
@@ -271,10 +272,6 @@ PrefabInstance:
     - target: {fileID: 285687578803019743, guid: 39e0f5babd835f74d9faa5b2446a36a1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2261085438786165760, guid: 39e0f5babd835f74d9faa5b2446a36a1, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 2678167910730233212, guid: 39e0f5babd835f74d9faa5b2446a36a1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -356,10 +353,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9097602845791290741, guid: 39e0f5babd835f74d9faa5b2446a36a1, type: 3}
-      propertyPath: dialogueDisplay
-      value: 
-      objectReference: {fileID: 1451716552}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39e0f5babd835f74d9faa5b2446a36a1, type: 3}
 --- !u!1 &961493829
@@ -430,14 +423,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1451716552 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7228378243238421842, guid: 6e7a0ca4b062e9549aa412b02dc09223, type: 3}
-  m_PrefabInstance: {fileID: 487642698}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92ab276df6c245b438980f13679eccf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
