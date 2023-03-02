@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public int healCost = 10;
 
-    private int morale = 50;
+    [SerializeField] private int morale = 50;
     public int Morale
     {
         get{ return morale; }
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
             TravelManager.instance.updateUI();
         }
     }
-    private int resource = 50;
+    [SerializeField] private int resource = 50;
     public int Resource
     {
         get{ return resource; }
@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
 
     public void checkLose()
     {
-        if(morale < 0)
+        if(morale <= 0)
         {
             Debug.Log("Your crew kills you. You lose :(");
             SceneManager.LoadScene("GameOver");

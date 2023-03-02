@@ -82,8 +82,8 @@ public class TravelManager : MonoBehaviour
         GameManager.Instance.travel_distance++;
         switchTime();
         GameManager.Instance.consumeResources();
-        GameManager.Instance.checkLose();
         GameManager.Instance.applyStatusEffects();
+        GameManager.Instance.checkLose();
         GameManager.Instance.startRandomEvent();
     }
 
@@ -114,6 +114,7 @@ public class TravelManager : MonoBehaviour
     {
         resource_display.updateUI(GameManager.Instance.Morale, GameManager.Instance.Resource);
         updateHeroUI();
+        GameManager.Instance.checkLose();
     }
 
     private void updateHeroUI()
