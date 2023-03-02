@@ -39,7 +39,7 @@ public class HeroDisplay : MonoBehaviour
         healthAmount.text = hero.unitClass.health + "/" + hero.unitClass.maxHealth;
 
         healthToMax = hero.unitClass.maxHealth - hero.unitClass.health;
-        healCost = healthToMax * GameManager.Instance.healCost;
+        healCost = GameManager.Instance.healCost;
 
         if(hero.unitClass.health < hero.unitClass.maxHealth && GameManager.Instance.Resource >= healCost)
         {
@@ -55,7 +55,7 @@ public class HeroDisplay : MonoBehaviour
 
     public void healHero()
     {
-        GameManager.Instance.healHero(currentHero, healthToMax);
+        GameManager.Instance.healHero(currentHero, 1);
         GameManager.Instance.addRes(-healCost);
     }
 
