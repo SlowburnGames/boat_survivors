@@ -15,12 +15,12 @@ MonoBehaviour:
   UnitPrefab: {fileID: -5943581832193407654, guid: 2ce2b7fcf93f9514e90b53937cab2c05, type: 3}
   faction: 0
   unitName: Rouge
-  unitDescription: You are dead before you see him
+  unitDescription: Strike from stealth for massive damage.
   isRanged: 0
   attacks: 2
   damage: 2
   movementRange: 5
   attackRange: 1
-  maxHealth: 1200
-  health: 1152
+  maxHealth: 12
+  health: 12
   ability: {fileID: 11400000, guid: 9fc92dcffcaa29141819c294020d8ec0, type: 2}

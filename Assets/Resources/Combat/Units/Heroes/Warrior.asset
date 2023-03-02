@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: -2134232415845045823, guid: fe05712bf4aa6c74180d60145618d963, type: 3}
+  UnitPrefab: {fileID: 465653632622519032, guid: fe05712bf4aa6c74180d60145618d963, type: 3}
   faction: 0
   unitName: Warrior
   unitDescription: Pushes enemies 1 tile when attacked. Pushing enemies into water

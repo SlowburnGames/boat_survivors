@@ -15,7 +15,7 @@ MonoBehaviour:
   UnitPrefab: {fileID: 6331362298142244506, guid: 36e716596e15002488a757aaa01f08e5, type: 3}
   faction: 0
   unitName: Sorceress
-  unitDescription: todo
+  unitDescription: 
   isRanged: 1
   attacks: 1
   damage: 3
