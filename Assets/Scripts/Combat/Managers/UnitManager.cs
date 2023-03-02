@@ -195,6 +195,7 @@ public class UnitManager : MonoBehaviour
             //if enemy is reachable with melee attack
             if(distance <= enemy.MoveDistance)
             {
+                bool attackedThisTurn = false;
                 if(distance > 1)
                 {
                     var newTile = findTileToWalk(enemy, path.GetRange(0, path.Count-1));
@@ -208,13 +209,18 @@ public class UnitManager : MonoBehaviour
                     var walkingPath = path.GetRange(0, maxCount-1);
                     
                     // SetUnit(enemy, newTile, false);
-                    StartCoroutine(MoveUnit(enemy, walkingPath, newTile));
+                    StartCoroutine(MoveUnit(enemy, walkingPath, newTile, targetedHero));
+                    attackedThisTurn = true;
                 }
                 yield return new WaitForSeconds(time/2);
-                enemy.AttackTarget(targetedHero);
+                if(!attackedThisTurn)
+                {
+                    enemy.AttackTarget(targetedHero);
+                }
             }
             else //hero is not reachable
             {
+                Debug.Log("Hero not reachable");
                 if (!heroesAlive()) // When all heroes are dead -> Game over
                 {
                     yield return new WaitForSeconds(time);
@@ -232,8 +238,9 @@ public class UnitManager : MonoBehaviour
                 }
                 var walkingPath = path.GetRange(0, maxCount);
                 // SetUnit(enemy, newTile, false);
+                
                 yield return new WaitForSeconds(time/2);
-                StartCoroutine(MoveUnit(enemy, walkingPath, newTile));
+                StartCoroutine(MoveUnit(enemy, walkingPath, newTile, targetedHero));
             }
         }
 
@@ -427,7 +434,7 @@ public class UnitManager : MonoBehaviour
 
     }
     
-    public IEnumerator MoveUnit(BaseUnit unit, List<Tile> path, Tile tile)
+    public IEnumerator MoveUnit(BaseUnit unit, List<Tile> path, Tile tile, BaseUnit defender = null)
     {
         float time = 0.5f;
         Vector3[] waypoints = new Vector3[path.Count];
@@ -443,10 +450,18 @@ public class UnitManager : MonoBehaviour
 
         if (unit.Faction == Faction.Hero)
             ToggleAttackRangeIndicator((BaseHero)unit, true);
+
+        if(unit.Faction == Faction.Enemy && CheckAttackPossible(unit, defender))
+            unit.AttackTarget(defender);
     }
 
     private bool CheckAttackPossible(BaseUnit attackUnit, BaseUnit defendUnit)
     {
+        if(defendUnit == null)
+        {
+            return false;
+        }
+
         var attackPos = attackUnit.OccupiedTile.tilePosition;
         var defendPos = defendUnit.OccupiedTile.tilePosition;
         

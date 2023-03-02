@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeLinks: []
   dialogueNodeData:
-  - NodeGUID: a2b956be-a34b-4dbc-b811-90651c477f11
-    DialogueText: You find a monkey. The spirits are high.
+  - DialogueText: You find a monkey. The spirits are high.
+    NodeGUID: a2b956be-a34b-4dbc-b811-90651c477f11
     image: monke
     Position: {x: 100, y: 100}
     entryPoint: 1
-    moraleChange: 10
+    moraleChange: 2
     resourceChange: -2
     customImmediate: monke
     applies_status: 1
     customStatus: TestStatus
     duration: -1
     combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
   alreadyEncountered: 0

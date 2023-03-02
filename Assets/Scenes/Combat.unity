@@ -1076,8 +1076,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatState: 0
   _spawnedUnitList: []
-  _defaultHeroes: []
-  _defaultEnemies: []
+  _defaultHeroes:
+  - {fileID: 465653632622519032, guid: fe05712bf4aa6c74180d60145618d963, type: 3}
+  _defaultEnemies:
+  - {fileID: 7312145290179669117, guid: a3f3c76cfac47e34da32b5d642e4096c, type: 3}
+  START_IN_COMBAT_SCREEN: 0
 --- !u!4 &418657085
 Transform:
   m_ObjectHideFlags: 0
@@ -2574,8 +2577,8 @@ MonoBehaviour:
   startingHeroes:
   - {fileID: -5943581832193407654, guid: 2ce2b7fcf93f9514e90b53937cab2c05, type: 3}
   - {fileID: 6331362298142244506, guid: 36e716596e15002488a757aaa01f08e5, type: 3}
-  - {fileID: -2134232415845045823, guid: 1f11e23ec4a8f2d4b9e29aaf2996c197, type: 3}
   enemiesInCombat: []
+  healCost: 10
   events: []
   currentEventIndex: 0
   isDay: 1

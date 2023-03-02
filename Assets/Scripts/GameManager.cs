@@ -206,12 +206,20 @@ public class GameManager : MonoBehaviour
     public void addRes(int value)
     {
         resource += value;
+        if(resource > 100)
+            resource = 100;
+        if(resource < 0)
+            resource = 0;
         TravelManager.instance.updateUI();
     }
 
     public void addMorale(int value)
     {
         morale += value;
+         if(morale > 100)
+            morale = 100;
+        if(morale < 0)
+            morale = 0;
         TravelManager.instance.updateUI();
     }
 

@@ -23,6 +23,9 @@ MonoBehaviour:
     BaseNodeGuid: 7613f42c-adaa-4ffd-8d78-1f9e306bee68
     TargetNodeGuid: fde4dbc0-baec-4609-87e8-1b67e9a9cd0e
   - PortName: Take her on board.
+    BaseNodeGuid: 7613f42c-adaa-4ffd-8d78-1f9e306bee68
+    TargetNodeGuid: d86f0750-00e9-4c28-995a-c2daf64d4756
+  - PortName: Take her on board.
     BaseNodeGuid: fde4dbc0-baec-4609-87e8-1b67e9a9cd0e
     TargetNodeGuid: 9c153ecc-c29b-4066-9ace-c4f9cc22a4b9
   - PortName: Take her on board.
@@ -31,9 +34,6 @@ MonoBehaviour:
   - PortName: Take her on board.
     BaseNodeGuid: fde4dbc0-baec-4609-87e8-1b67e9a9cd0e
     TargetNodeGuid: 35c122b8-5525-4d37-abe6-3ed147a977d3
-  - PortName: Take her on board.
-    BaseNodeGuid: 7613f42c-adaa-4ffd-8d78-1f9e306bee68
-    TargetNodeGuid: d86f0750-00e9-4c28-995a-c2daf64d4756
   - PortName: Ask about the mask
     BaseNodeGuid: fde4dbc0-baec-4609-87e8-1b67e9a9cd0e
     TargetNodeGuid: 4d963c7d-55f0-41d3-b282-347a9aa7993c
@@ -60,7 +60,7 @@ MonoBehaviour:
       what to do."
     NodeGUID: 7613f42c-adaa-4ffd-8d78-1f9e306bee68
     image: 
-    Position: {x: 114, y: 283}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -72,45 +72,8 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - DialogueText: "\"Thank you sooo much\", the girl says sarcastically. The tone
-      of her voice is suddenly a lot different, and you can only imagine the evil
-      grin that must be on her \r face beneath the gas mask. Before you or your crew
-      can even react you are attacked by a bunch of bandits."
-    NodeGUID: d86f0750-00e9-4c28-995a-c2daf64d4756
-    image: 
-    Position: {x: 2545, y: 389}
-    entryPoint: 0
-    moraleChange: 0
-    resourceChange: 0
-    customImmediate: 
-    applies_status: 0
-    customStatus: 
-    duration: 0
-    combat: 1
-    enemies: []
-    combatMoraleChange: 5
-    combatResourceChange: 15
-  - DialogueText: "\"Thank you so much. I don't know what I would have done without
-      you.\"\r\n\r\nAfter a few hours on board of the ship, everyone in the crew
-      has had a chance to exchange some words with the girl. She wasn't so scary
-      after all \rand the crew's morale is boosted by having such an innocent creature
-      tag along on their travels through this grim world."
-    NodeGUID: 9c153ecc-c29b-4066-9ace-c4f9cc22a4b9
-    image: 
-    Position: {x: 2545, y: 4}
-    entryPoint: 0
-    moraleChange: 20
-    resourceChange: 0
-    customImmediate: 
-    applies_status: 0
-    customStatus: 
-    duration: 0
-    combat: 0
-    enemies: []
-    combatMoraleChange: 0
-    combatResourceChange: 0
   - DialogueText: "The girl turns out to be sick. Her mask was hiding a terrible
-      rash which had spread all over her face. You and your crew decide to treat
+      rash which had spread all over her face.\n\nYou and your crew decide to treat
       her, using up extra ressources,\r but creating an even stronger bond between
       your crew."
     NodeGUID: 35c122b8-5525-4d37-abe6-3ed147a977d3
@@ -129,7 +92,7 @@ MonoBehaviour:
     combatResourceChange: 0
   - DialogueText: '"Please don''t leave me here. I''ll be all alone again."
 
-      
+
 
       Your
       crew becomes uneasy. Though noone is really sure what is going on, you can
@@ -180,4 +143,44 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
+  - DialogueText: "\"Thank you so much. I don't know what I would have done without
+      you.\"\r\n\r\nAfter a few hours on board of the ship, everyone in the crew
+      has had a chance to exchange some words with the girl.\nShe wasn't so scary
+      after all \rand the crew's morale is boosted by having such an innocent creature
+      tag along on their travels through this grim world."
+    NodeGUID: 9c153ecc-c29b-4066-9ace-c4f9cc22a4b9
+    image: 
+    Position: {x: 2545, y: 4}
+    entryPoint: 0
+    moraleChange: 20
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: "\"Thank you sooo much\", the girl says sarcastically.\n\nThe tone
+      of her voice is suddenly a lot different, and you can only imagine the evil
+      grin that must be on her \r face beneath the gas mask.\nBefore you or your
+      crew can even react you are attacked by a bunch of bandits."
+    NodeGUID: d86f0750-00e9-4c28-995a-c2daf64d4756
+    image: 
+    Position: {x: 2545, y: 389}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 1
+    enemies:
+    - Bandit1
+    - Bandit1
+    - Bandit1
+    combatMoraleChange: 5
+    combatResourceChange: 15
   alreadyEncountered: 0

@@ -18,6 +18,8 @@ public class CombatManager : MonoBehaviour
 
     private int turnCounter = 0;
     private int currentTurn = 0;
+
+    public bool START_IN_COMBAT_SCREEN = false;
     
     public void Awake()
     {
@@ -37,12 +39,11 @@ public class CombatManager : MonoBehaviour
             case CombatState.SetHeroesAndEnemies:
                 
                 // COMBAT SCREEN ONLY START
-                // var START_IN_COMBAT_SCREEN = true;
-                // if (START_IN_COMBAT_SCREEN)
-                // {
-                //     GameManager.Instance.startingHeroes = _defaultHeroes;
-                //     GameManager.Instance.enemiesInCombat = _defaultEnemies;
-                // }
+                if (START_IN_COMBAT_SCREEN)
+                {
+                     GameManager.Instance.startingHeroes = _defaultHeroes;
+                     GameManager.Instance.enemiesInCombat = _defaultEnemies;
+                }
                 
                 UnitManager.Instance.SetUnitIDs(GameManager.Instance.startingHeroes, GameManager.Instance.enemiesInCombat);
                 

@@ -19,18 +19,24 @@ MonoBehaviour:
   - PortName: Examine it.
     BaseNodeGuid: b07638fe-f9fc-4692-afde-b1e2ea81907b
     TargetNodeGuid: 8b594c2c-654f-4ee3-8f75-e4a4378aca7c
-  - PortName: Defend your crew.
+  - PortName: Continue...
     BaseNodeGuid: 8b594c2c-654f-4ee3-8f75-e4a4378aca7c
+    TargetNodeGuid: e73733bb-0760-4c50-a724-177a934c2e08
+  - PortName: Continue.
+    BaseNodeGuid: e73733bb-0760-4c50-a724-177a934c2e08
+    TargetNodeGuid: 7bbb0577-b3fa-4b11-92d0-1ed5f117e984
+  - PortName: Defend your crew.
+    BaseNodeGuid: 7bbb0577-b3fa-4b11-92d0-1ed5f117e984
     TargetNodeGuid: 7c1b134d-1c67-4b0d-aac2-fe62ed8c0361
   - PortName: Talk to the man.
-    BaseNodeGuid: 8b594c2c-654f-4ee3-8f75-e4a4378aca7c
+    BaseNodeGuid: 7bbb0577-b3fa-4b11-92d0-1ed5f117e984
     TargetNodeGuid: 2e310b5b-cc11-4bba-acdb-cf5b3d205343
   dialogueNodeData:
   - DialogueText: Two children come to your cabin, exited they tell you about a green
       spot on the horizon which they have been watching for a while.
     NodeGUID: b07638fe-f9fc-4692-afde-b1e2ea81907b
     image: 
-    Position: {x: -167, y: 100}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -60,14 +66,7 @@ MonoBehaviour:
   - DialogueText: "Carlos and Dominic, the siblings are so exited that you join them,
       that it is hard for you to understand what the are saying. After some time
       you thing you can see the green spot as well. You give the order to navigate
-      straight Carlos and Dominic\u2019s spot on the horizon. Coming closer, you
-      see that the green spot is actually a rather small but unbelievably lush and
-      green island. But something is off. Many of the bushes seem trampled, the ground
-      dug up and cracked branches everywhere.. amidst the chaos stands a tall man,
-      his shoulders moved by his heavy breathing. Hectically looking around the man\u2019s
-      eyes lock onto you.. then you see it. Another person, bleeding and seemingly
-      unconscious laying right in front of the hectic man\u2019s feet. At this very
-      moment the tall man begins to charge at you and your crew."
+      straight Carlos and Dominic\u2019s spot on the horizon. "
     NodeGUID: 8b594c2c-654f-4ee3-8f75-e4a4378aca7c
     image: 
     Position: {x: 1040, y: -111}
@@ -82,20 +81,37 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - DialogueText: The tall man runs at first person he sees, which is you and grabs
-      you. You try to parry is hands. He is incredibly strong. Two crewmates come
-      to your assistance. Together you are able to release the grip of the tall man
-      but all four tumble and fall. You look up but can not see the tall man, looking
-      around you notice that all the people run to the handrails and look into the
-      dark ocean. He fell into the water and he is not coming up to to breath again.
-      Then you send someone to check for the injured person on the beach, but it
-      was already too late.
-    NodeGUID: 7c1b134d-1c67-4b0d-aac2-fe62ed8c0361
+  - DialogueText: Coming closer, you see that the green spot is actually a rather
+      small but unbelievably lush and green island. But something is off. Many of
+      the bushes seem trampled, the ground dug up and cracked branches everywhere...
+    NodeGUID: e73733bb-0760-4c50-a724-177a934c2e08
     image: 
-    Position: {x: 5987, y: -322}
+    Position: {x: 2751, y: -111}
     entryPoint: 0
-    moraleChange: -15
-    resourceChange: -15
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: "Coming closer, you see that the green spot is actually a rather
+      small but unbelievably lush and green island. But something is off. Many of
+      the bushes seem trampled, the ground dug up and cracked branches everywhere..
+      amidst the chaos stands a tall man, his shoulders moved by his heavy breathing.\nHectically
+      looking around the man\u2019s eyes lock onto you.. then you see it. Another
+      person, bleeding and seemingly unconscious laying right in front of the hectic
+      man\u2019s feet. At this very moment the tall man begins to charge at you and
+      your crew."
+    NodeGUID: 7bbb0577-b3fa-4b11-92d0-1ed5f117e984
+    image: 
+    Position: {x: 4198, y: -135}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
     customImmediate: 
     applies_status: 0
     customStatus: 
@@ -115,7 +131,7 @@ MonoBehaviour:
       and give both medical attention.
     NodeGUID: 2e310b5b-cc11-4bba-acdb-cf5b3d205343
     image: 
-    Position: {x: 5987, y: 47}
+    Position: {x: 6443, y: 19}
     entryPoint: 0
     moraleChange: 5
     resourceChange: -7
@@ -123,6 +139,28 @@ MonoBehaviour:
     applies_status: 1
     customStatus: 
     duration: 4
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: The tall man runs at first person he sees, which is you and grabs
+      you. You try to parry is hands. He is incredibly strong. Two crewmates come
+      to your assistance. Together you are able to release the grip of the tall man
+      but all four tumble and fall. You look up but can not see the tall man, looking
+      around you notice that all the people run to the handrails and look into the
+      dark ocean. He fell into the water and he is not coming up to to breath again.
+      Then you send someone to check for the injured person on the beach, but it
+      was already too late.
+    NodeGUID: 7c1b134d-1c67-4b0d-aac2-fe62ed8c0361
+    image: 
+    Position: {x: 6443, y: -322}
+    entryPoint: 0
+    moraleChange: -15
+    resourceChange: -15
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
     combat: 0
     enemies: []
     combatMoraleChange: 0
