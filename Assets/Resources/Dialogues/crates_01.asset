@@ -107,7 +107,7 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - DialogueText: You investigate the crates and hear a cry from somewhere. Zombies
+  - DialogueText: You investigate the crates and hear a cry from somewhere. Skeletons
       were waiting near the crates to attack you!
     NodeGUID: 93bbb050-76ce-49e3-8e96-beffd23191fd
     image: 
@@ -121,10 +121,10 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie1
-    - Zombie1
-    - Zombie2
-    - Zombie2
+    - Skeleton1
+    - Skeleton1
+    - Skeleton2
+    - Skeleton2
     combatMoraleChange: 0
     combatResourceChange: 10
   - DialogueText: You let the crates float along...

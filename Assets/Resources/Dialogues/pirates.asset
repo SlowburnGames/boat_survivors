@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: pirates
   m_EditorClassIdentifier: 
   nodeLinks:
+  - PortName: Approach them.
+    BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    TargetNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
+  - PortName: 'Avoid them. '
+    BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
+    TargetNodeGuid: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
   - PortName: Threaten them.
     BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
     TargetNodeGuid: 21596e6f-7d6d-4742-a047-25ccb9d48180
@@ -22,12 +28,6 @@ MonoBehaviour:
   - PortName: Threaten them.
     BaseNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
     TargetNodeGuid: 2c7d2f0f-6311-4c96-8e23-2709d4ab5d34
-  - PortName: Approach them.
-    BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
-    TargetNodeGuid: 4d99230d-156d-4d7e-a908-63d178f1c08e
-  - PortName: 'Avoid them. '
-    BaseNodeGuid: cd38a5de-7510-4eb5-bd66-0167fe51f192
-    TargetNodeGuid: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
   dialogueNodeData:
   - DialogueText: You take a big turn to avoid the pirates.
     NodeGUID: 1b7ea11e-391d-4f9f-aa93-cfce8aae49f7
@@ -48,7 +48,7 @@ MonoBehaviour:
       your binoculars and you see the clichee black flag with skull and bones.
     NodeGUID: cd38a5de-7510-4eb5-bd66-0167fe51f192
     image: 
-    Position: {x: 96, y: 112}
+    Position: {x: 100, y: 100}
     entryPoint: 1
     moraleChange: 0
     resourceChange: 0
@@ -121,10 +121,10 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie1
-    - Zombie1
-    - Zombie2
-    - Zombie2
+    - Bandit1
+    - Bandit1
+    - Bandit1
+    - Bandit1
     combatMoraleChange: 0
     combatResourceChange: 20
   alreadyEncountered: 0

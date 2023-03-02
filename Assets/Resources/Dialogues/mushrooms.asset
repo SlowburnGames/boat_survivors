@@ -44,7 +44,7 @@ MonoBehaviour:
     enemies: []
     combatMoraleChange: 0
     combatResourceChange: 0
-  - DialogueText: You make some noise and are ambushed by Zombies!
+  - DialogueText: You make some noise and are ambushed by Monsters!
     NodeGUID: fa7f1d17-a2bd-43e5-9d27-0ba33807e57e
     image: 
     Position: {x: 841, y: -189}
@@ -57,8 +57,8 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie1
-    - Zombie1
+    - Skeleton1
+    - Skeleton2
     - Monster1
     combatMoraleChange: 0
     combatResourceChange: 10

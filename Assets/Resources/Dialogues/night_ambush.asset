@@ -31,9 +31,9 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie1
-    - Zombie1
-    - Zombie2
+    - Skeleton1
+    - Skeleton1
+    - Skeleton2
     combatMoraleChange: 5
     combatResourceChange: 5
   alreadyEncountered: 0

@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c7a37dfdc0719419c7a4ecfa73bac6, type: 3}
+  m_Name: green_spot
+  m_EditorClassIdentifier: 
+  nodeLinks:
+  - PortName: Ignore them.
+    BaseNodeGuid: b07638fe-f9fc-4692-afde-b1e2ea81907b
+    TargetNodeGuid: f86673ec-b16f-460e-bdde-2c35022608b9
+  - PortName: Examine it.
+    BaseNodeGuid: b07638fe-f9fc-4692-afde-b1e2ea81907b
+    TargetNodeGuid: 8b594c2c-654f-4ee3-8f75-e4a4378aca7c
+  - PortName: Defend your crew.
+    BaseNodeGuid: 8b594c2c-654f-4ee3-8f75-e4a4378aca7c
+    TargetNodeGuid: 7c1b134d-1c67-4b0d-aac2-fe62ed8c0361
+  - PortName: Talk to the man.
+    BaseNodeGuid: 8b594c2c-654f-4ee3-8f75-e4a4378aca7c
+    TargetNodeGuid: 2e310b5b-cc11-4bba-acdb-cf5b3d205343
+  dialogueNodeData:
+  - DialogueText: Two children come to your cabin, exited they tell you about a green
+      spot on the horizon which they have been watching for a while.
+    NodeGUID: b07638fe-f9fc-4692-afde-b1e2ea81907b
+    image: 
+    Position: {x: -167, y: 100}
+    entryPoint: 1
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: You tell the siblings they are good scouts and continue your nap.
+    NodeGUID: f86673ec-b16f-460e-bdde-2c35022608b9
+    image: 
+    Position: {x: 361, y: 503}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: "Carlos and Dominic, the siblings are so exited that you join them,
+      that it is hard for you to understand what the are saying. After some time
+      you thing you can see the green spot as well. You give the order to navigate
+      straight Carlos and Dominic\u2019s spot on the horizon. Coming closer, you
+      see that the green spot is actually a rather small but unbelievably lush and
+      green island. But something is off. Many of the bushes seem trampled, the ground
+      dug up and cracked branches everywhere.. amidst the chaos stands a tall man,
+      his shoulders moved by his heavy breathing. Hectically looking around the man\u2019s
+      eyes lock onto you.. then you see it. Another person, bleeding and seemingly
+      unconscious laying right in front of the hectic man\u2019s feet. At this very
+      moment the tall man begins to charge at you and your crew."
+    NodeGUID: 8b594c2c-654f-4ee3-8f75-e4a4378aca7c
+    image: 
+    Position: {x: 1040, y: -111}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: The tall man runs at first person he sees, which is you and grabs
+      you. You try to parry is hands. He is incredibly strong. Two crewmates come
+      to your assistance. Together you are able to release the grip of the tall man
+      but all four tumble and fall. You look up but can not see the tall man, looking
+      around you notice that all the people run to the handrails and look into the
+      dark ocean. He fell into the water and he is not coming up to to breath again.
+      Then you send someone to check for the injured person on the beach, but it
+      was already too late.
+    NodeGUID: 7c1b134d-1c67-4b0d-aac2-fe62ed8c0361
+    image: 
+    Position: {x: 5987, y: -322}
+    entryPoint: 0
+    moraleChange: -15
+    resourceChange: -15
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  - DialogueText: You try to calm the hectic man. The tall man grabs you, his grip
+      is terrifyingly strong, like a machine. He shakes you and points at the beach
+      but does not speak a single word. After a few moments Carlos, one of the children
+      on the ship says he might want to show you something. You and a couple of other
+      interested people follow the tall man to where he was pointing. The injured
+      person on the beach. The tall man bows down to the injured person, now looking
+      almost regular sized to you, and looks with helping eyes into your groups direction.
+      No words needed. All of you work together to help bring the two men on board
+      and give both medical attention.
+    NodeGUID: 2e310b5b-cc11-4bba-acdb-cf5b3d205343
+    image: 
+    Position: {x: 5987, y: 47}
+    entryPoint: 0
+    moraleChange: 5
+    resourceChange: -7
+    customImmediate: 
+    applies_status: 1
+    customStatus: 
+    duration: 4
+    combat: 0
+    enemies: []
+    combatMoraleChange: 0
+    combatResourceChange: 0
+  alreadyEncountered: 0

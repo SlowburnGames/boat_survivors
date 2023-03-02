@@ -53,12 +53,11 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie1
-    - Zombie1
-    - Zombie1
-    - Zombie2
-    - Zombie2
-    - Monster2
+    - Bandit1
+    - Bandit1
+    - Bandit1
+    - Bandit1
+    - Bandit1
     combatMoraleChange: 20
     combatResourceChange: 20
   - DialogueText: '"We are to see that you are honorable sailors on these treacherous

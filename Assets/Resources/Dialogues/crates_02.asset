@@ -121,8 +121,8 @@ MonoBehaviour:
     duration: 0
     combat: 1
     enemies:
-    - Zombie2
-    - Zombie1
+    - Skeleton1
+    - Skeleton2
     - Monster1
     combatMoraleChange: 10
     combatResourceChange: 15

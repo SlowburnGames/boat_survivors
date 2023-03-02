@@ -31,6 +31,9 @@ MonoBehaviour:
   - PortName: Ok.
     BaseNodeGuid: 52b9de56-6fa2-4ff8-a9f3-6432a0532ea7
     TargetNodeGuid: c12557c0-8210-474e-af70-a42f75b59a8b
+  - PortName: Go further.
+    BaseNodeGuid: 5b218b5a-bd76-44c2-9dff-4325324e70b5
+    TargetNodeGuid: 9a9a314c-f5fa-4d9c-9492-319b0d9a3b57
   dialogueNodeData:
   - DialogueText: A huge abandoned oil rig is visible on the horizon.
     NodeGUID: b34348b4-216a-40dd-b96d-7bdf23e527d6
@@ -137,9 +140,27 @@ MonoBehaviour:
     applies_status: 0
     customStatus: 
     duration: 0
-    combat: 0
+    combat: 1
     enemies:
     - Monster2
     combatMoraleChange: 5
     combatResourceChange: 5
+  - DialogueText: You encounter bandits who had the same idea as you!
+    NodeGUID: 9a9a314c-f5fa-4d9c-9492-319b0d9a3b57
+    image: 
+    Position: {x: 1739, y: 792}
+    entryPoint: 0
+    moraleChange: 0
+    resourceChange: 0
+    customImmediate: 
+    applies_status: 0
+    customStatus: 
+    duration: 0
+    combat: 1
+    enemies:
+    - Bandit1
+    - Bandit1
+    - Bandit1
+    combatMoraleChange: 0
+    combatResourceChange: 0
   alreadyEncountered: 0
