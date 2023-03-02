@@ -8,15 +8,16 @@ game.
 
 ## Made by:
 Aumüller Thomas 11719147
-Kassil Alexander
+Kassil Alexander 11804182
 Liegl Daniel
 op’ t’ Landt Perry 
 Plangger Thomas
 
 ## Technologies used
+Unity, Krita, Ableton Live 11 Lite, Reaper, Blender
 
 ## Credits
-Kassil Alexander - Programming
+Kassil Alexander - Programming, Animation
 Liegl Daniel - Programming, Musik
 Thomas Aumüller - Artwork
 op’ t’ Landt Perry - Artwork
