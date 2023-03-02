@@ -18,6 +18,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _endTurnButton;
     [SerializeField] private GameObject _combatEndScreen;
     [SerializeField] private GameObject _nameDisplay;
+    [SerializeField] private GameObject _turnOrder;
 
     private void Awake()
     {
@@ -76,7 +77,7 @@ public class MenuManager : MonoBehaviour
 
     public void updateTurnOrderDisplay()
     {
-        var turnOrderDisplay = _selectedHeroObject.transform.Find("TurnOrder");
+        var turnOrderDisplay = _turnOrder.transform;
 
         // Get the next 4 turning units
         List<BaseUnit> initList = new List<BaseUnit>();

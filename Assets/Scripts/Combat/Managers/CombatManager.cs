@@ -69,6 +69,7 @@ public class CombatManager : MonoBehaviour
                 break;
             case CombatState.UnitTurn:
                 MenuManager.Instance.StartCoroutine(MenuManager.Instance.displayNextUnit(2));
+                MenuManager.Instance.updateTurnOrderDisplay();
                 UpdateTilesWalkability();
                 UnitManager.Instance.checkCombatOver();
                 BaseUnit nextUnit = _turnQueue.Dequeue();
