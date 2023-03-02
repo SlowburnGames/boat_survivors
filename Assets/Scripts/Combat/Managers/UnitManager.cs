@@ -89,9 +89,9 @@ public class UnitManager : MonoBehaviour
         CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
     }
 
-
     public void HeroesTurn(Tile tile, BaseUnit tileUnit, bool isWalkable)
     {
+        Debug.Log("HEROES TURN");
         if (tileUnit == selectedHero && /*!selectedHero.usedAction &&*/ selectedHero.standAction)
         {
             if(selectedHero.AttacksMade - selectedHero.MaxAttacks > 0)
@@ -176,10 +176,13 @@ public class UnitManager : MonoBehaviour
         return false;
     }
     
-    public void EnemiesTurn(BaseEnemy enemy)
+    public IEnumerator EnemiesTurn(BaseEnemy enemy)
     {
-        Debug.Log("Enemy turn!");
+        float time = 2f;
 
+        Debug.Log("Enemy turn!");
+        //MenuManager.Instance.StartCoroutine(MenuManager.Instance.displayNextUnit(time / 2));
+        yield return new WaitForSeconds(time/2);
         var target = findNearestHero(enemy);
 
         BaseUnit targetedHero = target.Item1;
@@ -207,12 +210,16 @@ public class UnitManager : MonoBehaviour
                     // SetUnit(enemy, newTile, false);
                     StartCoroutine(MoveUnit(enemy, walkingPath, newTile));
                 }
+                yield return new WaitForSeconds(time/2);
                 enemy.AttackTarget(targetedHero);
             }
             else //hero is not reachable
             {
                 if (!heroesAlive()) // When all heroes are dead -> Game over
-                    return;
+                {
+                    yield return new WaitForSeconds(time);
+                    yield break;
+                }
 
                 int maxCount = enemy.MoveDistance < path.Count ? enemy.MoveDistance : path.Count;
                 var findingPath = path.GetRange(0, maxCount);
@@ -225,10 +232,12 @@ public class UnitManager : MonoBehaviour
                 }
                 var walkingPath = path.GetRange(0, maxCount);
                 // SetUnit(enemy, newTile, false);
+                yield return new WaitForSeconds(time/2);
                 StartCoroutine(MoveUnit(enemy, walkingPath, newTile));
             }
         }
 
+        yield return new WaitForSeconds(time / 4);
         checkCombatOver();
         CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
     }

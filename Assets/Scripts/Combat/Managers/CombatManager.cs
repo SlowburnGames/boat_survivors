@@ -68,6 +68,7 @@ public class CombatManager : MonoBehaviour
                 SetTurnOrder();
                 break;
             case CombatState.UnitTurn:
+                MenuManager.Instance.StartCoroutine(MenuManager.Instance.displayNextUnit(2));
                 UpdateTilesWalkability();
                 UnitManager.Instance.checkCombatOver();
                 BaseUnit nextUnit = _turnQueue.Dequeue();
@@ -96,7 +97,7 @@ public class CombatManager : MonoBehaviour
                     var enemy = (BaseEnemy) nextUnit;
                     Debug.Log("Enemy " + enemy.UnitName + " turn!");
                     
-                    UnitManager.Instance.EnemiesTurn(enemy);
+                    UnitManager.Instance.StartCoroutine(UnitManager.Instance.EnemiesTurn(enemy));
                 }
                 break;
             case CombatState.CombatEnd:

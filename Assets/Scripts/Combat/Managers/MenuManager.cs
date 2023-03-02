@@ -17,6 +17,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _avaliableHeroes;
     [SerializeField] private GameObject _endTurnButton;
     [SerializeField] private GameObject _combatEndScreen;
+    [SerializeField] private GameObject _nameDisplay;
 
     private void Awake()
     {
@@ -111,6 +112,15 @@ public class MenuManager : MonoBehaviour
             unitDisplay.gameObject.SetActive(true);
             i++;
         }
+    }
+
+    public IEnumerator displayNextUnit(float time)
+    {
+        _nameDisplay.SetActive(true);
+        var currentUnit = CombatManager.Instance._turnQueue.ToArray()[0];
+        _nameDisplay.GetComponent<TextAnimator>().StartCoroutine(_nameDisplay.GetComponent<TextAnimator>().animateText(currentUnit.UnitName, 0.5f));
+        yield return new WaitForSeconds(time);
+        _nameDisplay.SetActive(false);
     }
 
     private void clearTurnOrderDisplay(Transform turnOrderDisplay)
