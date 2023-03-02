@@ -37,7 +37,7 @@ public class CombatManager : MonoBehaviour
             case CombatState.SetHeroesAndEnemies:
                 
                 // COMBAT SCREEN ONLY START
-                var START_IN_COMBAT_SCREEN = false;
+                var START_IN_COMBAT_SCREEN = true;
                 if (START_IN_COMBAT_SCREEN)
                 {
                     GameManager.Instance.startingHeroes = _defaultHeroes;
@@ -68,6 +68,7 @@ public class CombatManager : MonoBehaviour
                 SetTurnOrder();
                 break;
             case CombatState.UnitTurn:
+                MenuManager.Instance.StartCoroutine(MenuManager.Instance.displayNextUnit(2));
                 UpdateTilesWalkability();
                 UnitManager.Instance.checkCombatOver();
                 BaseUnit nextUnit = _turnQueue.Dequeue();
@@ -96,7 +97,7 @@ public class CombatManager : MonoBehaviour
                     var enemy = (BaseEnemy) nextUnit;
                     Debug.Log("Enemy " + enemy.UnitName + " turn!");
                     
-                    UnitManager.Instance.EnemiesTurn(enemy);
+                    UnitManager.Instance.StartCoroutine(UnitManager.Instance.EnemiesTurn(enemy));
                 }
                 break;
             case CombatState.CombatEnd:
@@ -107,19 +108,19 @@ public class CombatManager : MonoBehaviour
         
     }
 
-    private void UpdateTilesWalkability()
+    public void UpdateTilesWalkability()
     {
         foreach (var tileRow in WFCGenerator.Instance._tiles)
-        foreach (var tile in tileRow)
-        {
-            if (tile.tileName != "Water")
+            foreach (var tile in tileRow)
             {
-                if (tile.tileUnit == null)
-                    tile.isWalkable = true;
-                else
-                    tile.isWalkable = false;
+                if (tile.tileName != "Water")
+                {
+                    if (tile.tileUnit == null)
+                        tile.isWalkable = true;
+                    else
+                        tile.isWalkable = false;
+                }
             }
-        }
     }
 
     private void SetTurnOrder()
@@ -136,10 +137,10 @@ public class CombatManager : MonoBehaviour
     
     public void endPlayerTurn()
     {
-        UnitManager.Instance.selectedHero.tilesWalked = 0;
-        //UnitManager.Instance.selectedHero.usedAction = false;
-        UnitManager.Instance.ToggleAttackRangeIndicator(UnitManager.Instance.selectedHero, false);
-        UnitManager.Instance.SetSelectedHero(null);
+        // UnitManager.Instance.selectedHero.tilesWalked = 0;
+        // UnitManager.Instance.ToggleAttackRangeIndicator(UnitManager.Instance.selectedHero, false);
+        // UnitManager.Instance.SetSelectedHero(null);
+        UnitManager.Instance.resetUnit();
         ChangeCombatState(CombatState.UnitTurn);
     }
 

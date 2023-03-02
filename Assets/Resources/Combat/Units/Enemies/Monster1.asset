@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
   m_Name: Monster1
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: -3353402785419243975, guid: fed9ed9fd4946f34284ff70e5e3269c2, type: 3}
+  UnitPrefab: {fileID: 0}
   faction: 1
   unitName: Monster1
   unitDescription: Just a monster

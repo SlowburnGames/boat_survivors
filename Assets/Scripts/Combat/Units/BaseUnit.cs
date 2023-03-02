@@ -18,19 +18,7 @@ public class BaseUnit : MonoBehaviour
     public bool Invisible
     {
         get {return invisible;}
-        set {
-            invisible = value;
-            Color color = GetComponent<SpriteRenderer>().color;
-            if(value)
-            {
-                color.a = 0.5f;
-            }
-            else
-            {
-                color.a = 1f;
-            }
-            GetComponent<SpriteRenderer>().color = color;
-        }
+        set {invisible = value;}
     }
 
     private int _maxHealth = -1;
@@ -160,35 +148,21 @@ public class BaseUnit : MonoBehaviour
                 i++;
             }
         }
-        //foreach (var eff in effects)
-        //{
-        //    if(eff.turnsLeft > 0)
-        //    {
-        //        eff.turnsLeft--;
-        //    }
-        //    Effect.Instance.EditEffect(eff, this);
-        //}
-        
     }
 
-    private void Update() {
-        // checkInvisible();   
-        // I guess for rogue? commented out because "new" heros have no sprite renderere
-        // Will adapt this when doing the rogue
-    }
 
-    void checkInvisible()
+    public void SetInvisibilityEffect(bool activate)
     {
-        Color color = GetComponent<SpriteRenderer>().color;
-        if(invisible)
+        var spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        Color color;
+        float alpha = activate ? .5f : 1.0f;
+            
+        foreach (var spriteRenderer in spriteRenderers)
         {
-            color.a = 0.5f;
+            color = spriteRenderer.color;
+            color.a = alpha;
+            spriteRenderer.color = color;
+
         }
-        else
-        {
-            color.a = 1f;
-        }
-        GetComponent<SpriteRenderer>().color = color;
     }
-    // public int MovementRange;
 }

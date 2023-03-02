@@ -7,19 +7,20 @@ public class Rogue : BaseHero
   // Unit Stats are copied from scriptable Unit
     private void Start() {
       standAction = true;
-      StandActionName = "Hide";
+      StandActionName = "Stealth";
     }
 
   public override void AttackTarget(BaseUnit target)
   {
     AttacksMade--;
+    int attackDmg = AttackDamage;
     if(invisible)
     {
-        target.TakeDamage(AttackDamage * 3);
+        attackDmg = AttackDamage * 3;
         invisible = false;
-        return;
+        SetInvisibilityEffect(false);
     }
-    target.TakeDamage(AttackDamage);
+    target.TakeDamage(attackDmg);
     MenuManager.Instance.updateAttacks(this);
     UnitManager.Instance.CheckAttackedUnit(target);
   }

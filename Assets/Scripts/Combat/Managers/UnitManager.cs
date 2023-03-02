@@ -89,9 +89,9 @@ public class UnitManager : MonoBehaviour
         CombatManager.Instance.ChangeCombatState(CombatState.SpawnHeroes);
     }
 
-
     public void HeroesTurn(Tile tile, BaseUnit tileUnit, bool isWalkable)
     {
+        Debug.Log("HEROES TURN");
         if (tileUnit == selectedHero && /*!selectedHero.usedAction &&*/ selectedHero.standAction)
         {
             if(selectedHero.AttacksMade - selectedHero.MaxAttacks > 0)
@@ -147,21 +147,14 @@ public class UnitManager : MonoBehaviour
             if (selectedHero != null && isWalkable && tile.tileUnit == null)
             {
                 var path = Pathfinding.Instance.FindPath(selectedHero.OccupiedTile, tile);
-                //print("[Unit] start: " + selectedHero.OccupiedTile + ", end: " + tile);
                 if (path.Count <= selectedHero.MoveDistance - selectedHero.tilesWalked)
                 {
                     ToggleAttackRangeIndicator(selectedHero, false);
+                    selectedHero.OccupiedTile.isWalkable = true;
                     StartCoroutine(MoveUnit(selectedHero, path, tile));
                     selectedHero.tilesWalked += path.Count;
                     
-                    //if(!selectedHero.usedAction)
-                    //{
-                    //    ToggleAttackRangeIndicator(selectedHero,true);
-                    //}
                     MenuManager.Instance.ShowSelectedHero(selectedHero);
-                    //selectedHero.tilesWalkedThisTurn = 0;
-                    //SetSelectedHero(null);
-                    //CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
                 }
                 else
                 {
@@ -176,52 +169,75 @@ public class UnitManager : MonoBehaviour
 
     }
 
-
-    
-    public void EnemiesTurn(BaseEnemy enemy)
+    private bool OnlyHiddenRogueLeft(List<BaseUnit> heroes)
     {
-        Debug.Log("Enemy turn!");
+        if (heroes.Count == 1 && heroes[0].Invisible)
+            return true;
+        return false;
+    }
+    
+    public IEnumerator EnemiesTurn(BaseEnemy enemy)
+    {
+        float time = 2f;
 
+        Debug.Log("Enemy turn!");
+        //MenuManager.Instance.StartCoroutine(MenuManager.Instance.displayNextUnit(time / 2));
+        yield return new WaitForSeconds(time/2);
         var target = findNearestHero(enemy);
 
         BaseUnit targetedHero = target.Item1;
         int distance = target.Item2;
         List<Tile> path = target.Item3;
+        List<BaseUnit> allHeroes = target.Item4;
 
-        //if enemy is reachable with melee attack
-        if(distance <= enemy.MoveDistance)
+        if (!OnlyHiddenRogueLeft(allHeroes))   // When only (hidden) rogue is left no targetHero is found
         {
-            if(distance > 1)
+            //if enemy is reachable with melee attack
+            if(distance <= enemy.MoveDistance)
             {
-                var newTile = findTileToWalk(enemy, path.GetRange(0, path.Count-1));
+                if(distance > 1)
+                {
+                    var newTile = findTileToWalk(enemy, path.GetRange(0, path.Count-1));
+                    if (newTile == null)
+                    {
+                        // Stand still
+                        newTile = enemy.OccupiedTile;
+                    }
+                    
+                    int maxCount = enemy.MoveDistance < path.Count ? enemy.MoveDistance : path.Count;
+                    var walkingPath = path.GetRange(0, maxCount-1);
+                    
+                    // SetUnit(enemy, newTile, false);
+                    StartCoroutine(MoveUnit(enemy, walkingPath, newTile));
+                }
+                yield return new WaitForSeconds(time/2);
+                enemy.AttackTarget(targetedHero);
+            }
+            else //hero is not reachable
+            {
+                if (!heroesAlive()) // When all heroes are dead -> Game over
+                {
+                    yield return new WaitForSeconds(time);
+                    yield break;
+                }
+
+                int maxCount = enemy.MoveDistance < path.Count ? enemy.MoveDistance : path.Count;
+                var findingPath = path.GetRange(0, maxCount);
+                
+                var newTile = findTileToWalk(enemy, findingPath);
                 if (newTile == null)
                 {
-                    // todo find alternative tile (left/right from hero)
-                    Debug.LogError("NO VALID TILE FOUND!!!!");
+                    // Stand still
+                    newTile = enemy.OccupiedTile;
                 }
-                
-                SetUnit(enemy, newTile, false);
-                // StartCoroutine(MoveUnit(enemy, path, path[path.Count - 2]));
+                var walkingPath = path.GetRange(0, maxCount);
+                // SetUnit(enemy, newTile, false);
+                yield return new WaitForSeconds(time/2);
+                StartCoroutine(MoveUnit(enemy, walkingPath, newTile));
             }
-            enemy.AttackTarget(targetedHero);
-        }
-        else //hero is not reachable
-        {
-            if (!heroesAlive()) // When all heroes are dead -> Game over
-                return;
-            
-            var newTile = findTileToWalk(enemy, path.GetRange(0, enemy.MoveDistance-1));
-            if (newTile == null)
-            {
-                // todo find alternative tile (left/right from hero)
-                Debug.LogError("NO VALID TILE FOUND!!!!");
-            }
-            SetUnit(enemy, newTile, false);
-            // SetUnit(enemy, path[enemy.MoveDistance - 1], false);
-            // StartCoroutine(MoveUnit(enemy, path, path[enemy.MoveDistance - 1]));
         }
 
-        findInvisible(enemy.OccupiedTile);
+        yield return new WaitForSeconds(time / 4);
         checkCombatOver();
         CombatManager.Instance.ChangeCombatState(CombatState.UnitTurn);
     }
@@ -252,10 +268,13 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    Tuple<BaseUnit, int, List<Tile>> findNearestHero(BaseEnemy enemy)
+    Tuple<BaseUnit, int, List<Tile>, List<BaseUnit>> findNearestHero(BaseEnemy enemy)
     {
         List<BaseUnit> allHeroes = CombatManager.Instance._turnQueue.ToList().FindAll(unit => unit.Faction == Faction.Hero);
 
+        if (allHeroes.Count == 1 && allHeroes.First().Invisible)    // only invisible rogue left PFUSCH
+            return Tuple.Create(allHeroes.First(), 0, new List<Tile>(), allHeroes);
+        
         BaseUnit nearestHero = null;
         int minDistance = Int32.MaxValue;
         List<Tile> best_path = new List<Tile>();
@@ -274,7 +293,7 @@ public class UnitManager : MonoBehaviour
             }
         }
 
-        return Tuple.Create(nearestHero, minDistance, best_path);
+        return Tuple.Create(nearestHero, minDistance, best_path, allHeroes);
 
     }
     public BaseEnemy GetEnemyByName(string eName)
@@ -389,6 +408,7 @@ public class UnitManager : MonoBehaviour
 
         tile.tileUnit = unit;
         unit.OccupiedTile = tile;
+        CombatManager.Instance.UpdateTilesWalkability();
         MenuManager.Instance.UpdateHealthBar(unit);
     }
 
@@ -398,21 +418,15 @@ public class UnitManager : MonoBehaviour
 
         Vector3 spawnOffset = isUnitSpawning ? Vector3.up / 2 : Vector3.zero;
         
-        
         // Get unit y position because not every drawn hero sprite had same y position, and I noticed it too late.
         // -> change the unit prefab y-position, in a way that it "stands" on the 0-y-coord like intended. (see sorceress, rogue, skeleton, ...)
         Vector3 unitYOffset = new Vector3(0, unitTransform.position.y, 0);
         unitTransform.position = tile.transform.position + unitYOffset + spawnOffset;  // Vector.up/2 for the tile block
         
-        // var cameraPos = FindObjectOfType<Camera>().transform.position;
-        // unitTransform.rotation = Quaternion.LookRotation(unitTransform.position + Vector3.up - cameraPos);
-
         unitTransform.rotation = Quaternion.Euler(new Vector3(10, -45, 0));
 
     }
     
-    // TODO ROGUE attack counter not updated
-
     public IEnumerator MoveUnit(BaseUnit unit, List<Tile> path, Tile tile)
     {
         float time = 0.5f;
@@ -472,6 +486,8 @@ public class UnitManager : MonoBehaviour
                 GameManager.Instance.combatMoraleReward -= 10;
                 GameManager.Instance.combatResReward -= 10;
             }
+
+            aUnit.OccupiedTile.isWalkable = true;
             Destroy(aUnit.gameObject);
             MenuManager.Instance.updateTurnOrderDisplay();
             checkCombatOver();
@@ -518,6 +534,7 @@ public class UnitManager : MonoBehaviour
         }
         else if (CombatManager.Instance._turnQueue.ToList().FindAll(x => x.Faction == Faction.Hero).Count == 0)
         {
+            // CombatManager.Instance.ChangeCombatState(CombatState.CombatEnd);
             SceneManager.LoadScene("GameOver");
         }
     }
@@ -535,6 +552,14 @@ public class UnitManager : MonoBehaviour
                 tile.transform.GetChild(0).rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
         
         // Needed because all tiles (and therefore also arrows) have random rotations at start
+    }
+
+    public void resetUnit()
+    {
+        selectedHero.tilesWalked = 0;
+        selectedHero.AttacksMade = selectedHero.MaxAttacks;
+        ToggleAttackRangeIndicator(selectedHero, false);
+        SetSelectedHero(null);
     }
     
     

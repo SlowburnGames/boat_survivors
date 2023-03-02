@@ -881,6 +881,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6002668514718434783, guid: 7c7797d732a8c6b45aa3979d33074f75, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -5178591994479189693, guid: 7c7797d732a8c6b45aa3979d33074f75, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.896969

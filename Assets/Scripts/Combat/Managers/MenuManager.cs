@@ -17,6 +17,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _avaliableHeroes;
     [SerializeField] private GameObject _endTurnButton;
     [SerializeField] private GameObject _combatEndScreen;
+    [SerializeField] private GameObject _nameDisplay;
 
     private void Awake()
     {
@@ -113,6 +114,15 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    public IEnumerator displayNextUnit(float time)
+    {
+        _nameDisplay.SetActive(true);
+        var currentUnit = CombatManager.Instance._turnQueue.ToArray()[0];
+        _nameDisplay.GetComponent<TextAnimator>().StartCoroutine(_nameDisplay.GetComponent<TextAnimator>().animateText(currentUnit.UnitName, 0.5f));
+        yield return new WaitForSeconds(time);
+        _nameDisplay.SetActive(false);
+    }
+
     private void clearTurnOrderDisplay(Transform turnOrderDisplay)
     {
         for (int i = 1; i <= 4; i++)
@@ -138,6 +148,8 @@ public class MenuManager : MonoBehaviour
             ability_button.GetComponent<Button>().enabled = true;
             ability_button.transform.Find("HeroAbilityText").gameObject.SetActive(true);
             ability_button.transform.Find("AbilityCooldown").gameObject.SetActive(false);
+            hero.SetInvisibilityEffect(false);
+            hero.Invisible = false;
         }  
     }
 
@@ -167,7 +179,6 @@ public class MenuManager : MonoBehaviour
 
     public void UpdateHealthBar(BaseUnit unit)
     {
-        // var slider = unit.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>();
         var slider = unit.gameObject.transform.Find("Canvas").Find("HealthBar").Find("Health").GetComponent<Image>();
         slider.fillAmount = (float)unit.Health / unit.MaxHealth;
     }
@@ -187,10 +198,7 @@ public class MenuManager : MonoBehaviour
         
         _avaliableHeroes.GetComponentInChildren<TextMeshProUGUI>().text = String.Join(", ", myHeroNames.ToArray());
         _avaliableHeroes.SetActive(true);
-
         _placeHeroes.SetActive(true);
-        // Instantiate(_fighterImage, _avaliableHeroesImg.transform);
-
     }
 
     public void UpdateAvailableHeroes(List<BaseHero> myHeroes)

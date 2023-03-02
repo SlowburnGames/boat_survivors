@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
   m_Name: Sorceress
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: 0}
+  UnitPrefab: {fileID: 6331362298142244506, guid: 36e716596e15002488a757aaa01f08e5, type: 3}
   faction: 0
   unitName: Sorceress
   unitDescription: todo

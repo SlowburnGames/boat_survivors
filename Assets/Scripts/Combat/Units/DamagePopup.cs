@@ -20,7 +20,8 @@ public class DamagePopup : MonoBehaviour
     {
         GameObject damagePopupOBJ = Instantiate(GameAssets.i.damagePopupPrefab, pos, Quaternion.identity);
         //Quaternion.LookRotation(FindObjectOfType<Camera>().transform.position - damagePopupOBJ.transform.position);
-        damagePopupOBJ.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+        //damagePopupOBJ.transform.LookAt(FindObjectOfType<Camera>().transform.position, Vector3.up);
+        damagePopupOBJ.transform.rotation = Quaternion.Euler(new Vector3(10, -45, 0));
         DamagePopup damagePopup = damagePopupOBJ.GetComponent<DamagePopup>();
         damagePopup.Setup(amount, typ, prefix);
 
