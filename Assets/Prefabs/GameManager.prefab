@@ -45,11 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   population: 3
-  heroesInCombat:
-  - {fileID: -7962685250005770754, guid: 4bcb8a898a2eeed43b0483c0c159224f, type: 3}
-  - {fileID: 3599614547267196368, guid: a41127da50fe02841856068c6b331436, type: 3}
-  - {fileID: 5070908024623995816, guid: c7bad3be7eab3f34fbe1927d67037c96, type: 3}
-  - {fileID: 3599614547267196368, guid: a41127da50fe02841856068c6b331436, type: 3}
+  startingHeroes:
+  - {fileID: -5943581832193407654, guid: 2ce2b7fcf93f9514e90b53937cab2c05, type: 3}
+  - {fileID: 6331362298142244506, guid: 36e716596e15002488a757aaa01f08e5, type: 3}
+  - {fileID: -2134232415845045823, guid: fe05712bf4aa6c74180d60145618d963, type: 3}
   enemiesInCombat: []
   events: []
   currentEventIndex: 0

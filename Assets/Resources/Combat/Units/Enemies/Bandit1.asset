@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
   m_Name: Bandit1
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: 0}
+  UnitPrefab: {fileID: 7312145290179669117, guid: a3f3c76cfac47e34da32b5d642e4096c, type: 3}
   faction: 1
   unitName: Bandit1
   unitDescription: todo

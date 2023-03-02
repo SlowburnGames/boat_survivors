@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef66a5a6430cf0a4b992b7cd7094fdaf, type: 3}
   m_Name: Skeleton1
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: 0}
+  UnitPrefab: {fileID: 5852069876711273566, guid: f8dcab9e7ee881f41b605031ac864516, type: 3}
   faction: 1
   unitName: Skeleton1
   unitDescription: Already dead, what do you want?
